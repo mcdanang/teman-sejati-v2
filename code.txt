@@ -1,0 +1,2042 @@
+
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teman Sejati - Digital Wedding Invitations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;900&amp;family=Montserrat:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+  <style>
+    :root {
+      --champagne: #FBE8A6;
+      --champagne-light: #FDF3D0;
+      --dusty-rose: #D8A7B1;
+      --dusty-rose-dark: #C2919B;
+      --ivory: #FFFAF0;
+      --warm-gray: #7D7D7D;
+      --warm-gray-light: #A0A0A0;
+      --terracotta: #D96C55;
+      --terracotta-dark: #C25A44;
+      --soft-olive: #A4B494;
+      --soft-olive-dark: #8A9A7B;
+      
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Montserrat', sans-serif;
+      
+      --transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    
+    /* Dark Mode Variables */
+    .dark-mode {
+      --champagne: #3D3426;
+      --champagne-light: #4E4131;
+      --dusty-rose: #733B43;
+      --dusty-rose-dark: #5E2F36;
+      --ivory: #1A1A1A;
+      --warm-gray: #B0B0B0;
+      --warm-gray-light: #CCCCCC;
+      --terracotta: #9E4A3A;
+      --terracotta-dark: #863F31;
+      --soft-olive: #5E6853;
+      --soft-olive-dark: #4A5341;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--ivory);
+      color: var(--warm-gray);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--champagne);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    
+    .preloader.fade-out {
+      opacity: 0;
+    }
+    
+    .preloader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .preloader-icon {
+      width: 80px;
+      height: 80px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--terracotta);
+      animation: spin 1s infinite ease-in-out;
+    }
+    
+    .preloader-text {
+      margin-top: 20px;
+      font-family: var(--font-heading);
+      color: var(--terracotta);
+      font-size: 1.5rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem 0;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    .header-scrolled {
+      background-color: rgba(255, 250, 240, 0.95);
+      padding: 0.8rem 0;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(10px);
+    }
+    
+    .dark-mode .header-scrolled {
+      background-color: rgba(26, 26, 26, 0.95);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      text-decoration: none;
+      transition: var(--transition);
+      z-index: 1001;
+      position: relative;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .nav-link {
+      color: var(--warm-gray);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--terracotta);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--terracotta);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--warm-gray);
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      color: var(--terracotta);
+      transform: rotate(30deg);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transition: var(--transition);
+      z-index: -1;
+    }
+
+    .btn:hover::before {
+      width: 100%;
+    }
+
+    .btn-primary {
+      background-color: var(--terracotta);
+      color: white;
+      box-shadow: 0 4px 15px rgba(217, 108, 85, 0.3);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--terracotta-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(217, 108, 85, 0.4);
+    }
+
+    .btn-secondary {
+      background-color: var(--dusty-rose);
+      color: white;
+      box-shadow: 0 4px 15px rgba(216, 167, 177, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--dusty-rose-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(216, 167, 177, 0.4);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid var(--terracotta);
+      color: var(--terracotta);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--terracotta);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--terracotta);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hero-section {
+      position: relative;
+      height: 100vh;
+      min-height: 800px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background-color: var(--champagne-light);
+    }
+
+    .hero-content {
+      display: flex;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-text {
+      flex: 1;
+      padding-right: 2rem;
+    }
+    
+    .hero-image {
+      flex: 1;
+      position: relative;
+      height: 100%;
+    }
+
+    .diagonal-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      background-color: var(--dusty-rose);
+      clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 1;
+    }
+
+    .hero-heading {
+      font-family: var(--font-heading);  
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--terracotta);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-subheading {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+      max-width: 450px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-img-container {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+      transform: perspective(1000px) rotateY(-5deg);
+      transition: var(--transition);
+    }
+
+    .hero-img-container:hover {
+      transform: perspective(1000px) rotateY(0);
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .hero-img-container:hover .hero-img {
+      transform: scale(1.05);
+    }
+    
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      background-color: var(--champagne);
+      opacity: 0.6;
+      z-index: 0;
+    }
+    
+    .shape-1 {
+      width: 100px;
+      height: 100px;
+      top: 15%;
+      left: 5%;
+      animation: float 8s infinite alternate ease-in-out;
+    }
+    
+    .shape-2 {
+      width: 150px;
+      height: 150px;
+      bottom: 10%;
+      left: 15%;
+      animation: float 12s infinite alternate-reverse ease-in-out;
+    }
+    
+    .shape-3 {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      right: 10%;
+      animation: float 10s infinite alternate ease-in-out;
+      background-color: var(--soft-olive);
+    }
+    
+    .shape-4 {
+      width: 120px;
+      height: 120px;
+      bottom: 15%;
+      right: 5%;
+      animation: float 14s infinite alternate-reverse ease-in-out;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0);
+      }
+      100% {
+        transform: translateY(30px) rotate(15deg);
+      }
+    }
+
+    .section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 80px;
+      position: relative;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--dusty-rose);
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features {
+      background-color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dark-mode .features {
+      background-color: #222;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+    
+    .dark-mode .feature-card {
+      background: #2A2A2A;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--dusty-rose), var(--terracotta));
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card:hover::before {
+      width: 100%;
+      opacity: 0.05;
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(45deg, var(--champagne), var(--champagne-light));
+      color: var(--terracotta);
+      border-radius: 20px;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover .feature-icon {
+      background: linear-gradient(45deg, var(--terracotta), var(--dusty-rose));
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    .feature-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 15px;
+    }
+
+    .feature-description {
+      color: var(--warm-gray);
+      line-height: 1.7;
+    }
+
+    .themes {
+      background-color: var(--ivory);
+      overflow: hidden;
+    }
+    
+    .dark-mode .themes {
+      background-color: #1A1A1A;
+    }
+
+    .theme-slider {
+      margin: 0 -15px;
+    }
+
+    .theme-card {
+      margin: 15px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .dark-mode .theme-card {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-card:hover {
+      transform: translateY(-15px);
+    }
+
+    .theme-img-container {
+      overflow: hidden;
+      position: relative;
+      height: 300px;
+    }
+
+    .theme-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .theme-card:hover .theme-img {
+      transform: scale(1.1);
+    }
+
+    .theme-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .theme-card:hover .theme-overlay {
+      opacity: 1;
+    }
+
+    .theme-content {
+      padding: 30px;
+      background-color: white;
+      position: relative;
+    }
+    
+    .dark-mode .theme-content {
+      background-color: #2A2A2A;
+    }
+
+    .theme-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 10px;
+    }
+
+    .theme-description {
+      color: var(--warm-gray);
+      margin-bottom: 20px;
+    }
+
+    .theme-btn {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background-color: var(--dusty-rose);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: var(--transition);
+    }
+
+    .theme-btn:hover {
+      background-color: var(--terracotta);
+      transform: translateY(-3px);
+    }
+
+    .pricing {
+      background-color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dark-mode .pricing {
+      background-color: #222;
+    }
+
+    .pricing-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .pricing-tab {
+      padding: 0.8rem 2rem;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid var(--warm-gray-light);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .pricing-tab.active {
+      color: var(--terracotta);
+      border-bottom: 2px solid var(--terracotta);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .dark-mode .pricing-card {
+      background-color: #2A2A2A;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+    }
+    
+    .pricing-card.popular {
+      transform: scale(1.05);
+      z-index: 2;
+    }
+    
+    .pricing-card.popular:hover {
+      transform: scale(1.05) translateY(-15px);
+    }
+
+    .pricing-header {
+      background-color: var(--champagne);
+      padding: 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .pricing-card.popular .pricing-header {
+      background-color: var(--terracotta);
+      color: white;
+    }
+    
+    .dark-mode .pricing-header {
+      background-color: var(--champagne);
+    }
+    
+    .dark-mode .pricing-card.popular .pricing-header {
+      background-color: var(--terracotta);
+    }
+
+    .popular-tag {
+      position: absolute;
+      top: 10px;
+      right: -25px;
+      background-color: rgba(0, 0, 0, 0.2);
+      color: white;
+      padding: 5px 25px;
+      transform: rotate(45deg);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .pricing-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 15px;
+    }
+    
+    .pricing-card.popular .pricing-title {
+      color: white;
+    }
+
+    .pricing-price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    
+    .pricing-card.popular .pricing-price {
+      color: white;
+    }
+
+    .pricing-period {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .pricing-body {
+      padding: 30px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+
+    .pricing-feature {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .feature-check {
+      margin-right: 10px;
+      color: var(--terracotta);
+      font-size: 1.2rem;
+    }
+
+    .feature-cross {
+      margin-right: 10px;
+      color: var(--warm-gray-light);
+      font-size: 1.2rem;
+    }
+
+    .pricing-btn {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--dusty-rose);
+      color: white;
+      text-align: center;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .pricing-card.popular .pricing-btn {
+      background-color: var(--terracotta);
+    }
+
+    .pricing-btn:hover {
+      background-color: var(--terracotta);
+      transform: translateY(-3px);
+    }
+    
+    .pricing-card.popular .pricing-btn:hover {
+      background-color: var(--terracotta-dark);
+    }
+
+    .testimonials {
+      background-color: var(--ivory);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dark-mode .testimonials {
+      background-color: #1A1A1A;
+    }
+
+    .testimonial-slider {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      height: 350px; /* Set fixed height for slider container */
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+      margin: 20px;
+      position: relative;
+    }
+    
+    .dark-mode .testimonial-card {
+      background-color: #2A2A2A;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-family: var(--font-heading);
+      font-size: 8rem;
+      line-height: 1;
+      color: var(--dusty-rose);
+      opacity: 0.1;
+    }
+
+    .testimonial-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+
+    .author-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 15px;
+    }
+
+    .author-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .author-info {
+      flex: 1;
+    }
+
+    .author-name {
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 5px;
+    }
+
+    .author-location {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+    }
+
+    .testimonial-rating {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .rating-star {
+      color: var(--terracotta);
+      margin-right: 3px;
+    }
+
+    .cta {
+      position: relative;
+      padding: 120px 0;
+      background: linear-gradient(135deg, var(--terracotta), var(--dusty-rose));
+      color: white;
+      overflow: hidden;
+    }
+    
+    .dark-mode .cta {
+      background: linear-gradient(135deg, var(--terracotta-dark), var(--dusty-rose-dark));
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .cta-text {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btn {
+      background-color: white;
+      color: var(--terracotta);
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-block;
+      transition: var(--transition);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    footer {
+      background-color: white;
+      padding: 80px 0 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .dark-mode footer {
+      background-color: #222;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 60px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    .footer-description {
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: var(--champagne-light);
+      color: var(--terracotta);
+      border-radius: 50%;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .dark-mode .social-link {
+      background-color: #333;
+    }
+
+    .social-link:hover {
+      background-color: var(--terracotta);
+      color: white;
+      transform: translateY(-5px);
+    }
+
+    .footer-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-link {
+      margin-bottom: 12px;
+    }
+
+    .footer-link a {
+      color: var(--warm-gray);
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-block;
+    }
+
+    .footer-link a:hover {
+      color: var(--terracotta);
+      transform: translateX(5px);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .contact-icon {
+      width: 30px;
+      height: 30px;
+      background-color: var(--champagne-light);
+      color: var(--terracotta);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+    }
+    
+    .dark-mode .contact-icon {
+      background-color: #333;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .dark-mode .copyright {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--terracotta);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 99;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background-color: var(--dusty-rose);
+      transform: translateY(-5px);
+    }
+    
+    /* Responsive Styles */
+    @media screen and (max-width: 1024px) {
+      .hero-heading {
+        font-size: 3.5rem;
+      }
+      
+      .hero-img-container {
+        height: 500px;
+      }
+      
+      .cta-title {
+        font-size: 2.8rem;
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+      .mobile-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 400px;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transition: var(--transition);
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+      }
+      
+      .dark-mode .nav-links {
+        background-color: #222;
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        z-index: 999;
+      }
+      
+      .nav-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .hero-content {
+        flex-direction: column;
+      }
+      
+      .hero-text {
+        text-align: center;
+        padding-right: 0;
+        margin-bottom: 50px;
+      }
+      
+      .hero-subheading {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .hero-buttons {
+        justify-content: center;
+      }
+      
+      .hero-heading {
+        font-size: 3rem;
+      }
+      
+      .diagonal-bg {
+        width: 100%;
+        clip-path: polygon(0 65%, 100% 45%, 100% 100%, 0% 100%);
+        height: 50%;
+        top: auto;
+        bottom: 0;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+      }
+      
+      .cta-title {
+        font-size: 2.3rem;
+      }
+    }
+    
+    @media screen and (max-width: 576px) {
+      .hero-heading {
+        font-size: 2.5rem;
+      }
+      
+      .hero-img-container {
+        height: 350px;
+      }
+      
+      .section {
+        padding: 70px 0;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .cta-title {
+        font-size: 2rem;
+      }
+      
+      .cta-btn {
+        padding: 0.8rem 2rem;
+      }
+      
+      .btn {
+        padding: 0.7rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body data-aos-easing="ease-in-out" data-aos-duration="800" data-aos-delay="0">
+  <!-- Preloader -->
+  <div class="preloader fade-out" style="display: none;">
+    <div class="preloader-content">
+      <div class="preloader-icon"></div>
+      <div class="preloader-text">Teman Sejati</div>
+    </div>
+  </div>
+  
+  <!-- Header -->
+  <header id="header" class="">
+    <div class="container">
+      <div class="navbar">
+        <a href="#" class="logo">Teman Sejati</a>
+        
+        <div class="nav-overlay"></div>
+        <nav class="nav-links">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#themes" class="nav-link">Themes</a>
+          <a href="#pricing" class="nav-link">Pricing</a>
+          <a href="#testimonials" class="nav-link">Testimonials</a>
+        </nav>
+        
+        <div class="header-buttons">
+          <button id="theme-toggle" class="theme-toggle">
+            <i class="fas fa-moon"></i>
+          </button>
+          <a href="#" class="btn btn-primary">Get Started</a>
+          <button class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="diagonal-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text aos-init aos-animate" data-aos="fade-right" data-aos-duration="1000">
+          <h1 class="hero-heading">Digital Wedding Invitations Made Beautiful</h1>
+          <p class="hero-subheading">Create elegant, personalized wedding invitations that reflect your love story. Easy to share, beautiful to experience.</p>
+          <div class="hero-buttons">
+            <a href="#" class="btn btn-primary">Create Your Invitation</a>
+            <a href="#" class="btn btn-outline">View Demos</a>
+          </div>
+        </div>
+        <div class="hero-image aos-init aos-animate" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+          <div class="hero-img-container">
+            <img src="https://cdn.pixabay.com/photo/2021/08/27/11/36/love-6578476_1280.jpg" alt="Elegant Wedding Couple" class="hero-img">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Floating shapes -->
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-4"></div>
+  </section>
+  
+  <!-- Features Section -->
+  <section id="features" class="section features">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title aos-init aos-animate" data-aos="fade-up">Why Choose Teman Sejati?</h2>
+        <p class="section-subtitle aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">Beautiful, functional, and affordable digital invitations that make your special day even more memorable.</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h3 class="feature-title">Elegant Designs</h3>
+          <p class="feature-description">Choose from dozens of beautiful, professionally designed templates that match your wedding style.</p>
+        </div>
+        
+        <div class="feature-card aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon">
+            <i class="fas fa-share-alt"></i>
+          </div>
+          <h3 class="feature-title">Easy To Share</h3>
+          <p class="feature-description">Share your invitation via WhatsApp, email, or social media with just a click. No printing or mailing required.</p>
+        </div>
+        
+        <div class="feature-card aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon">
+            <i class="fas fa-clipboard-check"></i>
+          </div>
+          <h3 class="feature-title">RSVP Management</h3>
+          <p class="feature-description">Track guest responses automatically. Know exactly who's coming with our simple RSVP system.</p>
+        </div>
+        
+        <div class="feature-card aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon">
+            <i class="fas fa-images"></i>
+          </div>
+          <h3 class="feature-title">Photo Gallery</h3>
+          <p class="feature-description">Share your love story with a beautiful photo gallery that showcases your journey together.</p>
+        </div>
+        
+        <div class="feature-card aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h3 class="feature-title">Location Maps</h3>
+          <p class="feature-description">Interactive maps make it easy for guests to find your venues with GPS directions.</p>
+        </div>
+        
+        <div class="feature-card aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h3 class="feature-title">Custom Domain</h3>
+          <p class="feature-description">Get a personalized web address like 'nama.temansejati.com' for a professional touch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Themes Section -->
+  <section id="themes" class="section themes">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title aos-init aos-animate" data-aos="fade-up">Beautiful Themes</h2>
+        <p class="section-subtitle aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">Choose from our collection of stunning, customizable themes.</p>
+      </div>
+      
+      <div class="theme-slider aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+        <div class="theme-card">
+          <div class="theme-img-container">
+            <img src="https://cdn.pixabay.com/photo/2016/03/14/14/21/bride-1255520_1280.jpg" alt="Classic Elegance" class="theme-img">
+            <div class="theme-overlay"></div>
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Classic Elegance</h3>
+            <p class="theme-description">Timeless design with elegant typography and subtle details.</p>
+            <a href="#" class="theme-btn">Preview</a>
+          </div>
+        </div>
+        
+        <div class="theme-card">
+          <div class="theme-img-container">
+            <img src="https://cdn.pixabay.com/photo/2016/11/29/05/29/wedding-1867547_1280.jpg" alt="Rustic Charm" class="theme-img">
+            <div class="theme-overlay"></div>
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Rustic Charm</h3>
+            <p class="theme-description">Warm colors and natural textures for a cozy, intimate feeling.</p>
+            <a href="#" class="theme-btn">Preview</a>
+          </div>
+        </div>
+        
+        <div class="theme-card">
+          <div class="theme-img-container">
+            <img src="https://cdn.pixabay.com/photo/2019/05/30/14/43/bride-4239982_1280.jpg" alt="Modern Minimalist" class="theme-img">
+            <div class="theme-overlay"></div>
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Modern Minimalist</h3>
+            <p class="theme-description">Clean lines and simple design for the contemporary couple.</p>
+            <a href="#" class="theme-btn">Preview</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center aos-init aos-animate" style="margin-top: 50px;" data-aos="fade-up" data-aos-delay="300">
+        <a href="#" class="btn btn-secondary">View All Themes</a>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Pricing Section -->
+  <section id="pricing" class="section pricing">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title aos-init aos-animate" data-aos="fade-up">Simple, Transparent Pricing</h2>
+        <p class="section-subtitle aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">Affordable packages for every budget, with no hidden fees.</p>
+      </div>
+      
+      <div class="pricing-tabs aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+        <button class="pricing-tab active">One-time Payment</button>
+        <button class="pricing-tab">Monthly Subscription</button>
+      </div>
+      
+      <div class="pricing-grid aos-init aos-animate" data-aos="fade-up" data-aos-delay="300">
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-title">Basic</h3>
+            <div class="pricing-price">Rp 299K</div>
+            <div class="pricing-period">One-time payment</div>
+          </div>
+          <div class="pricing-body">
+            <ul class="pricing-features">
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Basic invitation design
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Digital RSVP
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Photo gallery (10 photos)
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Location map
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-times feature-cross"></i>
+                Custom domain
+              </li>
+            </ul>
+            <button class="pricing-btn">Choose Basic</button>
+          </div>
+        </div>
+        
+        <div class="pricing-card popular">
+          <div class="pricing-header">
+            <div class="popular-tag">Most Popular</div>
+            <h3 class="pricing-title">Premium</h3>
+            <div class="pricing-price">Rp 499K</div>
+            <div class="pricing-period">One-time payment</div>
+          </div>
+          <div class="pricing-body">
+            <ul class="pricing-features">
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Premium invitation design
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Advanced RSVP + guest messages
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Photo gallery (30 photos)
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Interactive location maps
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Custom domain
+              </li>
+            </ul>
+            <button class="pricing-btn">Choose Premium</button>
+          </div>
+        </div>
+        
+        <div class="pricing-card">
+          <div class="pricing-header">
+            <h3 class="pricing-title">Luxury</h3>
+            <div class="pricing-price">Rp 799K</div>
+            <div class="pricing-period">One-time payment</div>
+          </div>
+          <div class="pricing-body">
+            <ul class="pricing-features">
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Custom-designed invitation
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Premium RSVP + gift registry
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Unlimited photos &amp; video
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Multiple event locations
+              </li>
+              <li class="pricing-feature">
+                <i class="fas fa-check feature-check"></i>
+                Premium domain &amp; analytics
+              </li>
+            </ul>
+            <button class="pricing-btn">Choose Luxury</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="section testimonials">
+    <div class="container">
+      <div class="section-heading">
+        <h2 class="section-title aos-init aos-animate" data-aos="fade-up">Happy Couples</h2>
+        <p class="section-subtitle aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">What our customers are saying about their experience.</p>
+      </div>
+      
+      <div class="testimonial-slider aos-init aos-animate" data-aos="fade-up" data-aos-delay="200">
+        <div class="testimonial-card" style="display: block; transform: translateX(-100%); transition: transform 0.5s ease-in-out; position: absolute; width: calc(100% - 40px); left: 0px; top: 0px;">
+          <div class="testimonial-content">
+            <p class="testimonial-text">Teman Sejati made our wedding planning so much easier. Our guests loved the digital invitation, and the RSVP feature saved us so much time!</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer" class="author-img">
+              </div>
+              <div class="author-info">
+                <div class="author-name">Putri &amp; Ahmad</div>
+                <div class="author-location">Jakarta</div>
+                <div class="testimonial-rating">
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card" style="display: block; transform: translateX(0%); transition: transform 0.5s ease-in-out; position: absolute; width: calc(100% - 40px); left: 0px; top: 0px;">
+          <div class="testimonial-content">
+            <p class="testimonial-text">We were worried about going digital, but Teman Sejati made it so easy. Even our older relatives found it simple to use. The customer service was amazing!</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Customer" class="author-img">
+              </div>
+              <div class="author-info">
+                <div class="author-name">Budi &amp; Maya</div>
+                <div class="author-location">Bandung</div>
+                <div class="testimonial-rating">
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-card" style="display: block; transform: translateX(100%); transition: transform 0.5s ease-in-out; position: absolute; width: calc(100% - 40px); left: 0px; top: 0px;">
+          <div class="testimonial-content">
+            <p class="testimonial-text">The photo gallery feature was perfect for sharing our love story. Our guests loved being able to see our journey together before the big day!</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="author-img">
+              </div>
+              <div class="author-info">
+                <div class="author-name">Rina &amp; Doni</div>
+                <div class="author-location">Surabaya</div>
+                <div class="testimonial-rating">
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="testimonial-card" style="display: block; transform: translateX(200%); transition: transform 0.5s ease-in-out; position: absolute; width: calc(100% - 40px); left: 0px; top: 0px;">
+          <div class="testimonial-content">
+            <p class="testimonial-text">Teman Sejati made our wedding planning so much easier. Our guests loved the digital invitation, and the RSVP feature saved us so much time!</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer" class="author-img">
+              </div>
+              <div class="author-info">
+                <div class="author-name">Putri &amp; Ahmad</div>
+                <div class="author-location">Jakarta</div>
+                <div class="testimonial-rating">
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                  <i class="fas fa-star rating-star"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><button class="slider-arrow slider-arrow-prev" style="position: absolute; top: 50%; left: -20px; transform: translateY(-50%); background: white; border: none; width: 40px; height: 40px; border-radius: 50%; box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 10px; cursor: pointer; z-index: 1;"><i class="fas fa-chevron-left"></i></button><button class="slider-arrow slider-arrow-next" style="position: absolute; top: 50%; right: -20px; transform: translateY(-50%); background: white; border: none; width: 40px; height: 40px; border-radius: 50%; box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 10px; cursor: pointer; z-index: 1;"><i class="fas fa-chevron-right"></i></button></div><div class="slider-dots" style="display: flex; justify-content: center; margin-top: 30px; gap: 10px;"><span class="slider-dot" style="width: 12px; height: 12px; border-radius: 50%; background-color: var(--warm-gray-light); cursor: pointer; transition: var(--transition); transform: scale(1);"></span><span class="slider-dot" style="width: 12px; height: 12px; border-radius: 50%; background-color: var(--terracotta); cursor: pointer; transition: var(--transition); transform: scale(1.2);"></span><span class="slider-dot" style="width: 12px; height: 12px; border-radius: 50%; background-color: var(--warm-gray-light); cursor: pointer; transition: var(--transition); transform: scale(1);"></span></div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-content aos-init aos-animate" data-aos="zoom-in">
+        <h2 class="cta-title">Ready to Create Your Beautiful Wedding Invitation?</h2>
+        <p class="cta-text">Join thousands of happy couples who've made their wedding planning easier with Teman Sejati.</p>
+        <a href="#" class="cta-btn">Get Started Now</a>
+      </div>
+    </div>
+  <div class="particle" style="width: 30.8312px; height: 30.8312px; left: 79.7786%; top: 1.0979%; animation: 21.8195s ease-in-out 2.13873s infinite alternate none running float;"></div><div class="particle" style="width: 19.2858px; height: 19.2858px; left: 51.2188%; top: 77.9906%; animation: 21.7956s ease-in-out 4.84686s infinite alternate none running float;"></div><div class="particle" style="width: 34.1714px; height: 34.1714px; left: 22.445%; top: 38.6149%; animation: 19.6058s ease-in-out 0.45441s infinite alternate none running float;"></div><div class="particle" style="width: 17.2px; height: 17.2px; left: 20.1317%; top: 74.1063%; animation: 20.3068s ease-in-out 0.336852s infinite alternate none running float;"></div><div class="particle" style="width: 34.172px; height: 34.172px; left: 75.8763%; top: 80.7702%; animation: 16.6432s ease-in-out 2.89501s infinite alternate none running float;"></div><div class="particle" style="width: 32.4057px; height: 32.4057px; left: 52.7854%; top: 69.0306%; animation: 26.8979s ease-in-out 4.75644s infinite alternate none running float;"></div><div class="particle" style="width: 36.2288px; height: 36.2288px; left: 1.63323%; top: 74.4428%; animation: 23.8088s ease-in-out 0.585537s infinite alternate none running float;"></div><div class="particle" style="width: 32.584px; height: 32.584px; left: 7.68864%; top: 58.3143%; animation: 16.66s ease-in-out 4.69481s infinite alternate none running float;"></div><div class="particle" style="width: 13.21px; height: 13.21px; left: 59.9451%; top: 12.1982%; animation: 20.0513s ease-in-out 2.5357s infinite alternate none running float;"></div><div class="particle" style="width: 20.6383px; height: 20.6383px; left: 66.61%; top: 10.1781%; animation: 11.7795s ease-in-out 3.68908s infinite alternate none running float;"></div><div class="particle" style="width: 35.7467px; height: 35.7467px; left: 36.5117%; top: 70.2613%; animation: 12.3816s ease-in-out 3.26131s infinite alternate none running float;"></div><div class="particle" style="width: 31.1426px; height: 31.1426px; left: 30.9511%; top: 69.6029%; animation: 28.9165s ease-in-out 1.96182s infinite alternate none running float;"></div><div class="particle" style="width: 28.8251px; height: 28.8251px; left: 46.5039%; top: 24.559%; animation: 14.2189s ease-in-out 0.385264s infinite alternate none running float;"></div><div class="particle" style="width: 21.8016px; height: 21.8016px; left: 36.7154%; top: 95.1193%; animation: 10.5954s ease-in-out 2.13639s infinite alternate none running float;"></div><div class="particle" style="width: 19.4785px; height: 19.4785px; left: 16.0572%; top: 8.58477%; animation: 25.8475s ease-in-out 0.781696s infinite alternate none running float;"></div><div class="particle" style="width: 11.1844px; height: 11.1844px; left: 76.4518%; top: 67.5277%; animation: 25.4363s ease-in-out 4.23687s infinite alternate none running float;"></div><div class="particle" style="width: 19.9947px; height: 19.9947px; left: 57.909%; top: 54.726%; animation: 13.8259s ease-in-out 3.15489s infinite alternate none running float;"></div><div class="particle" style="width: 17.2039px; height: 17.2039px; left: 92.4259%; top: 12.5772%; animation: 15.865s ease-in-out 0.241552s infinite alternate none running float;"></div><div class="particle" style="width: 16.6854px; height: 16.6854px; left: 80.3092%; top: 71.3213%; animation: 24.0977s ease-in-out 1.15654s infinite alternate none running float;"></div><div class="particle" style="width: 36.5126px; height: 36.5126px; left: 10.991%; top: 57.5017%; animation: 19.5373s ease-in-out 1.96144s infinite alternate none running float;"></div><div class="particle" style="width: 36.7065px; height: 36.7065px; left: 59.5754%; top: 33.5112%; animation: 29.6925s ease-in-out 2.67721s infinite alternate none running float;"></div><div class="particle" style="width: 31.1394px; height: 31.1394px; left: 52.9216%; top: 28.23%; animation: 24.3559s ease-in-out 2.67979s infinite alternate none running float;"></div><div class="particle" style="width: 11.3559px; height: 11.3559px; left: 5.72969%; top: 70.0793%; animation: 27.1359s ease-in-out 2.78401s infinite alternate none running float;"></div><div class="particle" style="width: 15.4102px; height: 15.4102px; left: 0.663669%; top: 74.0262%; animation: 25.119s ease-in-out 2.64963s infinite alternate none running float;"></div><div class="particle" style="width: 34.3795px; height: 34.3795px; left: 57.9113%; top: 99.9005%; animation: 21.0721s ease-in-out 0.999115s infinite alternate none running float;"></div><div class="particle" style="width: 19.398px; height: 19.398px; left: 40.1641%; top: 69.743%; animation: 23.6572s ease-in-out 4.52657s infinite alternate none running float;"></div><div class="particle" style="width: 17.997px; height: 17.997px; left: 88.3086%; top: 12.7856%; animation: 11.309s ease-in-out 2.99756s infinite alternate none running float;"></div><div class="particle" style="width: 20.6205px; height: 20.6205px; left: 17.0956%; top: 48.603%; animation: 28.5935s ease-in-out 2.824s infinite alternate none running float;"></div><div class="particle" style="width: 34.3784px; height: 34.3784px; left: 19.427%; top: 94.9065%; animation: 20.5285s ease-in-out 3.68716s infinite alternate none running float;"></div><div class="particle" style="width: 26.9678px; height: 26.9678px; left: 24.2858%; top: 75.5971%; animation: 22.8562s ease-in-out 2.52367s infinite alternate none running float;"></div></section>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <div class="footer-logo">Teman Sejati</div>
+          <p class="footer-description">Making wedding invitations beautiful, simple, and stress-free.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-column">
+          <h3 class="footer-title">Company</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#">About Us</a></li>
+            <li class="footer-link"><a href="#">Careers</a></li>
+            <li class="footer-link"><a href="#">Press</a></li>
+            <li class="footer-link"><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3 class="footer-title">Support</h3>
+          <ul class="footer-links">
+            <li class="footer-link"><a href="#">Help Center</a></li>
+            <li class="footer-link"><a href="#">Contact Us</a></li>
+            <li class="footer-link"><a href="#">Privacy Policy</a></li>
+            <li class="footer-link"><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h3 class="footer-title">Contact Us</h3>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <span>Jl. Gatot Subroto No. 27, Jakarta Selatan</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <span>info@temansejati.com</span>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone-alt"></i>
+            </div>
+            <span>+62 21 5678 9012</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        <p>© 2023 Teman Sejati. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  
+  <a href="#" class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+  
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+    
+    // DOM Elements
+    const preloader = document.querySelector('.preloader');
+    const header = document.getElementById('header');
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navOverlay = document.querySelector('.nav-overlay');
+    const backToTop = document.getElementById('backToTop');
+    
+    // Hide preloader when page is loaded
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+        }, 500);
+      }, 1500);
+    });
+    
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('header-scrolled');
+      } else {
+        header.classList.remove('header-scrolled');
+      }
+      
+      // Show/hide back to top button
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    
+    // Dark mode toggle
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      
+      // Update icon
+      const icon = themeToggle.querySelector('i');
+      if (body.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    });
+    
+    // Mobile menu toggle
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      navOverlay.classList.toggle('active');
+      // Toggle icon between bars and times
+      const icon = mobileToggle.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+    
+    // Close mobile menu when overlay is clicked
+    navOverlay.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      navOverlay.classList.remove('active');
+      const icon = mobileToggle.querySelector('i');
+      icon.classList.add('fa-bars');
+      icon.classList.remove('fa-times');
+    });
+    
+    // Close mobile menu when a nav link is clicked
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        navOverlay.classList.remove('active');
+        const icon = mobileToggle.querySelector('i');
+        icon.classList.add('fa-bars');
+        icon.classList.remove('fa-times');
+      });
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (this.getAttribute('href') === '#') return;
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Add particles to CTA section
+    function createParticles() {
+      const cta = document.querySelector('.cta');
+      const totalParticles = 30;
+      
+      for (let i = 0; i < totalParticles; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size
+        const size = Math.random() * 30 + 10;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        
+        particle.style.animation = `float ${duration}s infinite alternate ease-in-out ${delay}s`;
+        
+        cta.appendChild(particle);
+      }
+    }
+    
+    createParticles();
+    
+    // Initialize slider functionality for testimonials
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.testimonial-card');
+    const sliderContainer = document.querySelector('.testimonial-slider');
+    
+    function setupSlider() {
+      // Only setup slider if we have multiple slides
+      if (slides.length <= 1) return;
+      
+      // Clone the first slide and append it to the end for infinite loop
+      const firstSlideClone = slides[0].cloneNode(true);
+      sliderContainer.appendChild(firstSlideClone);
+      
+      // Create navigation dots
+      const dotsContainer = document.createElement('div');
+      dotsContainer.classList.add('slider-dots');
+      dotsContainer.style.display = 'flex';
+      dotsContainer.style.justifyContent = 'center';
+      dotsContainer.style.marginTop = '30px';
+      dotsContainer.style.gap = '10px';
+      
+      for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('slider-dot');
+        dot.style.width = '12px';
+        dot.style.height = '12px';
+        dot.style.borderRadius = '50%';
+        dot.style.backgroundColor = 'var(--warm-gray-light)';
+        dot.style.cursor = 'pointer';
+        dot.style.transition = 'var(--transition)';
+        
+        dot.addEventListener('click', () => {
+          goToSlide(i);
+        });
+        
+        dotsContainer.appendChild(dot);
+      }
+      
+      sliderContainer.after(dotsContainer);
+      
+      // Create navigation arrows
+      const prevArrow = document.createElement('button');
+      prevArrow.classList.add('slider-arrow', 'slider-arrow-prev');
+      prevArrow.innerHTML = '<i class="fas fa-chevron-left"></i>';
+      prevArrow.style.position = 'absolute';
+      prevArrow.style.top = '50%';
+      prevArrow.style.left = '-20px';
+      prevArrow.style.transform = 'translateY(-50%)';
+      prevArrow.style.background = 'white';
+      prevArrow.style.border = 'none';
+      prevArrow.style.width = '40px';
+      prevArrow.style.height = '40px';
+      prevArrow.style.borderRadius = '50%';
+      prevArrow.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+      prevArrow.style.cursor = 'pointer';
+      prevArrow.style.zIndex = '1';
+      
+      const nextArrow = document.createElement('button');
+      nextArrow.classList.add('slider-arrow', 'slider-arrow-next');
+      nextArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
+      nextArrow.style.position = 'absolute';
+      nextArrow.style.top = '50%';
+      nextArrow.style.right = '-20px';
+      nextArrow.style.transform = 'translateY(-50%)';
+      nextArrow.style.background = 'white';
+      nextArrow.style.border = 'none';
+      nextArrow.style.width = '40px';
+      nextArrow.style.height = '40px';
+      nextArrow.style.borderRadius = '50%';
+      nextArrow.style.boxShadow = '0 3px 10px rgba(0,0,0,0.1)';
+      nextArrow.style.cursor = 'pointer';
+      nextArrow.style.zIndex = '1';
+      
+      prevArrow.addEventListener('click', prevSlide);
+      nextArrow.addEventListener('click', nextSlide);
+      
+      sliderContainer.appendChild(prevArrow);
+      sliderContainer.appendChild(nextArrow);
+      
+      // Update dots
+      updateDots();
+      
+      // Auto slide
+      setInterval(nextSlide, 5000);
+    }
+    
+    function updateDots() {
+      const dots = document.querySelectorAll('.slider-dot');
+      dots.forEach((dot, idx) => {
+        if (idx === slideIndex) {
+          dot.style.backgroundColor = 'var(--terracotta)';
+          dot.style.transform = 'scale(1.2)';
+        } else {
+          dot.style.backgroundColor = 'var(--warm-gray-light)';
+          dot.style.transform = 'scale(1)';
+        }
+      });
+    }
+    
+    function goToSlide(idx) {
+      slideIndex = idx;
+      updateSlider();
+    }
+    
+    function prevSlide() {
+      slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+      updateSlider();
+    }
+    
+    function nextSlide() {
+      slideIndex = (slideIndex + 1) % slides.length;
+      updateSlider();
+    }
+    
+    function updateSlider() {
+      // Handle transition based on responsiveness
+      const allSlides = document.querySelectorAll('.testimonial-card');
+      
+      // Display setup
+      allSlides.forEach((slide, idx) => {
+        if (window.innerWidth < 768) {
+          // On mobile, show one slide at a time
+          slide.style.display = idx === slideIndex ? 'block' : 'none';
+        } else {
+          // On desktop, we keep them visible but use transforms
+          slide.style.display = 'block';
+          slide.style.transform = `translateX(${(idx - slideIndex) * 100}%)`;
+          slide.style.transition = 'transform 0.5s ease-in-out';
+          slide.style.position = 'absolute';
+          slide.style.width = 'calc(100% - 40px)';
+          slide.style.left = '0';
+          slide.style.top = '0';
+        }
+      });
+      
+      updateDots();
+    }
+    
+    // Initialize slider on load
+    setupSlider();
+    
+    // Handle window resize for responsive slider
+    window.addEventListener('resize', updateSlider);
+    
+    // Initialize tabs for pricing section
+    const pricingTabs = document.querySelectorAll('.pricing-tab');
+    
+    pricingTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        pricingTabs.forEach(t => t.classList.remove('active'));
+        // Add active class to clicked tab
+        tab.classList.add('active');
+        
+        // Here you would update pricing content based on selected tab
+        // For this demo, we'll just keep the same pricing
+      });
+    });
+  </script>
+
+</body></html>
