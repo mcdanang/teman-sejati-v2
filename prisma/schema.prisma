@@ -28,11 +28,26 @@ enum LoginMethodType {
 }
 
 model Invitation {
-  id          String  @id @default(uuid())
-  userId      String
-  slug        String  @unique
-  templateId  String
-  isPublished Boolean @default(false)
-  content     Json
-  User        User    @relation(fields: [userId], references: [id])
+  id           String   @id @default(uuid())
+  user_id      String
+  slug         String   @unique
+  index        Int      @unique
+  is_paid      Boolean  @default(false)
+  is_published Boolean  @default(false)
+  created_at   DateTime @default(now())
+  modules      Module[]
+  User         User     @relation(fields: [user_id], references: [id])
+}
+
+model Module {
+  id            String @id @default(uuid())
+  invitation_id String
+  order         Int
+  name          String
+  url           String
+
+  Invitation Invitation @relation(fields: [invitation_id], references: [id], onDelete: Cascade)
+
+  @@unique([invitation_id, order]) // prevent duplicate order within the same invitation
+  @@index([invitation_id])
 }

@@ -1,22 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import * as React from "react";
-import {
-	BookImage,
-	Calendar,
-	DoorClosed,
-	DoorOpen,
-	Gift,
-	Images,
-	ListCheck,
-	LogIn,
-	Mail,
-	Mails,
-	Map,
-	Mars,
-	Quote,
-	Venus,
-} from "lucide-react";
+import { LogIn } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavModules } from "@/components/nav-modules";
@@ -36,122 +21,8 @@ import { Button } from "./ui/button";
 import { Session } from "next-auth";
 import Link from "next/link";
 import Image from "next/image";
-
-// This is sample data.
-const data = {
-	invitations: [
-		{
-			slug: "slug-undangan-anda",
-			index: 1,
-			is_paid: false,
-			is_published: false,
-		},
-		{
-			slug: "slug-undangan-anda-2",
-			index: 2,
-			is_paid: true,
-			is_published: false,
-		},
-		{
-			slug: "slug-undangan-anda-3",
-			index: 3,
-			is_paid: true,
-			is_published: true,
-		},
-	],
-	navMain: [
-		{
-			title: "Undangan",
-			url: "#",
-			icon: Mail,
-			isActive: true,
-			items: [
-				{
-					title: "Publish & Share",
-					url: "#",
-				},
-				{
-					title: "Template Desain",
-					url: "#",
-				},
-				{
-					title: "Data RSVP",
-					url: "#",
-				},
-				{
-					title: "Data Wedding Gift",
-					url: "#",
-				},
-				{
-					title: "Data Wedding Wishes",
-					url: "#",
-				},
-			],
-		},
-	],
-	modules: [
-		{
-			name: "Cover",
-			url: "#",
-			icon: BookImage,
-		},
-		{
-			name: "Opening",
-			url: "#",
-			icon: DoorOpen,
-		},
-		{
-			name: "Quotes",
-			url: "#",
-			icon: Quote,
-		},
-		{
-			name: "Mempelai Pria",
-			url: "#",
-			icon: Mars,
-		},
-		{
-			name: "Mempelai Wanita",
-			url: "#",
-			icon: Venus,
-		},
-		{
-			name: "Waktu",
-			url: "#",
-			icon: Calendar,
-		},
-		{
-			name: "Lokasi",
-			url: "#",
-			icon: Map,
-		},
-		{
-			name: "RSVP",
-			url: "#",
-			icon: ListCheck,
-		},
-		{
-			name: "Gallery",
-			url: "#",
-			icon: Images,
-		},
-		{
-			name: "Wedding Gift",
-			url: "#",
-			icon: Gift,
-		},
-		{
-			name: "Wedding Wishes",
-			url: "#",
-			icon: Mails,
-		},
-		{
-			name: "Closing",
-			url: "#",
-			icon: DoorClosed,
-		},
-	],
-};
+import { NAV_MAIN } from "@/constants";
+import { useInvitations } from "@/hooks/use-invitations";
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 	session: Session | null;
@@ -159,8 +30,9 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 
 export function AppSidebar({ session, ...props }: AppSidebarProps) {
 	const { open } = useSidebar();
+	const { invitations, activeInvitation, setActiveInvitation } = useInvitations();
+	// const [activeInvitation, setActiveInvitation] = React.useState(DATA.invitations[0]);
 
-	console.log("open", open);
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader className="flex items-center">
@@ -168,7 +40,13 @@ export function AppSidebar({ session, ...props }: AppSidebarProps) {
 					<Image src={"/images/logo1.svg"} alt="logo" width={120} height={120} />
 				</Link>
 				{session?.user ? (
-					<InvitationSwitcher invitations={data.invitations} />
+					activeInvitation ? (
+						<InvitationSwitcher
+							invitations={invitations}
+							activeInvitation={activeInvitation}
+							setActiveInvitation={setActiveInvitation}
+						/>
+					) : null
 				) : (
 					<SidebarMenu>
 						<SidebarMenuItem>
@@ -178,8 +56,8 @@ export function AppSidebar({ session, ...props }: AppSidebarProps) {
 				)}
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={data.navMain} />
-				<NavModules modules={data.modules} />
+				<NavMain items={NAV_MAIN} />
+				{activeInvitation && <NavModules modules={activeInvitation.modules} />}
 			</SidebarContent>
 			<SidebarFooter>
 				{session?.user && (
@@ -206,7 +84,7 @@ function SignInWithProvider({ provider, open, ...props }: SignInWithProviderProp
 	return (
 		<form
 			action={async () => {
-				await signIn(provider, { callbackUrl: "/builder" });
+				await signIn(provider, { callbackUrl: "/editor" });
 			}}
 		>
 			<Button {...props} size={open ? "default" : "icon"} className="w-full flex">

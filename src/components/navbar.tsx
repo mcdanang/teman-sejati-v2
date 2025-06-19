@@ -52,7 +52,7 @@ export default function Navbar() {
 					</a>
 				</nav>
 				<div className="flex items-center space-x-4">
-					<Link href="/builder">
+					<Link href="/editor">
 						<Button className="">Buat Undangan</Button>
 					</Link>
 				</div>

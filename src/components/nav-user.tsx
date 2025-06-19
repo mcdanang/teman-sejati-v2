@@ -106,7 +106,7 @@ function SignOut(props: React.ComponentPropsWithRef<typeof Button>) {
 	return (
 		<form
 			action={async () => {
-				await signOut({ callbackUrl: "/builder" });
+				await signOut({ callbackUrl: "/editor" });
 			}}
 			className="w-full"
 		>

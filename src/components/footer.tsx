@@ -51,7 +51,7 @@ export default function Footer() {
 						<div className="text-lg font-semibold text-primary font-serif">Navigasi</div>
 						<CustomLink
 							className="transition hover:text-primary hover:translate-x-1 duration-300"
-							href="/builder"
+							href="/editor"
 						>
 							Buat Undangan
 						</CustomLink>

@@ -1,18 +1,19 @@
-import { auth } from "@/auth";
+"use client";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
 	BreadcrumbLink,
 	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
+	// BreadcrumbPage,
+	// BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useSession } from "next-auth/react";
 
-export default async function Page() {
-	const session = await auth();
+export default function Page() {
+	const { data: session } = useSession();
 	console.log("session", session);
 	return (
 		<SidebarProvider>
@@ -25,12 +26,12 @@ export default async function Page() {
 						<Breadcrumb>
 							<BreadcrumbList>
 								<BreadcrumbItem className="hidden md:block">
-									<BreadcrumbLink href="#">Undangan</BreadcrumbLink>
+									<BreadcrumbLink href="#">Edit Modul</BreadcrumbLink>
 								</BreadcrumbItem>
-								<BreadcrumbSeparator className="hidden md:block" />
+								{/* <BreadcrumbSeparator className="hidden md:block" />
 								<BreadcrumbItem>
 									<BreadcrumbPage>Publish & Share</BreadcrumbPage>
-								</BreadcrumbItem>
+								</BreadcrumbItem> */}
 							</BreadcrumbList>
 						</Breadcrumb>
 					</div>
