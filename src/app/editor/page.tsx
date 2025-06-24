@@ -13,11 +13,11 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { useSession } from "next-auth/react";
 
 export default function Page() {
-	const { data: session } = useSession();
+	const { data: session, status } = useSession();
 	console.log("session", session);
 	return (
 		<SidebarProvider>
-			<AppSidebar session={session} />
+			<AppSidebar session={session} status={status} />
 			<SidebarInset>
 				<header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
 					<div className="flex items-center gap-2 px-4">

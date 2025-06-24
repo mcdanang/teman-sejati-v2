@@ -1,50 +1,94 @@
 import { NextResponse } from "next/server";
-import { nanoid } from "nanoid"; // to generate a slug
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
+import { getUniqueSlug } from "@/helper";
 
-// GET /api/member/invitations
 export async function GET() {
-	const session = await auth();
-	if (!session || !session.user?.email) {
-		return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-	}
+	try {
+		const session = await auth();
+		if (!session || !session.user?.email) {
+			return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+		}
 
-	const invitations = await prisma.invitation.findMany({
-		where: {
-			User: {
-				email: session.user.email,
+		const user = await prisma.user.findUnique({
+			where: { email: session.user.email },
+		});
+
+		if (!user) {
+			return NextResponse.json({ message: "User not found" }, { status: 404 });
+		}
+
+		const invitations = await prisma.invitation.findMany({
+			where: { user_id: user.id },
+			include: {
+				Modules: {
+					orderBy: { order: "asc" },
+				},
 			},
-		},
-		orderBy: { created_at: "asc" },
-	});
+			orderBy: { index: "asc" },
+		});
 
-	return NextResponse.json({ invitations });
+		return NextResponse.json({ invitations }, { status: 200 });
+	} catch (error) {
+		console.error("Error fetching invitations:", error);
+		return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+	}
 }
 
 // POST /api/member/invitations
 export async function POST(req: Request) {
-	const session = await auth();
-	if (!session || !session.user?.email) {
-		return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-	}
+	try {
+		const session = await auth();
+		if (!session || !session.user?.email) {
+			return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+		}
 
-	const body = await req.json();
+		const user = await prisma.user.findUnique({
+			where: { email: session.user.email },
+		});
 
-	// Optional: allow partial input from client or define your defaults
-	const newInvitation = await prisma.invitation.create({
-		data: {
-			slug: body.slug ?? nanoid(8),
-			index: body.index ?? 0,
-			is_paid: body.is_paid ?? false,
-			is_published: body.is_published ?? false,
-			User: {
-				connect: {
-					email: session.user.email,
+		if (!user) {
+			return NextResponse.json({ message: "User not found" }, { status: 404 });
+		}
+
+		const body = await req.json();
+
+		const { is_paid, is_published, Modules } = body;
+		const index =
+			(await prisma.invitation.count({
+				where: {
+					user_id: user.id,
+				},
+			})) + 1;
+
+		const slug = await getUniqueSlug("undangan");
+		console.log(slug);
+
+		const newInvitation = await prisma.invitation.create({
+			data: {
+				user_id: user.id,
+				slug,
+				index,
+				is_paid,
+				is_published,
+				Modules: {
+					create:
+						Modules?.map((mod: Prisma.ModuleCreateInput) => ({
+							order: mod.order,
+							name: mod.name,
+							url: mod.url,
+						})) ?? [],
 				},
 			},
-		},
-	});
+			include: {
+				Modules: true,
+			},
+		});
 
-	return NextResponse.json(newInvitation);
+		return NextResponse.json(newInvitation);
+	} catch (error) {
+		console.error("Error creating invitation:", error);
+		return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+	}
 }

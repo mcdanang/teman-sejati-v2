@@ -26,12 +26,13 @@ import { useInvitations } from "@/hooks/use-invitations";
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 	session: Session | null;
+	status: "loading" | "authenticated" | "unauthenticated";
 }
 
-export function AppSidebar({ session, ...props }: AppSidebarProps) {
+export function AppSidebar({ session, status, ...props }: AppSidebarProps) {
 	const { open } = useSidebar();
 	const { invitations, activeInvitation, setActiveInvitation } = useInvitations();
-	// const [activeInvitation, setActiveInvitation] = React.useState(DATA.invitations[0]);
+	console.log({ invitations, activeInvitation });
 
 	return (
 		<Sidebar collapsible="icon" {...props}>
@@ -39,7 +40,7 @@ export function AppSidebar({ session, ...props }: AppSidebarProps) {
 				<Link className="flex px-2 py-1 gap-3" href="/">
 					<Image src={"/images/logo1.svg"} alt="logo" width={120} height={120} />
 				</Link>
-				{session?.user ? (
+				{status === "loading" ? null : status === "authenticated" ? (
 					activeInvitation ? (
 						<InvitationSwitcher
 							invitations={invitations}
@@ -57,7 +58,7 @@ export function AppSidebar({ session, ...props }: AppSidebarProps) {
 			</SidebarHeader>
 			<SidebarContent>
 				<NavMain items={NAV_MAIN} />
-				{activeInvitation && <NavModules modules={activeInvitation.modules} />}
+				{activeInvitation && <NavModules modules={activeInvitation.Modules} />}
 			</SidebarContent>
 			<SidebarFooter>
 				{session?.user && (

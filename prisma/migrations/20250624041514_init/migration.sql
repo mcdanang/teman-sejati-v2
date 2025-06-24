@@ -44,7 +44,7 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 CREATE UNIQUE INDEX "Invitation_slug_key" ON "Invitation"("slug");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Invitation_index_key" ON "Invitation"("index");
+CREATE UNIQUE INDEX "Invitation_user_id_index_key" ON "Invitation"("user_id", "index");
 
 -- CreateIndex
 CREATE INDEX "Module_invitation_id_idx" ON "Module"("invitation_id");

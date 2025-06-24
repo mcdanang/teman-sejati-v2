@@ -18,16 +18,16 @@ import {
 	SidebarMenuItem,
 	useSidebar,
 } from "@/components/ui/sidebar";
-import { Invitation } from "@/types";
+import { InvitationWithModules } from "@/types";
 
 export function InvitationSwitcher({
 	invitations,
 	activeInvitation,
 	setActiveInvitation,
 }: {
-	invitations: Invitation[];
-	activeInvitation: Invitation;
-	setActiveInvitation: React.Dispatch<React.SetStateAction<Invitation | null>>;
+	invitations: InvitationWithModules[];
+	activeInvitation: InvitationWithModules;
+	setActiveInvitation: React.Dispatch<React.SetStateAction<InvitationWithModules | null>>;
 }) {
 	const { isMobile } = useSidebar();
 

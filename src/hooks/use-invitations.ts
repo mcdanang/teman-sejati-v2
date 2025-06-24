@@ -1,25 +1,28 @@
 "use client";
 
 import * as React from "react";
-import { Invitation } from "@/types";
 
 import { useSession } from "next-auth/react";
 import { DEFAULT_INVITATIONS } from "@/constants";
+import { Invitation } from "@prisma/client";
+import { InvitationWithModules } from "@/types";
 
 const LOCAL_STORAGE_KEY = "teman-sejati:invitations";
 
 export function useInvitations() {
 	const { status } = useSession();
 
-	const [invitations, setInvitations] = React.useState<Invitation[]>([]);
-	const [activeInvitation, setActiveInvitation] = React.useState<Invitation | null>(null);
+	const [invitations, setInvitations] = React.useState<InvitationWithModules[]>([]);
+	const [activeInvitation, setActiveInvitation] = React.useState<InvitationWithModules | null>(
+		null
+	);
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [error, setError] = React.useState<string | null>(null);
 
 	const loadGuestInvitations = () => {
 		const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
 		if (stored) {
-			const parsed: Invitation[] = JSON.parse(stored);
+			const parsed: InvitationWithModules[] = JSON.parse(stored);
 			setInvitations(parsed);
 			setActiveInvitation(parsed[0]);
 		} else {
@@ -32,27 +35,40 @@ export function useInvitations() {
 
 	const loadUserInvitations = async () => {
 		try {
-			const res = await fetch("/api/member/invitations");
+			const res = await fetch("/api/invitations");
 			if (!res.ok) throw new Error("Gagal mengambil data undangan.");
 			const data = await res.json();
 
 			if (data.invitations.length === 0) {
-				console.log("No invitations found. Creating new one...");
+				// No invitations found on DB
+				const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+				let baseInvitation: InvitationWithModules;
+				if (stored) {
+					const parsed: InvitationWithModules[] = JSON.parse(stored);
+					baseInvitation = parsed[0];
+				} else {
+					baseInvitation = DEFAULT_INVITATIONS[0];
+				}
 
-				const createRes = await fetch("/api/member/invitations", {
+				const createRes = await fetch("/api/invitations", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify({
-						// default invitation payload — update as needed
-						slug: "undangan-pertama-anda",
-						is_paid: false,
-						is_published: false,
+						is_paid: baseInvitation.is_paid,
+						is_published: baseInvitation.is_published,
+						Modules: baseInvitation.Modules.map(mod => ({
+							order: mod.order,
+							name: mod.name,
+							url: mod.url,
+						})),
 					}),
 				});
 
 				if (!createRes.ok) throw new Error("Gagal membuat undangan baru.");
 
 				const newInvitation = await createRes.json();
+
+				localStorage.removeItem(LOCAL_STORAGE_KEY);
 
 				setInvitations([newInvitation]);
 				setActiveInvitation(newInvitation);
@@ -80,14 +96,14 @@ export function useInvitations() {
 		}
 	}, [status]);
 
-	const saveGuestInvitations = (invs: Invitation[]) => {
+	const saveGuestInvitations = (invs: InvitationWithModules[]) => {
 		setInvitations(invs);
 		setActiveInvitation(invs[0] ?? null);
 		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(invs));
 	};
 
-	const updateInvitation = (index: number, update: Partial<Invitation>) => {
-		const updated = invitations.map(inv => (inv.index === index ? { ...inv, ...update } : inv));
+	const updateInvitation = (id: string, update: Partial<Invitation>) => {
+		const updated = invitations.map(inv => (inv.id === id ? { ...inv, ...update } : inv));
 		if (status === "unauthenticated") {
 			saveGuestInvitations(updated);
 		} else {

@@ -20,7 +20,7 @@ model User {
   email        String          @unique
   name         String
   created_at   DateTime        @default(now())
-  invitations  Invitation[]
+  Invitations  Invitation[]
 }
 
 enum LoginMethodType {
@@ -31,12 +31,14 @@ model Invitation {
   id           String   @id @default(uuid())
   user_id      String
   slug         String   @unique
-  index        Int      @unique
+  index        Int
   is_paid      Boolean  @default(false)
   is_published Boolean  @default(false)
   created_at   DateTime @default(now())
-  modules      Module[]
+  Modules      Module[]
   User         User     @relation(fields: [user_id], references: [id])
+
+  @@unique([user_id, index]) // ✅ index is unique only within each user
 }
 
 model Module {

@@ -1,131 +1,102 @@
-import { Invitation } from "@/types";
-import {
-	BookImage,
-	Calendar,
-	DoorClosed,
-	DoorOpen,
-	Gift,
-	Images,
-	ListCheck,
-	Mail,
-	Mails,
-	Map,
-	Mars,
-	Quote,
-	Venus,
-} from "lucide-react";
+import { InvitationWithModules } from "@/types";
+import { Mail } from "lucide-react";
 
 // This is sample data.
-export const INVITATIONS: Invitation[] = [
+export const INVITATIONS: InvitationWithModules[] = [
 	{
+		id: "invitation-1",
+		user_id: "user-1",
 		slug: "slug-undangan-anda",
 		index: 1,
 		is_paid: false,
 		is_published: false,
-		modules: [
+		created_at: new Date("2023-01-01T00:00:00Z"),
+		Modules: [
 			{
 				order: 1,
 				name: "Cover",
 				url: "#",
-				icon: BookImage,
 			},
 			{
 				order: 2,
 				name: "Opening",
 				url: "#",
-				icon: DoorOpen,
 			},
 			{
 				order: 3,
 				name: "Quotes",
 				url: "#",
-				icon: Quote,
 			},
 			{
 				order: 4,
 				name: "Mempelai Pria",
 				url: "#",
-				icon: Mars,
 			},
 			{
 				order: 5,
 				name: "Mempelai Wanita",
 				url: "#",
-				icon: Venus,
 			},
 			{
 				order: 6,
 				name: "Waktu",
 				url: "#",
-				icon: Calendar,
 			},
 			{
 				order: 7,
 				name: "Lokasi",
 				url: "#",
-				icon: Map,
 			},
 			{
 				order: 8,
 				name: "RSVP",
 				url: "#",
-				icon: ListCheck,
 			},
 			{
 				order: 9,
 				name: "Gallery",
 				url: "#",
-				icon: Images,
 			},
 			{
 				order: 10,
 				name: "Wedding Gift",
 				url: "#",
-				icon: Gift,
 			},
 			{
 				order: 11,
 				name: "Wedding Wishes",
 				url: "#",
-				icon: Mails,
 			},
 			{
 				order: 12,
 				name: "Closing",
 				url: "#",
-				icon: DoorClosed,
 			},
 		],
 	},
 	{
+		id: "invitation-2",
+		user_id: "user-2",
 		slug: "slug-undangan-anda-2",
 		index: 2,
 		is_paid: true,
 		is_published: false,
-		modules: [
+		created_at: new Date("2023-02-01T00:00:00Z"),
+		Modules: [
 			{
 				order: 1,
 				name: "Cover",
 				url: "#",
-				icon: BookImage,
 			},
 			{
 				order: 2,
-				name: "Quotes",
+				name: "Opening",
 				url: "#",
-				icon: Quote,
 			},
 			{
 				order: 3,
-				name: "Mempelai Pria",
+				name: "Quotes",
 				url: "#",
-				icon: Mars,
-			},
-			{
-				order: 4,
-				name: "Mempelai Wanita",
-				url: "#",
-				icon: Venus,
 			},
 		],
 	},
@@ -137,25 +108,28 @@ export const INVITATIONS: Invitation[] = [
 	// },
 ];
 
-export const DEFAULT_INVITATIONS: Invitation[] = [
+export const DEFAULT_INVITATIONS: InvitationWithModules[] = [
 	{
+		id: "default-invitation-1",
+		user_id: "default-user-1",
 		slug: "contoh-undangan",
 		index: 1,
 		is_paid: false,
 		is_published: false,
-		modules: [
-			{ order: 1, name: "Cover", url: "#", icon: BookImage },
-			{ order: 2, name: "Opening", url: "#", icon: DoorOpen },
-			{ order: 3, name: "Quotes", url: "#", icon: Quote },
-			{ order: 4, name: "Mempelai Pria", url: "#", icon: Mars },
-			{ order: 5, name: "Mempelai Wanita", url: "#", icon: Venus },
-			{ order: 6, name: "Waktu", url: "#", icon: Calendar },
-			{ order: 7, name: "Lokasi", url: "#", icon: Map },
-			{ order: 8, name: "RSVP", url: "#", icon: ListCheck },
-			{ order: 9, name: "Gallery", url: "#", icon: Images },
-			{ order: 10, name: "Wedding Gift", url: "#", icon: Gift },
-			{ order: 11, name: "Wedding Wishes", url: "#", icon: Mails },
-			{ order: 12, name: "Closing", url: "#", icon: DoorClosed },
+		created_at: new Date(),
+		Modules: [
+			{ order: 1, name: "Cover", url: "#" },
+			{ order: 2, name: "Opening", url: "#" },
+			{ order: 3, name: "Quotes", url: "#" },
+			{ order: 4, name: "Mempelai Pria", url: "#" },
+			{ order: 5, name: "Mempelai Wanita", url: "#" },
+			{ order: 6, name: "Waktu", url: "#" },
+			{ order: 7, name: "Lokasi", url: "#" },
+			{ order: 8, name: "RSVP", url: "#" },
+			{ order: 9, name: "Gallery", url: "#" },
+			{ order: 10, name: "Wedding Gift", url: "#" },
+			{ order: 11, name: "Wedding Wishes", url: "#" },
+			{ order: 12, name: "Closing", url: "#" },
 		],
 	},
 ];
