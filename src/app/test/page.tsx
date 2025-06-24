@@ -39,7 +39,7 @@ export default function TestPage() {
 		},
 	};
 
-	const orderedModules = invitationContent.order ?? design.defaultOrder;
+	const orderedModules = invitationContent.order;
 
 	return (
 		<div

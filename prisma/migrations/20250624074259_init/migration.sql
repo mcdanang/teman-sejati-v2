@@ -17,6 +17,8 @@ CREATE TABLE "User" (
 CREATE TABLE "Invitation" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
+    "design" TEXT NOT NULL,
+    "desktop_bg" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "index" INTEGER NOT NULL,
     "is_paid" BOOLEAN NOT NULL DEFAULT false,
@@ -33,6 +35,7 @@ CREATE TABLE "Module" (
     "order" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "url" TEXT NOT NULL,
+    "content" JSONB NOT NULL,
 
     CONSTRAINT "Module_pkey" PRIMARY KEY ("id")
 );

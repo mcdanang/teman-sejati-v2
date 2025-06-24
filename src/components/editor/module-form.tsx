@@ -7,8 +7,6 @@ export function ModuleForm({
 	data: Record<string, string | string[]>;
 	onChange: (newData: Record<string, string | string[]>) => void;
 }) {
-	console.log("ModuleForm", { schema, data });
-
 	return (
 		<form className="space-y-4">
 			{Object.entries(schema).map(([key]) => {

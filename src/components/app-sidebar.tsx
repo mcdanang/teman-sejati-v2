@@ -32,7 +32,6 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 export function AppSidebar({ session, status, ...props }: AppSidebarProps) {
 	const { open } = useSidebar();
 	const { invitations, activeInvitation, setActiveInvitation } = useInvitations();
-	console.log({ invitations, activeInvitation });
 
 	return (
 		<Sidebar collapsible="icon" {...props}>

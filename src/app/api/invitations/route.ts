@@ -54,7 +54,7 @@ export async function POST(req: Request) {
 
 		const body = await req.json();
 
-		const { is_paid, is_published, Modules } = body;
+		const { is_paid, is_published, Modules, design, desktop_bg } = body;
 		const index =
 			(await prisma.invitation.count({
 				where: {
@@ -63,7 +63,6 @@ export async function POST(req: Request) {
 			})) + 1;
 
 		const slug = await getUniqueSlug("undangan");
-		console.log(slug);
 
 		const newInvitation = await prisma.invitation.create({
 			data: {
@@ -72,12 +71,15 @@ export async function POST(req: Request) {
 				index,
 				is_paid,
 				is_published,
+				design,
+				desktop_bg,
 				Modules: {
 					create:
 						Modules?.map((mod: Prisma.ModuleCreateInput) => ({
 							order: mod.order,
 							name: mod.name,
 							url: mod.url,
+							content: mod.content,
 						})) ?? [],
 				},
 			},

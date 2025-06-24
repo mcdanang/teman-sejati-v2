@@ -30,6 +30,8 @@ enum LoginMethodType {
 model Invitation {
   id           String   @id @default(uuid())
   user_id      String
+  design       String
+  desktop_bg   String
   slug         String   @unique
   index        Int
   is_paid      Boolean  @default(false)
@@ -47,6 +49,7 @@ model Module {
   order         Int
   name          String
   url           String
+  content       Json
 
   Invitation Invitation @relation(fields: [invitation_id], references: [id], onDelete: Cascade)
 

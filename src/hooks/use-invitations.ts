@@ -56,11 +56,9 @@ export function useInvitations() {
 					body: JSON.stringify({
 						is_paid: baseInvitation.is_paid,
 						is_published: baseInvitation.is_published,
-						Modules: baseInvitation.Modules.map(mod => ({
-							order: mod.order,
-							name: mod.name,
-							url: mod.url,
-						})),
+						design: baseInvitation.design,
+						desktop_bg: baseInvitation.desktop_bg,
+						Modules: baseInvitation.Modules,
 					}),
 				});
 
@@ -84,7 +82,6 @@ export function useInvitations() {
 	};
 
 	React.useEffect(() => {
-		console.log("useInvitations: status", status);
 		if (status === "loading") return;
 
 		setIsLoading(true);

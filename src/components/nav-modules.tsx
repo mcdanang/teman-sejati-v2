@@ -31,14 +31,12 @@ export function NavModules({
 }) {
 	const { isMobile } = useSidebar();
 	const { status } = useSession();
-	console.log("NavModules", { modules });
 
 	return (
 		<SidebarGroup className="group-data-[collapsible=icon]:hidden">
 			<SidebarGroupLabel>Edit Modul</SidebarGroupLabel>
 			<SidebarMenu>
 				{modules?.map(item => {
-					console.log("NavModules item", item);
 					const Icon = getModuleIcon(item.name);
 					return (
 						<SidebarMenuItem key={item.name}>

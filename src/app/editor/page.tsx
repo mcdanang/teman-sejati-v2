@@ -1,5 +1,6 @@
 "use client";
 import { AppSidebar } from "@/components/app-sidebar";
+import { MainInvitation } from "@/components/main-invitation";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -10,15 +11,18 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { useInvitations } from "@/hooks/use-invitations";
+import { Loader2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 
 export default function Page() {
 	const { data: session, status } = useSession();
-	console.log("session", session);
+	const { activeInvitation, isLoading } = useInvitations();
+
 	return (
 		<SidebarProvider>
 			<AppSidebar session={session} status={status} />
-			<SidebarInset>
+			<SidebarInset className="h-screen">
 				<header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
 					<div className="flex items-center gap-2 px-4">
 						<SidebarTrigger className="-ml-1" />
@@ -36,13 +40,16 @@ export default function Page() {
 						</Breadcrumb>
 					</div>
 				</header>
-				<div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-					<div className="grid auto-rows-min gap-4 md:grid-cols-3">
-						<div className="bg-muted/50 aspect-video rounded-xl" />
-						<div className="bg-muted/50 aspect-video rounded-xl" />
-						<div className="bg-muted/50 aspect-video rounded-xl" />
+				<div className="flex flex-1 flex-col gap-4 p-4 pt-0 h-screen overflow-hidden">
+					<div className="bg-muted/50 flex-1 rounded-xl h-full overflow-scroll shadow-xl">
+						{isLoading ? (
+							<div className="flex items-center justify-center h-full">
+								<Loader2 className="animate-spin h-8 w-8 mx-auto text-gray-500" />
+							</div>
+						) : (
+							<MainInvitation invitation={activeInvitation}></MainInvitation>
+						)}
 					</div>
-					<div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
 				</div>
 			</SidebarInset>
 		</SidebarProvider>
