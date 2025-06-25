@@ -32,19 +32,24 @@ export function NavModules({
 	const { isMobile } = useSidebar();
 	const { status } = useSession();
 
+	const handleScroll = (id: string) => {
+		const target = document.getElementById(id);
+		if (target) {
+			target.scrollIntoView({ behavior: "smooth" });
+		}
+	};
 	return (
 		<SidebarGroup className="group-data-[collapsible=icon]:hidden">
 			<SidebarGroupLabel>Edit Modul</SidebarGroupLabel>
 			<SidebarMenu>
-				{modules?.map(item => {
-					const Icon = getModuleIcon(item.name);
+				{modules?.map(mod => {
+					const Icon = getModuleIcon(mod.name);
+					const id = mod.name.replace(/\s+/g, "");
 					return (
-						<SidebarMenuItem key={item.name}>
-							<SidebarMenuButton asChild>
-								<a href={item.url}>
-									{Icon ? <Icon /> : null}
-									<span>{item.name}</span>
-								</a>
+						<SidebarMenuItem key={mod.name}>
+							<SidebarMenuButton onClick={() => handleScroll(id)} className="cursor-pointer">
+								{Icon ? <Icon /> : null}
+								<span>{mod.name}</span>
 							</SidebarMenuButton>
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
@@ -58,7 +63,7 @@ export function NavModules({
 									side={isMobile ? "bottom" : "right"}
 									align={isMobile ? "end" : "start"}
 								>
-									<DropdownMenuItem>
+									<DropdownMenuItem onClick={() => handleScroll(id)}>
 										<Eye className="text-muted-foreground" />
 										<span>Lihat Modul</span>
 									</DropdownMenuItem>

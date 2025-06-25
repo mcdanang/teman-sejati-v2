@@ -4,8 +4,8 @@ import * as React from "react";
 
 import { useSession } from "next-auth/react";
 import { DEFAULT_INVITATIONS } from "@/constants";
-import { Invitation } from "@prisma/client";
 import { InvitationWithModules } from "@/types";
+import { Module } from "@prisma/client";
 
 const LOCAL_STORAGE_KEY = "teman-sejati:invitations";
 
@@ -81,6 +81,45 @@ export function useInvitations() {
 		}
 	};
 
+	const updateModule = (invitationId: string, updatedModule: any) => {
+		const updated = invitations.map(inv => {
+			if (inv.id !== invitationId) return inv;
+
+			const updatedModules = inv.Modules.map(mod =>
+				mod.name === updatedModule.name ? { ...mod, ...updatedModule } : mod
+			);
+
+			return { ...inv, Modules: updatedModules };
+		});
+
+		if (status === "unauthenticated") {
+			saveGuestInvitations(updated);
+		} else {
+			saveUserInvitationModule(updatedModule);
+		}
+
+		setInvitations(updated);
+		setActiveInvitation(updated.find(inv => inv.id === invitationId) ?? null);
+	};
+
+	const saveGuestInvitations = (invs: InvitationWithModules[]) => {
+		setInvitations(invs);
+		// setActiveInvitation(invs[0] ?? null);
+		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(invs));
+	};
+
+	const saveUserInvitationModule = (updatedModule: Module) => {
+		if (updatedModule) {
+			fetch(`/api/modules/${updatedModule.id}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(updatedModule),
+			});
+		}
+	};
+
 	React.useEffect(() => {
 		if (status === "loading") return;
 
@@ -93,20 +132,14 @@ export function useInvitations() {
 		}
 	}, [status]);
 
-	const saveGuestInvitations = (invs: InvitationWithModules[]) => {
-		setInvitations(invs);
-		setActiveInvitation(invs[0] ?? null);
-		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(invs));
-	};
-
-	const updateInvitation = (id: string, update: Partial<Invitation>) => {
-		const updated = invitations.map(inv => (inv.id === id ? { ...inv, ...update } : inv));
-		if (status === "unauthenticated") {
-			saveGuestInvitations(updated);
-		} else {
-			// You would normally send to API
-		}
-	};
+	// const updateInvitation = (id: string, update: Partial<Invitation>) => {
+	// 	const updated = invitations.map(inv => (inv.id === id ? { ...inv, ...update } : inv));
+	// 	if (status === "unauthenticated") {
+	// 		saveGuestInvitations(updated);
+	// 	} else {
+	// 		// You would normally send to API
+	// 	}
+	// };
 
 	return {
 		invitations,
@@ -114,7 +147,8 @@ export function useInvitations() {
 		setActiveInvitation,
 		isLoading,
 		error,
-		updateInvitation,
-		saveGuestInvitations,
+		updateModule,
+		// updateInvitation,
+		// saveGuestInvitations,
 	};
 }
