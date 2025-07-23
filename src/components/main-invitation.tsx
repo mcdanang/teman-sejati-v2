@@ -1,10 +1,16 @@
 import { designs } from "@/lib/designs";
-import { InvitationWithModules } from "@/types";
 import { InputJsonValue } from "@prisma/client/runtime/library";
 import { ModuleForm } from "./module-form";
+import { useInvitations } from "@/hooks/use-invitations";
+import { ModuleName } from "@/types";
 
-export function MainInvitation({ invitation }: { invitation: InvitationWithModules | null }) {
-	if (!invitation) {
+export function MainInvitation({
+	invitations,
+}: {
+	invitations: ReturnType<typeof useInvitations>;
+}) {
+	const { activeInvitation } = invitations;
+	if (!activeInvitation) {
 		return (
 			<div className="flex items-center justify-center h-full">
 				<p className="text-lg text-muted-foreground">Tidak ada undangan yang ditemukan.</p>
@@ -12,16 +18,18 @@ export function MainInvitation({ invitation }: { invitation: InvitationWithModul
 		);
 	}
 
-	invitation.Modules.sort((a, b) => a.order - b.order);
+	activeInvitation.Modules.sort((a, b) => a.order - b.order);
 
-	const modules = invitation.Modules;
-	const design = designs[invitation.design];
+	const modules = activeInvitation.Modules;
+	const design = designs[activeInvitation.design];
+
+	console.log(modules, "Modules in MainInvitation");
 
 	return (
 		<div
 			className={`bg-fixed bg-gray-100 bg-cover bg-center`}
 			style={{
-				backgroundImage: `url(${invitation.desktop_bg})`,
+				backgroundImage: `url(${activeInvitation.desktop_bg})`,
 			}}
 		>
 			<div className="max-w-md mx-auto min-h-screen bg-white p-4 space-y-6 shadow-lg ">
@@ -34,7 +42,7 @@ export function MainInvitation({ invitation }: { invitation: InvitationWithModul
 					if (mod.content === null) return null;
 					return (
 						<div key={mod.name} id={id as string} className="relative group">
-							<ModuleForm moduleName="Cover" />
+							<ModuleForm moduleName={mod.name as ModuleName} invitations={invitations} />
 							<Component data={mod.content as InputJsonValue} />
 						</div>
 					);

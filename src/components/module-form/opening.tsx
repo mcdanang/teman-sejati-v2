@@ -42,7 +42,7 @@ export type Data = z.infer<typeof Schema>;
 
 export function ModuleForm({ invitations }: { invitations: ReturnType<typeof useInvitations> }) {
 	const { updateModule, activeInvitation } = invitations;
-	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Cover");
+	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Opening");
 	const moduleData = editedModule?.content as Data;
 	const sheetCloseRef = useRef<HTMLButtonElement>(null);
 

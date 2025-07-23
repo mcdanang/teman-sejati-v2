@@ -81,36 +81,58 @@ export function useInvitations() {
 		}
 	};
 
-	const updateModule = (invitationId: string, updatedModule: any) => {
-		const updated = invitations.map(inv => {
-			if (inv.id !== invitationId) return inv;
+	const updateModule = async (invitationId: string, updatedModule: Module) => {
+		try {
+			const updated = invitations.map(inv => {
+				if (inv.id !== invitationId) return inv;
 
-			const updatedModules = inv.Modules.map(mod =>
-				mod.name === updatedModule.name ? { ...mod, ...updatedModule } : mod
-			);
+				const updatedModules = inv.Modules.map(mod =>
+					mod.name === updatedModule.name ? { ...mod, content: updatedModule.content } : mod
+				);
 
-			return { ...inv, Modules: updatedModules };
-		});
+				return { ...inv, Modules: updatedModules as Module[] };
+			});
+			console.log("Updated invitations:", updated);
 
-		if (status === "unauthenticated") {
-			saveGuestInvitations(updated);
-		} else {
-			saveUserInvitationModule(updatedModule);
+			// Update state immediately for optimistic UI update
+			setInvitations(updated as InvitationWithModules[]);
+			const newActiveInvitation = updated.find(
+				inv => inv.id === invitationId
+			) as InvitationWithModules | null;
+			setActiveInvitation(newActiveInvitation);
+
+			// Save to backend/storage
+			if (status === "unauthenticated") {
+				console.log("Saving guest invitations");
+				await saveGuestInvitations(updated as InvitationWithModules[]);
+			} else {
+				console.log("Saving user invitation module");
+				await saveUserInvitationModule(updatedModule);
+			}
+
+			// Force a re-render by updating the active invitation again
+			setActiveInvitation(prev => {
+				if (prev?.id === invitationId) {
+					return newActiveInvitation;
+				}
+				return prev;
+			});
+		} catch (error) {
+			console.error("Error updating module:", error);
+			// Revert state on error
+			loadUserInvitations();
 		}
-
-		setInvitations(updated);
-		setActiveInvitation(updated.find(inv => inv.id === invitationId) ?? null);
 	};
 
-	const saveGuestInvitations = (invs: InvitationWithModules[]) => {
+	const saveGuestInvitations = async (invs: InvitationWithModules[]) => {
 		setInvitations(invs);
 		// setActiveInvitation(invs[0] ?? null);
 		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(invs));
 	};
 
-	const saveUserInvitationModule = (updatedModule: Module) => {
+	const saveUserInvitationModule = async (updatedModule: Module) => {
 		if (updatedModule) {
-			fetch(`/api/modules/${updatedModule.id}`, {
+			await fetch(`/api/modules/${updatedModule.id}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",

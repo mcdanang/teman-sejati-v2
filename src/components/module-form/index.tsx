@@ -1,9 +1,19 @@
 import { ModuleName } from "@/types";
-import { CoverModuleForm } from "./cover";
+import { useInvitations } from "@/hooks/use-invitations";
+import { ModuleForm as CoverModuleForm } from "./cover";
+import { ModuleForm as OpeningModuleForm } from "./opening";
 
-export function ModuleForm({ moduleName }: { moduleName: ModuleName }) {
+export function ModuleForm({
+	moduleName,
+	invitations,
+}: {
+	moduleName: ModuleName;
+	invitations: ReturnType<typeof useInvitations>;
+}) {
 	if (moduleName === "Cover") {
-		return <CoverModuleForm />;
+		return <CoverModuleForm invitations={invitations} />;
+	} else if (moduleName === "Opening") {
+		return <OpeningModuleForm invitations={invitations} />;
 	} else {
 		return null;
 	}

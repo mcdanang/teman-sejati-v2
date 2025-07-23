@@ -17,7 +17,8 @@ import { useSession } from "next-auth/react";
 
 export default function Page() {
 	const { data: session, status } = useSession();
-	const { activeInvitation, isLoading } = useInvitations();
+	const invitations = useInvitations();
+	const { isLoading } = invitations;
 
 	return (
 		<SidebarProvider>
@@ -47,7 +48,7 @@ export default function Page() {
 								<Loader2 className="animate-spin h-8 w-8 mx-auto text-gray-500" />
 							</div>
 						) : (
-							<MainInvitation invitation={activeInvitation}></MainInvitation>
+							<MainInvitation invitations={invitations}></MainInvitation>
 						)}
 					</div>
 				</div>
