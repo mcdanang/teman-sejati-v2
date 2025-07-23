@@ -1,10 +1,8 @@
-import { CoverData } from "@/components/module-form/cover";
+import { Data } from "@/components/module-form/cover";
 import Image from "next/image";
 import React from "react";
 
-export const Cover = ({ data }: { data: CoverData }) => {
-	console.log("Cover module data:", data);
-
+export const Cover = ({ data }: { data: Data }) => {
 	return (
 		<section className="text-center py-12 bg-white">
 			<h1 className="text-4xl font-bold">{data?.title ?? "Cover Title"}</h1>

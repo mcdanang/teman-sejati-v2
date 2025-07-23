@@ -10,11 +10,12 @@ export function ModuleForm({
 	moduleName: ModuleName;
 	invitations: ReturnType<typeof useInvitations>;
 }) {
-	if (moduleName === "Cover") {
-		return <CoverModuleForm invitations={invitations} />;
-	} else if (moduleName === "Opening") {
-		return <OpeningModuleForm invitations={invitations} />;
-	} else {
-		return null;
+	switch (moduleName) {
+		case "Cover":
+			return <CoverModuleForm invitations={invitations} />;
+		case "Opening":
+			return <OpeningModuleForm invitations={invitations} />;
+		default:
+			return null;
 	}
 }

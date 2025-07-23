@@ -23,8 +23,6 @@ export function MainInvitation({
 	const modules = activeInvitation.Modules;
 	const design = designs[activeInvitation.design];
 
-	console.log(modules, "Modules in MainInvitation");
-
 	return (
 		<div
 			className={`bg-fixed bg-gray-100 bg-cover bg-center`}
