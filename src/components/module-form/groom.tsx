@@ -42,7 +42,7 @@ export type Data = z.infer<typeof Schema>;
 
 export function ModuleForm({ invitations }: { invitations: ReturnType<typeof useInvitations> }) {
 	const { updateModule, activeInvitation } = invitations;
-	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Cover");
+	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Mempelai Pria");
 	const moduleData = editedModule?.content as Data;
 	const sheetCloseRef = useRef<HTMLButtonElement>(null);
 
@@ -109,7 +109,7 @@ export function ModuleForm({ invitations }: { invitations: ReturnType<typeof use
 								name="title"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel required>Judul</FormLabel>
+										<FormLabel>Judul</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>
@@ -135,7 +135,7 @@ export function ModuleForm({ invitations }: { invitations: ReturnType<typeof use
 								name="image"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel required>URL Gambar</FormLabel>
+										<FormLabel>URL Gambar</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>
