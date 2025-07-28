@@ -45,6 +45,10 @@ export const NAV_MAIN = [
 				url: "#",
 			},
 			{
+				title: "Unggah Media",
+				url: "media",
+			},
+			{
 				title: "Data RSVP",
 				url: "#",
 			},

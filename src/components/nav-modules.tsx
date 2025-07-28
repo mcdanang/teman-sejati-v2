@@ -1,12 +1,12 @@
 "use client";
 
-import { ArrowDown, ArrowUp, Eye, MoreHorizontal, Plus, Trash2 } from "lucide-react";
+import { Eye, MoreHorizontal, Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -31,12 +31,19 @@ export function NavModules({
 }) {
 	const { isMobile } = useSidebar();
 	const { status } = useSession();
+	const router = useRouter();
 
-	const handleScroll = (id: string) => {
-		const target = document.getElementById(id);
-		if (target) {
-			target.scrollIntoView({ behavior: "smooth" });
-		}
+	const handleModuleClick = (id: string) => {
+		// Navigate to editor page first
+		router.push("/editor");
+
+		// Wait for navigation to complete, then scroll to section
+		setTimeout(() => {
+			const target = document.getElementById(id);
+			if (target) {
+				target.scrollIntoView({ behavior: "smooth" });
+			}
+		}, 100);
 	};
 	return (
 		<SidebarGroup className="group-data-[collapsible=icon]:hidden">
@@ -47,7 +54,7 @@ export function NavModules({
 					const id = mod.name.replace(/\s+/g, "");
 					return (
 						<SidebarMenuItem key={mod.name}>
-							<SidebarMenuButton onClick={() => handleScroll(id)} className="cursor-pointer">
+							<SidebarMenuButton onClick={() => handleModuleClick(id)} className="cursor-pointer">
 								{Icon ? <Icon /> : null}
 								<span>{mod.name}</span>
 							</SidebarMenuButton>
@@ -63,23 +70,23 @@ export function NavModules({
 									side={isMobile ? "bottom" : "right"}
 									align={isMobile ? "end" : "start"}
 								>
-									<DropdownMenuItem onClick={() => handleScroll(id)}>
+									<DropdownMenuItem onClick={() => handleModuleClick(id)}>
 										<Eye className="text-muted-foreground" />
 										<span>Lihat Modul</span>
 									</DropdownMenuItem>
-									<DropdownMenuItem>
+									{/* <DropdownMenuItem>
 										<ArrowUp className="text-muted-foreground" />
 										<span>Geser ke Atas</span>
 									</DropdownMenuItem>
 									<DropdownMenuItem>
 										<ArrowDown className="text-muted-foreground" />
 										<span>Geser ke Bawah</span>
-									</DropdownMenuItem>
-									<DropdownMenuSeparator />
+									</DropdownMenuItem> */}
+									{/* <DropdownMenuSeparator />
 									<DropdownMenuItem>
 										<Trash2 className="text-muted-foreground" />
 										<span>Hapus Modul</span>
-									</DropdownMenuItem>
+									</DropdownMenuItem> */}
 								</DropdownMenuContent>
 							</DropdownMenu>
 						</SidebarMenuItem>
