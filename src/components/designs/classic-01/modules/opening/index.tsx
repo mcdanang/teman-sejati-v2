@@ -1,11 +1,10 @@
 import { InputJsonValue } from "@prisma/client/runtime/library";
-import Image from "next/image";
 import React from "react";
 
 type ModuleData = {
 	title?: string;
 	subtitle?: string;
-	image?: string;
+	video?: string;
 	// add other fields as needed
 };
 
@@ -17,13 +16,18 @@ export const Opening = ({ data }: { data: InputJsonValue }) => {
 			<h1 className="text-4xl font-bold">{moduleData.title ?? "Opening Title"}</h1>
 			<p className="mt-2 text-lg text-gray-500">{moduleData.subtitle ?? "Opening Subtitle"}</p>
 			<div className="flex justify-center">
-				<Image
-					src={moduleData.image ?? "/designs/classic/couple.svg"}
-					alt="Couple"
-					className="mt-6 rounded-lg shadow-lg"
-					width={400}
-					height={300}
-				/>
+				{moduleData.video ? (
+					<video
+						src={moduleData.video}
+						controls
+						className="rounded-lg shadow-lg max-w-full"
+						style={{ width: "400px", height: "300px" }}
+					/>
+				) : (
+					<div className="mt-6 w-[400px] h-[300px] bg-gray-100 rounded-lg shadow-lg flex items-center justify-center">
+						<p className="text-gray-500">No video selected</p>
+					</div>
+				)}
 			</div>
 		</section>
 	);

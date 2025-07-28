@@ -45,7 +45,7 @@ export const NAV_MAIN = [
 				url: "#",
 			},
 			{
-				title: "Unggah Media",
+				title: "Atur Media",
 				url: "media",
 			},
 			{

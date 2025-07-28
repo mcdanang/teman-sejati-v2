@@ -12,6 +12,17 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogCancel,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -54,7 +65,11 @@ export default function Page() {
 
 	// Upload handler
 	const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (!e.target.files?.length || !session?.user?.id) return;
+		if (!e.target.files?.length) return;
+		if (!session?.user?.id) {
+			console.error("User not logged in");
+			return;
+		}
 		const file = e.target.files[0];
 		setUploading(true);
 		// Get signature from backend
@@ -82,36 +97,49 @@ export default function Page() {
 	};
 
 	// Delete handler
-	const handleDelete = async (public_id: string) => {
-		if (!confirm("Are you sure you want to delete this media?")) return;
-		// Get signature from backend
-		const res = await fetch("/api/media/sign", {
-			method: "POST",
-			body: JSON.stringify({ public_id, action: "delete" }),
-			headers: { "Content-Type": "application/json" },
-		});
-		const { signature, timestamp } = await res.json();
-
-		await fetch(
-			`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/delete_by_token`,
-			{
+	const handleDelete = async (public_id: string, resource_type: string) => {
+		try {
+			// Get signature from backend
+			const res = await fetch("/api/media/sign", {
 				method: "POST",
-				body: JSON.stringify({
-					public_id,
-					signature,
-					timestamp,
-					api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-				}),
+				body: JSON.stringify({ public_id, action: "delete" }),
 				headers: { "Content-Type": "application/json" },
+			});
+			const { signature, timestamp } = await res.json();
+
+			// Use the correct delete endpoint based on resource type
+			const endpoint = resource_type === "image" ? "image/destroy" : `${resource_type}/destroy`;
+			const deleteRes = await fetch(
+				`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${endpoint}`,
+				{
+					method: "POST",
+					body: JSON.stringify({
+						public_id,
+						signature,
+						timestamp,
+						api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+					}),
+					headers: { "Content-Type": "application/json" },
+				}
+			);
+
+			if (!deleteRes.ok) {
+				const errorData = await deleteRes.json();
+				console.error("Delete error:", errorData);
+				throw new Error("Failed to delete media");
 			}
-		);
-		setMedia(m => m.filter(item => item.public_id !== public_id));
+
+			setMedia(m => m.filter(item => item.public_id !== public_id));
+		} catch (error) {
+			console.error("Delete error:", error);
+			// You might want to show a toast notification here
+		}
 	};
 
 	return (
 		<SidebarProvider>
 			<AppSidebar session={session} status={status} />
-			<SidebarInset className="h-screen">
+			<SidebarInset className="h-full">
 				<header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
 					<div className="flex items-center gap-2 px-4">
 						<SidebarTrigger className="-ml-1" />
@@ -129,32 +157,38 @@ export default function Page() {
 						</Breadcrumb>
 					</div>
 				</header>
-				<div className="flex flex-1 flex-col gap-4 p-4 pt-0 h-screen overflow-hidden">
+				<div className="flex flex-1 flex-col gap-4 p-4 pt-0 h-full overflow-hidden">
 					<div className="bg-white flex-1 rounded-xl h-full overflow-scroll shadow-xl p-6">
 						<div className="flex items-center justify-between mb-6">
 							<h2 className="text-xl font-semibold">Media</h2>
 							<div className="flex items-center gap-2">
-								<label htmlFor="media-upload">
-									<Button asChild variant="outline" size="sm" disabled={uploading}>
-										<span>{uploading ? "Uploading..." : "Upload Media"}</span>
+								{session?.user?.id ? (
+									<label htmlFor="media-upload">
+										<Button asChild variant="outline" size="sm" disabled={uploading}>
+											<span>{uploading ? "Uploading..." : "Upload Media"}</span>
+										</Button>
+										<Input
+											id="media-upload"
+											type="file"
+											accept="image/*,audio/*,video/*"
+											onChange={handleUpload}
+											className="hidden"
+										/>
+									</label>
+								) : (
+									<Button variant="outline" size="sm" disabled>
+										Please log in to upload
 									</Button>
-									<Input
-										id="media-upload"
-										type="file"
-										accept="image/*,audio/*,video/*"
-										onChange={handleUpload}
-										className="hidden"
-									/>
-								</label>
+								)}
 							</div>
 						</div>
 						<Separator className="mb-6" />
 						{loading ? (
-							<div className="flex items-center justify-center h-full">
+							<div className="flex items-center justify-center h-[70vh]">
 								<span>Loading media...</span>
 							</div>
 						) : (
-							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+							<div className="grid grid-cols-1 sm:grid-cols-2 h-[70vh] md:grid-cols-3 lg:grid-cols-4 gap-6">
 								{media.length === 0 ? (
 									<div className="col-span-full text-center text-muted-foreground">
 										No media found.
@@ -195,13 +229,31 @@ export default function Page() {
 												</div>
 											</CardContent>
 											<CardFooter className="flex justify-end">
-												<Button
-													variant="destructive"
-													size="sm"
-													onClick={() => handleDelete(item.public_id)}
-												>
-													Delete
-												</Button>
+												<AlertDialog>
+													<AlertDialogTrigger asChild>
+														<Button variant="destructive" size="sm">
+															Delete
+														</Button>
+													</AlertDialogTrigger>
+													<AlertDialogContent>
+														<AlertDialogHeader>
+															<AlertDialogTitle>Delete Media</AlertDialogTitle>
+															<AlertDialogDescription>
+																Are you sure you want to delete this media? This action cannot be
+																undone.
+															</AlertDialogDescription>
+														</AlertDialogHeader>
+														<AlertDialogFooter>
+															<AlertDialogCancel>Cancel</AlertDialogCancel>
+															<AlertDialogAction
+																onClick={() => handleDelete(item.public_id, item.resource_type)}
+																className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+															>
+																Delete
+															</AlertDialogAction>
+														</AlertDialogFooter>
+													</AlertDialogContent>
+												</AlertDialog>
 											</CardFooter>
 										</Card>
 									))

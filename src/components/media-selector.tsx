@@ -43,7 +43,13 @@ export function MediaSelector({
 	const [uploading, setUploading] = useState(false);
 	const [selectedItems, setSelectedItems] = useState<MediaItem[]>([]);
 	const [open, setOpen] = useState(false);
-	const [activeTab, setActiveTab] = useState<"images" | "videos" | "audios">("images");
+	const [activeTab, setActiveTab] = useState<"images" | "videos" | "audios">(() => {
+		// Set default tab based on allowed types
+		if (allowedTypes.includes("image")) return "images";
+		if (allowedTypes.includes("video")) return "videos";
+		if (allowedTypes.includes("audio")) return "audios";
+		return "images"; // fallback
+	});
 
 	// Helper function to get filename from public_id or original_filename
 	const getFileName = (item: MediaItem) => {
@@ -66,9 +72,20 @@ export function MediaSelector({
 			.finally(() => setLoading(false));
 	}, [session?.user?.id]);
 
+	// Reset active tab when allowed types change
+	useEffect(() => {
+		if (allowedTypes.includes("image")) setActiveTab("images");
+		else if (allowedTypes.includes("video")) setActiveTab("videos");
+		else if (allowedTypes.includes("audio")) setActiveTab("audios");
+	}, [allowedTypes]);
+
 	// Upload handler
 	const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (!e.target.files?.length || !session?.user?.id) return;
+		if (!e.target.files?.length) return;
+		if (!session?.user?.id) {
+			toast.error("Please log in to upload media");
+			return;
+		}
 		const file = e.target.files[0];
 		setUploading(true);
 
@@ -174,21 +191,30 @@ export function MediaSelector({
 				<div className="flex flex-col flex-1 min-h-0">
 					{/* Upload section */}
 					<div className="mb-4 border rounded-lg">
-						<label
-							htmlFor="media-upload"
-							className="flex items-center gap-2 cursor-pointer hover:bg-secondary/10 p-2 rounded transition-colors"
-						>
-							<Upload className="h-4 w-4" />
-							<span>Upload new media</span>
-							<Input
-								id="media-upload"
-								type="file"
-								accept="image/*,audio/*,video/*"
-								onChange={handleUpload}
-								className="hidden"
-							/>
-						</label>
-						{uploading && <p className="text-sm text-muted-foreground mt-2">Uploading...</p>}
+						{session?.user?.id ? (
+							<>
+								<label
+									htmlFor="media-upload"
+									className="flex items-center gap-2 cursor-pointer hover:bg-secondary/10 p-2 rounded transition-colors"
+								>
+									<Upload className="h-4 w-4" />
+									<span>Upload new media</span>
+									<Input
+										id="media-upload"
+										type="file"
+										accept={allowedTypes.map(type => type + "/*").join(",")}
+										onChange={handleUpload}
+										className="hidden"
+									/>
+								</label>
+								{uploading && <p className="text-sm text-muted-foreground p-2">Uploading...</p>}
+							</>
+						) : (
+							<div className="flex items-center gap-2 p-2 text-muted-foreground">
+								<Upload className="h-4 w-4" />
+								<span>Please log in to upload media</span>
+							</div>
+						)}
 					</div>
 
 					{/* Tab buttons */}
@@ -259,8 +285,13 @@ export function MediaSelector({
 															className="object-cover"
 														/>
 													) : item.resource_type === "video" ? (
-														<div className="w-full h-full bg-gray-100 flex items-center justify-center">
-															<Video className="h-8 w-8 text-gray-400" />
+														<div className="w-full h-full">
+															<video
+																src={item.secure_url}
+																controls
+																className="w-full h-full object-cover"
+																style={{ aspectRatio: 1 }}
+															/>
 														</div>
 													) : (
 														<div className="w-full h-full bg-gray-100 flex items-center justify-center">
