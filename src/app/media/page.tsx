@@ -43,13 +43,13 @@ export default function Page() {
 
 	// Helper function to get filename from public_id or original_filename
 	const getFileName = (item: MediaItem) => {
-		console.log(item);
 		if (item.original_filename) {
 			return item.original_filename;
 		}
 		// Extract filename from public_id (remove folder path and extension)
 		const parts = item.public_id.split("/");
 		const filename = parts[parts.length - 1];
+
 		return filename;
 	};
 
@@ -188,16 +188,16 @@ export default function Page() {
 								<span>Loading media...</span>
 							</div>
 						) : (
-							<div className="grid grid-cols-1 sm:grid-cols-2 h-[70vh] md:grid-cols-3 lg:grid-cols-4 gap-6">
+							<div className="grid grid-cols-2 sm:grid-cols-2 h-[70vh] md:grid-cols-3 lg:grid-cols-4 gap-6">
 								{media.length === 0 ? (
 									<div className="col-span-full text-center text-muted-foreground">
 										No media found.
 									</div>
 								) : (
 									media.map(item => (
-										<Card key={item.public_id} className="overflow-hidden">
-											<CardContent className="flex flex-col items-center justify-center p-4">
-												<div className="h-48 w-48 relative flex items-center justify-center rounded-md overflow-hidden mb-3">
+										<Card key={item.public_id} className="p-2">
+											<CardContent className="p-2">
+												<div className="relative aspect-square rounded-md overflow-hidden">
 													{item.resource_type === "image" && (
 														<Image
 															src={item.secure_url}
@@ -219,7 +219,6 @@ export default function Page() {
 													)}
 													{item.resource_type === "audio" && (
 														<div className="w-full h-full flex flex-col items-center justify-center">
-															<div>tes</div>
 															<audio src={item.secure_url} controls className="w-32" />
 														</div>
 													)}
