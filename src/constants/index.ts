@@ -38,7 +38,7 @@ export const NAV_MAIN = [
 		items: [
 			{
 				title: "Publish & Share",
-				url: "#",
+				url: "publish",
 			},
 			{
 				title: "Template Desain",

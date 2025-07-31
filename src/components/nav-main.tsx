@@ -13,6 +13,7 @@ import {
 	SidebarMenuSubButton,
 	SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
 
 export function NavMain({
 	items,
@@ -28,6 +29,8 @@ export function NavMain({
 		}[];
 	}[];
 }) {
+	const pathname = usePathname();
+	console.log(pathname);
 	return (
 		<SidebarGroup>
 			<SidebarGroupLabel>Dashboard</SidebarGroupLabel>
@@ -51,7 +54,14 @@ export function NavMain({
 								<SidebarMenuSub>
 									{item.items?.map(subItem => (
 										<SidebarMenuSubItem key={subItem.title}>
-											<SidebarMenuSubButton asChild>
+											<SidebarMenuSubButton
+												asChild
+												className={
+													pathname == `/${subItem.url}`
+														? "bg-sidebar-accent text-sidebar-accent-foreground"
+														: ""
+												}
+											>
 												<a href={subItem.url}>
 													<span>{subItem.title}</span>
 												</a>

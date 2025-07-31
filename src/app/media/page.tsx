@@ -173,6 +173,7 @@ export default function Page() {
 											accept="image/*,audio/*,video/*"
 											onChange={handleUpload}
 											className="hidden"
+											disabled={uploading}
 										/>
 									</label>
 								) : (
@@ -195,7 +196,7 @@ export default function Page() {
 									</div>
 								) : (
 									media.map(item => (
-										<Card key={item.public_id} className="p-2">
+										<Card key={item.public_id} className="">
 											<CardContent className="p-2">
 												<div className="relative aspect-square rounded-md overflow-hidden">
 													{item.resource_type === "image" && (
@@ -223,8 +224,10 @@ export default function Page() {
 														</div>
 													)}
 												</div>
-												<div className="text-sm text-muted-foreground text-center truncate w-full">
-													{getFileName(item)}
+												<div className="mt-2">
+													<p className="text-xs text-muted-foreground truncate">
+														{getFileName(item)}
+													</p>
 												</div>
 											</CardContent>
 											<CardFooter className="flex justify-end">

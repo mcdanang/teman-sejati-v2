@@ -36,8 +36,13 @@ export function AppSidebar({ session, status, ...props }: AppSidebarProps) {
 	return (
 		<Sidebar collapsible="icon" {...props}>
 			<SidebarHeader className="flex items-center">
-				<Link className="flex px-2 py-1 gap-3" href="/">
-					<Image src={"/images/logo1.svg"} alt="logo" width={120} height={120} />
+				<Link className="flex px-1 py-1 gap-3" href="/">
+					<Image
+						src={open ? "/images/logo1.svg" : "/images/logo2.svg"}
+						alt="logo"
+						width={120}
+						height={120}
+					/>
 				</Link>
 				{status === "loading" ? null : status === "authenticated" ? (
 					activeInvitation ? (
