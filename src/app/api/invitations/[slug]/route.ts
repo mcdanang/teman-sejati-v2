@@ -2,20 +2,33 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
+	const { slug } = await params;
+	const invitation = await prisma.invitation.findUnique({
+		where: { slug },
+		include: {
+			Modules: {
+				orderBy: { order: "asc" },
+			},
+		},
+	});
+	return NextResponse.json(invitation);
+}
+
+export async function PATCH(request: NextRequest, { params }: { params: { slug: string } }) {
 	try {
 		const session = await auth();
 		if (!session?.user?.id) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 		}
 
-		const { id } = params;
+		const { slug } = await params;
 		const body = await request.json();
 
 		// Verify the invitation belongs to the user
 		const invitation = await prisma.invitation.findFirst({
 			where: {
-				id: id,
+				slug: slug,
 				user_id: session.user.id,
 			},
 		});
@@ -27,7 +40,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 		// Update the invitation
 		const updatedInvitation = await prisma.invitation.update({
 			where: {
-				id: id,
+				slug: slug,
 			},
 			data: {
 				...body,

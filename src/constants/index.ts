@@ -37,7 +37,7 @@ export const NAV_MAIN = [
 		isActive: true,
 		items: [
 			{
-				title: "Publish & Share",
+				title: "Bagikan Undangan",
 				url: "publish",
 			},
 			{

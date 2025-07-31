@@ -18,6 +18,7 @@ import { CheckCircle, XCircle, Clock, CreditCard, MessageCircle, Info } from "lu
 import { toast } from "sonner";
 import Image from "next/image";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useInvitations } from "@/hooks/use-invitations";
 
 type Invitation = {
 	id: string;
@@ -30,31 +31,32 @@ type Invitation = {
 
 export default function Page() {
 	const { data: session, status } = useSession();
-	const [invitations, setInvitations] = useState<Invitation[]>([]);
+	const [invitation, setInvitation] = useState<Invitation | null>(null);
 	const [loading, setLoading] = useState(false);
+	const { activeInvitation } = useInvitations();
 
 	// Fetch user's invitations
 	useEffect(() => {
 		if (!session?.user?.id) return;
 		setLoading(true);
-		fetch(`/api/invitations`)
+		if (!activeInvitation) return;
+		fetch(`/api/invitations/${activeInvitation?.slug}`)
 			.then(res => res.json())
 			.then(data => {
-				// The existing API returns { invitations: [...] }
-				setInvitations(data.invitations || []);
+				setInvitation(data);
 			})
 			.catch(error => {
 				console.error("Error fetching invitations:", error);
 				toast.error("Gagal memuat undangan");
 			})
 			.finally(() => setLoading(false));
-	}, [session?.user?.id]);
+	}, [session?.user?.id, activeInvitation]);
 
-	const handlePublishToggle = async (invitationId: string, currentStatus: boolean) => {
+	const handlePublishToggle = async (slug: string, currentStatus: boolean) => {
 		if (!session?.user?.id) return;
 
 		try {
-			const response = await fetch(`/api/invitations/${invitationId}`, {
+			const response = await fetch(`/api/invitations/${slug}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",
@@ -69,9 +71,7 @@ export default function Page() {
 			}
 
 			// Update local state
-			setInvitations(prev =>
-				prev.map(inv => (inv.id === invitationId ? { ...inv, is_published: !currentStatus } : inv))
-			);
+			setInvitation(prev => (prev ? { ...prev, is_published: !currentStatus } : null));
 
 			toast.success(currentStatus ? "Undangan dibatalkan publikasinya" : "Undangan dipublikasikan");
 		} catch (error) {
@@ -131,7 +131,7 @@ export default function Page() {
 
 		return (
 			<Button
-				onClick={() => handlePublishToggle(invitation.id, invitation.is_published)}
+				onClick={() => handlePublishToggle(invitation.slug, invitation.is_published)}
 				variant={invitation.is_published ? "destructive" : "default"}
 				className="w-full"
 			>
@@ -166,7 +166,7 @@ export default function Page() {
 									</BreadcrumbItem>
 									<BreadcrumbSeparator className="hidden md:block" />
 									<BreadcrumbItem>
-										<BreadcrumbPage>Publish & Share</BreadcrumbPage>
+										<BreadcrumbPage>Bagikan Undangan</BreadcrumbPage>
 									</BreadcrumbItem>
 								</BreadcrumbList>
 							</Breadcrumb>
@@ -176,9 +176,9 @@ export default function Page() {
 						<div className="bg-white flex-1 rounded-xl h-full overflow-scroll shadow-xl p-6">
 							<div className="flex items-center justify-between mb-6">
 								<div>
-									<h2 className="text-xl font-semibold">Publikasi & Bagikan</h2>
+									<h2 className="text-xl font-semibold">Bagikan Undangan</h2>
 									<p className="text-sm text-muted-foreground mt-1">
-										Kelola status publikasi dan pembayaran undangan Anda
+										Kelola status publikasi undangan Anda
 									</p>
 								</div>
 							</div>
@@ -188,7 +188,7 @@ export default function Page() {
 								<div className="flex items-center justify-center h-[70vh]">
 									<span>Memuat undangan...</span>
 								</div>
-							) : invitations.length === 0 ? (
+							) : !invitation ? (
 								<div className="text-center py-12">
 									<div className="text-muted-foreground mb-4">
 										<CreditCard className="h-12 w-12 mx-auto mb-4 opacity-50" />
@@ -199,8 +199,8 @@ export default function Page() {
 									</div>
 								</div>
 							) : (
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-									{invitations.map(invitation => (
+								<div className="flex gap-6">
+									{invitation && (
 										<Card key={invitation.id} className="">
 											<CardHeader className="pb-3">
 												<div className="flex flex-col items-start justify-between gap-2">
@@ -212,7 +212,7 @@ export default function Page() {
 																.replace(/\b\w/g, l => l.toUpperCase())}
 														</CardTitle>
 														<CardDescription className="mt-1">
-															Slug: {invitation.slug}
+															Tautan: {invitation.slug}
 														</CardDescription>
 													</div>
 												</div>
@@ -286,7 +286,7 @@ export default function Page() {
 												</div>
 											</CardContent>
 										</Card>
-									))}
+									)}
 								</div>
 							)}
 						</div>

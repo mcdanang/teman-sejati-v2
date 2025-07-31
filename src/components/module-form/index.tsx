@@ -1,5 +1,4 @@
-import { ModuleName } from "@/types";
-import { useInvitations } from "@/hooks/use-invitations";
+import { InvitationWithModules, ModuleName } from "@/types";
 import { ModuleForm as CoverModuleForm } from "./cover";
 import { ModuleForm as OpeningModuleForm } from "./opening";
 import { ModuleForm as QuotesModuleForm } from "./quotes";
@@ -15,36 +14,36 @@ import { ModuleForm as ClosingModuleForm } from "./closing";
 
 export function ModuleForm({
 	moduleName,
-	invitations,
+	activeInvitation,
 }: {
 	moduleName: ModuleName;
-	invitations: ReturnType<typeof useInvitations>;
+	activeInvitation: InvitationWithModules;
 }) {
 	switch (moduleName) {
 		case "Cover":
-			return <CoverModuleForm invitations={invitations} />;
+			return <CoverModuleForm activeInvitation={activeInvitation} />;
 		case "Opening":
-			return <OpeningModuleForm invitations={invitations} />;
+			return <OpeningModuleForm activeInvitation={activeInvitation} />;
 		case "Quotes":
-			return <QuotesModuleForm invitations={invitations} />;
+			return <QuotesModuleForm activeInvitation={activeInvitation} />;
 		case "Mempelai Pria":
-			return <GroomModuleForm invitations={invitations} />;
+			return <GroomModuleForm activeInvitation={activeInvitation} />;
 		case "Mempelai Wanita":
-			return <BrideModuleForm invitations={invitations} />;
+			return <BrideModuleForm activeInvitation={activeInvitation} />;
 		case "Waktu":
-			return <TimeModuleForm invitations={invitations} />;
+			return <TimeModuleForm activeInvitation={activeInvitation} />;
 		case "Lokasi":
-			return <LocationModuleForm invitations={invitations} />;
+			return <LocationModuleForm activeInvitation={activeInvitation} />;
 		case "RSVP":
-			return <RSVPModuleForm invitations={invitations} />;
+			return <RSVPModuleForm activeInvitation={activeInvitation} />;
 		case "Gallery":
-			return <GalleryModuleForm invitations={invitations} />;
+			return <GalleryModuleForm activeInvitation={activeInvitation} />;
 		case "Wedding Gift":
-			return <WeddingGiftModuleForm invitations={invitations} />;
+			return <WeddingGiftModuleForm activeInvitation={activeInvitation} />;
 		case "Wedding Wishes":
-			return <WeddingWishesModuleForm invitations={invitations} />;
+			return <WeddingWishesModuleForm activeInvitation={activeInvitation} />;
 		case "Closing":
-			return <ClosingModuleForm invitations={invitations} />;
+			return <ClosingModuleForm activeInvitation={activeInvitation} />;
 		default:
 			return null;
 	}

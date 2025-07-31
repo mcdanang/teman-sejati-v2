@@ -29,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef } from "react";
 import { MediaSelector } from "@/components/media-selector";
 import Image from "next/image";
+import { InvitationWithModules } from "@/types";
 
 export const Schema = z.object({
 	title: z
@@ -57,8 +58,8 @@ export const Schema = z.object({
 
 export type Data = z.infer<typeof Schema>;
 
-export function ModuleForm({ invitations }: { invitations: ReturnType<typeof useInvitations> }) {
-	const { updateModule, activeInvitation } = invitations;
+export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationWithModules }) {
+	const { updateModule } = useInvitations();
 	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Cover");
 	const moduleData = editedModule?.content as Data;
 	const sheetCloseRef = useRef<HTMLButtonElement>(null);

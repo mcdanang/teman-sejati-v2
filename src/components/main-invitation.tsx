@@ -1,15 +1,15 @@
 import { designs } from "@/lib/designs";
 import { InputJsonValue } from "@prisma/client/runtime/library";
 import { ModuleForm } from "./module-form";
-import { useInvitations } from "@/hooks/use-invitations";
-import { ModuleName } from "@/types";
+import { InvitationWithModules, ModuleName } from "@/types";
 
 export function MainInvitation({
-	invitations,
+	activeInvitation,
+	editMode = false,
 }: {
-	invitations: ReturnType<typeof useInvitations>;
+	activeInvitation: InvitationWithModules | null;
+	editMode?: boolean;
 }) {
-	const { activeInvitation } = invitations;
 	if (!activeInvitation) {
 		return (
 			<div className="flex items-center justify-center h-full">
@@ -40,7 +40,12 @@ export function MainInvitation({
 					if (mod.content === null) return null;
 					return (
 						<div key={mod.name} id={id as string} className="relative group">
-							<ModuleForm moduleName={mod.name as ModuleName} invitations={invitations} />
+							{editMode && (
+								<ModuleForm
+									moduleName={mod.name as ModuleName}
+									activeInvitation={activeInvitation}
+								/>
+							)}
 							<Component data={mod.content as InputJsonValue} />
 						</div>
 					);
