@@ -1,7 +1,7 @@
 "use client";
 import { signIn } from "next-auth/react";
 import * as React from "react";
-import { LogIn } from "lucide-react";
+import { Share } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
 import { NavModules } from "@/components/nav-modules";
@@ -61,7 +61,7 @@ export function AppSidebar({ session, status, ...props }: AppSidebarProps) {
 				)}
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={NAV_MAIN} />
+				{session?.user && <NavMain items={NAV_MAIN} />}
 				{activeInvitation && <NavModules modules={activeInvitation.Modules} />}
 			</SidebarContent>
 			<SidebarFooter>
@@ -93,12 +93,8 @@ function SignInWithProvider({ provider, open, ...props }: SignInWithProviderProp
 			}}
 		>
 			<Button {...props} size={open ? "default" : "icon"} className="w-full flex">
-				<LogIn className="data-[state=open]:mr-2 size-4" />
-				{open && (
-					<div className="gap-0 flex">
-						Login dengan <span className="capitalize">&nbsp;{provider}</span>
-					</div>
-				)}
+				<Share className="data-[state=open]:mr-2 size-4" />
+				{open && <div className="gap-0 flex">Bagikan undangan anda</div>}
 			</Button>
 		</form>
 	);

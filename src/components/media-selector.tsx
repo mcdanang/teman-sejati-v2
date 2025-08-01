@@ -62,6 +62,19 @@ export function MediaSelector({
 		return filename;
 	};
 
+	const getTabName = (tab: "images" | "videos" | "audios") => {
+		switch (tab) {
+			case "images":
+				return "Gambar";
+			case "videos":
+				return "Video";
+			case "audios":
+				return "Audio";
+			default:
+				return "Gambar";
+		}
+	};
+
 	// Fetch media from Cloudinary
 	useEffect(() => {
 		if (!session?.user?.id) return;
@@ -83,7 +96,7 @@ export function MediaSelector({
 	const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.files?.length) return;
 		if (!session?.user?.id) {
-			toast.error("Please log in to upload media");
+			toast.error("Silakan login untuk mengunggah media");
 			return;
 		}
 		const file = e.target.files[0];
@@ -174,17 +187,17 @@ export function MediaSelector({
 				{trigger || (
 					<Button variant="outline" size="sm">
 						<ImageIcon className="h-4 w-4 mr-2" />
-						Select Media
+						Pilih Media
 					</Button>
 				)}
 			</DialogTrigger>
 			<DialogContent className="max-w-4xl max-h-[80vh] flex flex-col">
 				<DialogHeader>
-					<DialogTitle>Select Media</DialogTitle>
+					<DialogTitle>Pilih Media</DialogTitle>
 					<DialogDescription>
 						{multiple
-							? "Choose multiple media files to use in your module."
-							: "Choose one media file to use in your module."}
+							? "Pilih beberapa media untuk digunakan di modul anda."
+							: "Pilih satu media untuk digunakan di modul anda."}
 					</DialogDescription>
 				</DialogHeader>
 
@@ -198,7 +211,7 @@ export function MediaSelector({
 									className="flex items-center gap-2 cursor-pointer hover:bg-secondary/10 p-2 rounded transition-colors"
 								>
 									<Upload className="h-4 w-4" />
-									<span>Upload new media</span>
+									<span>Unggah media baru</span>
 									<Input
 										id="media-upload"
 										type="file"
@@ -212,7 +225,7 @@ export function MediaSelector({
 						) : (
 							<div className="flex items-center gap-2 p-2 text-muted-foreground">
 								<Upload className="h-4 w-4" />
-								<span>Please log in to upload media</span>
+								<span>Silakan login untuk mengunggah media</span>
 							</div>
 						)}
 					</div>
@@ -227,7 +240,7 @@ export function MediaSelector({
 								className="flex items-center gap-2"
 							>
 								<ImageIcon className="h-4 w-4" />
-								Images ({images.length})
+								{getTabName("images")} ({images.length})
 							</Button>
 						)}
 						{allowedTypes.includes("video") && (
@@ -238,7 +251,7 @@ export function MediaSelector({
 								className="flex items-center gap-2"
 							>
 								<Video className="h-4 w-4" />
-								Videos ({videos.length})
+								{getTabName("videos")} ({videos.length})
 							</Button>
 						)}
 						{allowedTypes.includes("audio") && (
@@ -249,7 +262,7 @@ export function MediaSelector({
 								className="flex items-center gap-2"
 							>
 								<Music className="h-4 w-4" />
-								Audio ({audios.length})
+								{getTabName("audios")} ({audios.length})
 							</Button>
 						)}
 					</div>
@@ -257,14 +270,14 @@ export function MediaSelector({
 					{/* Media content - scrollable area */}
 					{loading ? (
 						<div className="flex items-center justify-center h-64">
-							<span>Loading media...</span>
+							<span>Memuat media...</span>
 						</div>
 					) : (
 						<div className="flex-1 overflow-y-auto min-h-0">
 							<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-1">
 								{getCurrentMedia().length === 0 ? (
 									<div className="col-span-full text-center text-muted-foreground py-8">
-										No {activeTab} found.
+										Tidak ada {getTabName(activeTab)} ditemukan.
 									</div>
 								) : (
 									getCurrentMedia().map(item => (
@@ -322,16 +335,16 @@ export function MediaSelector({
 						<div className="flex items-center gap-2">
 							{selectedItems.length > 0 && (
 								<span className="text-sm text-muted-foreground">
-									{selectedItems.length} selected
+									{selectedItems.length} dipilih
 								</span>
 							)}
 						</div>
 						<div className="flex gap-2">
 							<Button variant="outline" onClick={() => setOpen(false)}>
-								Cancel
+								Batal
 							</Button>
 							<Button onClick={handleConfirm} disabled={selectedItems.length === 0}>
-								Select {selectedItems.length > 0 ? `(${selectedItems.length})` : ""}
+								Pilih {selectedItems.length > 0 ? `(${selectedItems.length})` : ""}
 							</Button>
 						</div>
 					</div>

@@ -25,7 +25,7 @@ export const Opening = ({ data }: { data: InputJsonValue }) => {
 					/>
 				) : (
 					<div className="mt-6 w-[400px] h-[300px] bg-gray-100 rounded-lg shadow-lg flex items-center justify-center">
-						<p className="text-gray-500">No video selected</p>
+						<p className="text-gray-500">Tidak ada video yang dipilih</p>
 					</div>
 				)}
 			</div>
