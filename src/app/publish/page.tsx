@@ -12,13 +12,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { CheckCircle, XCircle, Clock, CreditCard, MessageCircle, Info } from "lucide-react";
+import {
+	CheckCircle,
+	XCircle,
+	Clock,
+	CreditCard,
+	MessageCircle,
+	Info,
+	Edit,
+	Save,
+	X,
+} from "lucide-react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useInvitations } from "@/hooks/use-invitations";
+import Link from "next/link";
 
 type Invitation = {
 	id: string;
@@ -32,7 +45,10 @@ type Invitation = {
 export default function Page() {
 	const { data: session, status } = useSession();
 	const [invitation, setInvitation] = useState<Invitation | null>(null);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
+	const [editingSlug, setEditingSlug] = useState(false);
+	const [newSlug, setNewSlug] = useState("");
+	const [slugLoading, setSlugLoading] = useState(false);
 	const { activeInvitation } = useInvitations();
 
 	// Fetch user's invitations
@@ -78,6 +94,73 @@ export default function Page() {
 			console.error("Error updating publish status:", error);
 			toast.error("Gagal memperbarui status publikasi");
 		}
+	};
+
+	const handleSlugEdit = () => {
+		setEditingSlug(true);
+		setNewSlug(invitation?.slug || "");
+	};
+
+	const handleSlugSave = async () => {
+		if (!session?.user?.id || !invitation) return;
+
+		const trimmedSlug = newSlug.trim();
+		if (!trimmedSlug) {
+			toast.error("Slug tidak boleh kosong");
+			return;
+		}
+
+		if (trimmedSlug === invitation.slug) {
+			setEditingSlug(false);
+			return;
+		}
+
+		setSlugLoading(true);
+		try {
+			// First check if slug is unique
+			const checkResponse = await fetch(
+				`/api/invitations/check-slug?slug=${encodeURIComponent(trimmedSlug)}`
+			);
+			if (!checkResponse.ok) {
+				throw new Error("Failed to check slug availability");
+			}
+
+			const checkData = await checkResponse.json();
+			if (!checkData.available) {
+				toast.error("Slug sudah digunakan, silakan pilih yang lain");
+				return;
+			}
+
+			// Update the slug
+			const response = await fetch(`/api/invitations/${invitation.slug}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					slug: trimmedSlug,
+				}),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to update slug");
+			}
+
+			const updatedInvitation = await response.json();
+			setInvitation(updatedInvitation);
+			setEditingSlug(false);
+			toast.success("Slug berhasil diperbarui");
+		} catch (error) {
+			console.error("Error updating slug:", error);
+			toast.error("Gagal memperbarui slug");
+		} finally {
+			setSlugLoading(false);
+		}
+	};
+
+	const handleSlugCancel = () => {
+		setEditingSlug(false);
+		setNewSlug("");
 	};
 
 	const getStatusBadge = (invitation: Invitation) => {
@@ -211,8 +294,66 @@ export default function Page() {
 																.replace(/-/g, " ")
 																.replace(/\b\w/g, l => l.toUpperCase())}
 														</CardTitle>
-														<CardDescription className="mt-1">
-															Tautan: {invitation.slug}
+														<CardDescription className="mt-1 flex flex-col">
+															Tautan:{" "}
+															{editingSlug ? (
+																<div className="flex flex-col gap-2">
+																	<div className="flex items-center">
+																		<Label htmlFor="slug-input" className="text-accent">
+																			{process.env.NEXT_PUBLIC_API_URL}/w/
+																		</Label>
+																		<Input
+																			id="slug-input"
+																			value={newSlug}
+																			onChange={e => setNewSlug(e.target.value)}
+																			placeholder="masukkan-slug-baru"
+																			className="h-6 px-1"
+																		/>
+																	</div>
+																	<div className="flex items-center gap-2">
+																		<Button
+																			size="sm"
+																			onClick={handleSlugSave}
+																			disabled={slugLoading}
+																			className="h-8 px-2"
+																		>
+																			{slugLoading ? (
+																				<span className="animate-spin">⏳</span>
+																			) : (
+																				<Save className="h-3 w-3" />
+																			)}
+																		</Button>
+																		<Button
+																			size="sm"
+																			variant="outline"
+																			onClick={handleSlugCancel}
+																			disabled={slugLoading}
+																			className="h-8 px-2"
+																		>
+																			<X className="h-3 w-3" />
+																		</Button>
+																	</div>
+																</div>
+															) : (
+																<div className="flex items-center gap-2">
+																	<Link
+																		href={`${process.env.NEXT_PUBLIC_API_URL}/w/${invitation.slug}`}
+																		target="_blank"
+																		rel="noopener noreferrer"
+																		className="text-accent font-medium"
+																	>
+																		{process.env.NEXT_PUBLIC_API_URL}/w/{invitation.slug}
+																	</Link>
+																	<Button
+																		size="sm"
+																		variant="ghost"
+																		onClick={handleSlugEdit}
+																		className="h-6 w-6 p-0"
+																	>
+																		<Edit className="h-3 w-3" />
+																	</Button>
+																</div>
+															)}
 														</CardDescription>
 													</div>
 												</div>

@@ -38,7 +38,7 @@ type MediaItem = {
 export default function Page() {
 	const { data: session, status } = useSession();
 	const [media, setMedia] = useState<MediaItem[]>([]);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [uploading, setUploading] = useState(false);
 
 	// Helper function to get filename from public_id or original_filename
@@ -165,7 +165,7 @@ export default function Page() {
 								{session?.user?.id ? (
 									<label htmlFor="media-upload">
 										<Button asChild variant="outline" size="sm" disabled={uploading}>
-											<span>{uploading ? "Uploading..." : "Upload Media"}</span>
+											<span>{uploading ? "Mengunggah..." : "Unggah Media"}</span>
 										</Button>
 										<Input
 											id="media-upload"
@@ -178,7 +178,7 @@ export default function Page() {
 									</label>
 								) : (
 									<Button variant="outline" size="sm" disabled>
-										Please log in to upload
+										Silakan login untuk mengunggah media
 									</Button>
 								)}
 							</div>
@@ -186,13 +186,13 @@ export default function Page() {
 						<Separator className="mb-6" />
 						{loading ? (
 							<div className="flex items-center justify-center h-[70vh]">
-								<span>Loading media...</span>
+								<span>Memuat media...</span>
 							</div>
 						) : (
 							<div className="grid grid-cols-2 sm:grid-cols-2 h-[70vh] md:grid-cols-3 lg:grid-cols-4 gap-6">
 								{media.length === 0 ? (
 									<div className="col-span-full text-center text-muted-foreground">
-										No media found.
+										Tidak ada media yang ditemukan.
 									</div>
 								) : (
 									media.map(item => (
@@ -234,24 +234,24 @@ export default function Page() {
 												<AlertDialog>
 													<AlertDialogTrigger asChild>
 														<Button variant="destructive" size="sm">
-															Delete
+															Hapus
 														</Button>
 													</AlertDialogTrigger>
 													<AlertDialogContent>
 														<AlertDialogHeader>
-															<AlertDialogTitle>Delete Media</AlertDialogTitle>
+															<AlertDialogTitle>Hapus Media</AlertDialogTitle>
 															<AlertDialogDescription>
-																Are you sure you want to delete this media? This action cannot be
-																undone.
+																Apakah anda yakin ingin menghapus media ini? Aksi ini tidak dapat
+																dibatalkan.
 															</AlertDialogDescription>
 														</AlertDialogHeader>
 														<AlertDialogFooter>
-															<AlertDialogCancel>Cancel</AlertDialogCancel>
+															<AlertDialogCancel>Batal</AlertDialogCancel>
 															<AlertDialogAction
 																onClick={() => handleDelete(item.public_id, item.resource_type)}
 																className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
 															>
-																Delete
+																Hapus
 															</AlertDialogAction>
 														</AlertDialogFooter>
 													</AlertDialogContent>
