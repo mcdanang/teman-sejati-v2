@@ -24,7 +24,6 @@ import {
 	MessageCircle,
 	Info,
 	Edit,
-	Save,
 	X,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -32,19 +31,13 @@ import Image from "next/image";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useInvitations } from "@/hooks/use-invitations";
 import Link from "next/link";
+import ShareLinkCard from "@/components/share-link";
 
-type Invitation = {
-	id: string;
-	slug: string;
-	design: string;
-	is_paid: boolean;
-	is_published: boolean;
-	created_at: string;
-};
+import { InvitationWithModules } from "@/types";
 
 export default function Page() {
 	const { data: session, status } = useSession();
-	const [invitation, setInvitation] = useState<Invitation | null>(null);
+	const [invitation, setInvitation] = useState<InvitationWithModules | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [editingSlug, setEditingSlug] = useState(false);
 	const [newSlug, setNewSlug] = useState("");
@@ -163,7 +156,7 @@ export default function Page() {
 		setNewSlug("");
 	};
 
-	const getStatusBadge = (invitation: Invitation) => {
+	const getStatusBadge = (invitation: InvitationWithModules) => {
 		if (!invitation.is_paid) {
 			return (
 				<Badge variant="destructive" className="flex items-center gap-1">
@@ -188,7 +181,7 @@ export default function Page() {
 		);
 	};
 
-	const getActionButton = (invitation: Invitation) => {
+	const getActionButton = (invitation: InvitationWithModules) => {
 		if (!invitation.is_paid) {
 			return (
 				<div className="space-y-2">
@@ -282,80 +275,79 @@ export default function Page() {
 									</div>
 								</div>
 							) : (
-								<div className="flex gap-6">
-									{invitation && (
-										<Card key={invitation.id} className="">
-											<CardHeader className="pb-3">
+								invitation && (
+									<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+										<Card key={invitation.id}>
+											<CardHeader>
 												<div className="flex flex-col items-start justify-between gap-2">
 													<div className="flex gap-2">{getStatusBadge(invitation)}</div>
-													<div className="flex-1">
-														<CardTitle className="text-lg">
-															{invitation.design
-																.replace(/-/g, " ")
-																.replace(/\b\w/g, l => l.toUpperCase())}
-														</CardTitle>
-														<CardDescription className="mt-1 flex flex-col">
-															Tautan:{" "}
-															{editingSlug ? (
-																<div className="flex flex-col gap-2">
-																	<div className="flex items-center">
-																		<Label htmlFor="slug-input" className="text-accent">
-																			{process.env.NEXT_PUBLIC_API_URL}/w/
-																		</Label>
-																		<Input
-																			id="slug-input"
-																			value={newSlug}
-																			onChange={e => setNewSlug(e.target.value)}
-																			placeholder="masukkan-slug-baru"
-																			className="h-6 px-1"
-																		/>
-																	</div>
-																	<div className="flex items-center gap-2">
-																		<Button
-																			size="sm"
-																			onClick={handleSlugSave}
-																			disabled={slugLoading}
-																			className="h-8 px-2"
-																		>
-																			{slugLoading ? (
-																				<span className="animate-spin">⏳</span>
-																			) : (
-																				<Save className="h-3 w-3" />
-																			)}
-																		</Button>
-																		<Button
-																			size="sm"
-																			variant="outline"
-																			onClick={handleSlugCancel}
-																			disabled={slugLoading}
-																			className="h-8 px-2"
-																		>
-																			<X className="h-3 w-3" />
-																		</Button>
-																	</div>
+
+													<CardTitle className="text-lg">
+														{invitation.design
+															.replace(/-/g, " ")
+															.replace(/\b\w/g, l => l.toUpperCase())}
+													</CardTitle>
+													<CardDescription className="flex flex-col h-16">
+														Tautan:{" "}
+														{editingSlug ? (
+															<div className="flex flex-col gap-2">
+																<div className="flex items-center">
+																	<Label htmlFor="slug-input" className="text-accent">
+																		{process.env.NEXT_PUBLIC_API_URL}/w/
+																	</Label>
+																	<Input
+																		id="slug-input"
+																		value={newSlug}
+																		onChange={e => setNewSlug(e.target.value)}
+																		placeholder="masukkan-slug-baru"
+																		className="h-6 px-1"
+																	/>
 																</div>
-															) : (
 																<div className="flex items-center gap-2">
-																	<Link
-																		href={`${process.env.NEXT_PUBLIC_API_URL}/w/${invitation.slug}`}
-																		target="_blank"
-																		rel="noopener noreferrer"
-																		className="text-accent font-medium"
-																	>
-																		{process.env.NEXT_PUBLIC_API_URL}/w/{invitation.slug}
-																	</Link>
 																	<Button
 																		size="sm"
-																		variant="ghost"
-																		onClick={handleSlugEdit}
-																		className="h-6 w-6 p-0"
+																		onClick={handleSlugSave}
+																		disabled={slugLoading}
+																		className="h-8 px-2"
 																	>
-																		<Edit className="h-3 w-3" />
+																		{slugLoading ? (
+																			<span className="animate-spin">⏳</span>
+																		) : (
+																			<span>Simpan</span>
+																		)}
+																	</Button>
+																	<Button
+																		size="sm"
+																		variant="outline"
+																		onClick={handleSlugCancel}
+																		disabled={slugLoading}
+																		className="h-8 px-2"
+																	>
+																		<X className="h-3 w-3" />
 																	</Button>
 																</div>
-															)}
-														</CardDescription>
-													</div>
+															</div>
+														) : (
+															<div className="flex items-center gap-2">
+																<Link
+																	href={`${process.env.NEXT_PUBLIC_API_URL}/w/${invitation.slug}`}
+																	target="_blank"
+																	rel="noopener noreferrer"
+																	className="text-accent font-medium"
+																>
+																	{process.env.NEXT_PUBLIC_API_URL}/w/{invitation.slug}
+																</Link>
+																<Button
+																	size="sm"
+																	variant="ghost"
+																	onClick={handleSlugEdit}
+																	className="h-6 w-6 p-0"
+																>
+																	<Edit className="h-3 w-3" />
+																</Button>
+															</div>
+														)}
+													</CardDescription>
 												</div>
 											</CardHeader>
 											<CardContent className="pt-0">
@@ -427,8 +419,9 @@ export default function Page() {
 												</div>
 											</CardContent>
 										</Card>
-									)}
-								</div>
+										<ShareLinkCard activeInvitation={invitation} />
+									</div>
+								)
 							)}
 						</div>
 					</div>
