@@ -60,5 +60,5 @@ export async function middleware(req: NextRequest) {
 
 // Apply the middleware to the desired routes
 export const config = {
-	matcher: ["/member/:path*", "/api/member/:path*"],
+	matcher: ["/member/:path*", "/api/member/:path*", "/publish", "/editor", "/media"],
 };

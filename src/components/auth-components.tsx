@@ -34,7 +34,7 @@ export function SignInWithProvider({ provider, ...props }: SignInWithProviderPro
 	return (
 		<form
 			action={async () => {
-				await signIn(provider, { callbackUrl: "/member/dashboard" });
+				await signIn(provider, { callbackUrl: "/editor" });
 			}}
 		>
 			<Button {...props} variant="outline">
