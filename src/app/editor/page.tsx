@@ -40,8 +40,8 @@ export default function Page() {
 						</Breadcrumb>
 					</div>
 				</header>
-				<div className="flex flex-1 flex-col gap-4 p-4 pt-0 h-screen overflow-hidden">
-					<div className="bg-muted/50 flex-1 rounded-xl h-full overflow-scroll shadow-xl">
+				<div className="flex flex-1 flex-col gap-4 px-4 pb-4 h-screen overflow-hidden">
+					<div className="bg-primary/10 flex-1 rounded-xl h-full overflow-scroll shadow-xl">
 						{isLoading ? (
 							<div className="flex items-center justify-center h-full">
 								<Loader2 className="animate-spin h-8 w-8 mx-auto text-gray-500" />

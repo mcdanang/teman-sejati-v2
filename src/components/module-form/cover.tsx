@@ -30,12 +30,13 @@ import { useEffect, useRef } from "react";
 import { MediaSelector } from "@/components/media-selector";
 import Image from "next/image";
 import { InvitationWithModules } from "@/types";
+import { useCoverStore } from "@/stores/cover-store";
+import { cn } from "@/lib/utils";
 
 export const Schema = z.object({
 	title: z
 		.string({ error: "Judul tidak boleh kosong" })
 		.min(1, { message: "Judul tidak boleh kosong" }),
-	subtitle: z.string().optional(),
 	image: z
 		.string({ error: "Gambar tidak boleh kosong" })
 		.min(1, { message: "Gambar tidak boleh kosong" })
@@ -102,11 +103,16 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 		}
 	};
 
+	const { isMovedUp } = useCoverStore();
+
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
 				<Button
-					className="absolute top-2 right-2 lg:opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-1 shadow hover:bg-gray-100"
+					className={cn(
+						"absolute z-30 top-2 right-2 lg:opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-1 shadow hover:bg-gray-100",
+						isMovedUp && "hidden"
+					)}
 					aria-label="Edit module"
 				>
 					<Pen className="h-4 w-4 text-gray-600" />
@@ -135,19 +141,7 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 									</FormItem>
 								)}
 							/>
-							<FormField
-								control={form.control}
-								name="subtitle"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Sub Judul</FormLabel>
-										<FormControl>
-											<Input type="text" {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
+
 							<FormField
 								control={form.control}
 								name="image"

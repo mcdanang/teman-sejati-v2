@@ -25,12 +25,12 @@ export function MainInvitation({
 
 	return (
 		<div
-			className={`bg-fixed bg-gray-100 bg-cover bg-center`}
+			className={`bg-fixed bg-gray-100 bg-cover bg-center relative`}
 			style={{
 				backgroundImage: `url(${activeInvitation.desktop_bg})`,
 			}}
 		>
-			<div className="max-w-md mx-auto min-h-screen bg-white p-4 space-y-6 shadow-lg ">
+			<div className="absolute inset-0 max-w-md mx-auto min-h-screen bg-white shadow-lg ">
 				{modules.map(mod => {
 					const id = mod.name.replace(/\s+/g, "");
 					const moduleData = design.modules[mod.name as keyof typeof design.modules];
