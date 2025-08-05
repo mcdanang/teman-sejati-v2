@@ -1,7 +1,6 @@
 import { designs } from "@/lib/designs";
-import { InputJsonValue } from "@prisma/client/runtime/library";
 import { ModuleForm } from "./module-form";
-import { InvitationWithModules, ModuleName } from "@/types";
+import { InvitationWithModules, ModuleData, ModuleName } from "@/types";
 
 export function MainInvitation({
 	activeInvitation,
@@ -35,7 +34,7 @@ export function MainInvitation({
 					const id = mod.name.replace(/\s+/g, "");
 					const moduleData = design.modules[mod.name as keyof typeof design.modules];
 					if (!moduleData) return null;
-					const Component = moduleData.Component;
+					const Component = moduleData;
 					if (!Component) return null;
 					if (mod.content === null) return null;
 					return (
@@ -46,7 +45,7 @@ export function MainInvitation({
 									activeInvitation={activeInvitation}
 								/>
 							)}
-							<Component data={mod.content as InputJsonValue} />
+							<Component data={mod.content as ModuleData} />
 						</div>
 					);
 				})}

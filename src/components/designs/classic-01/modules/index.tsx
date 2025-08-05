@@ -3,11 +3,11 @@ import { Closing } from "./closing";
 import { Cover } from "./cover";
 import { Gallery } from "./gallery";
 import { Groom } from "./groom";
-import { Lokasi } from "./lokasi";
+import { Lokasi } from "./location";
 import { Opening } from "./opening";
 import { Quotes } from "./quotes";
 import { RSVP } from "./rsvp";
-import { Waktu } from "./waktu";
+import { Waktu } from "./time";
 import { WeddingGift } from "./wedding-gift";
 import { WeddingWishes } from "./wedding-wishes";
 
