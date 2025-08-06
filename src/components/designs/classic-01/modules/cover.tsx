@@ -6,7 +6,7 @@ import { Data } from "../module-forms/cover";
 export const Cover = ({ data }: { data: ModuleData }) => {
 	const moduleData = data as Data;
 	return (
-		<section className="text-center py-12 bg-[#706539] flex flex-col items-center">
+		<section className="text-center py-12 bg-[#5c1325] flex flex-col items-center">
 			<div className="text-5xl mx-auto font-cedarville font-bold text-white -rotate-6 space-y-1 translate-y-6">
 				<h1>{moduleData?.groom_short_name ?? "John"}</h1>
 				<h1>{`and ${moduleData?.bride_short_name ?? "Jane"}`}</h1>
