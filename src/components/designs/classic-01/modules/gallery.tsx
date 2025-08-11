@@ -1,3 +1,4 @@
+import { DraggableCard } from "@/components/draggable-card";
 import { InputJsonValue } from "@prisma/client/runtime/library";
 import Image from "next/image";
 import React from "react";
@@ -25,6 +26,7 @@ export const Gallery = ({ data }: { data: InputJsonValue }) => {
 					height={300}
 				/>
 			</div>
+			<DraggableCard />
 		</section>
 	);
 };
