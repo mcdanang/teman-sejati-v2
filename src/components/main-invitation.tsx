@@ -1,6 +1,5 @@
 import { designs } from "@/lib/designs";
-import { ModuleForm } from "./module-form";
-import { InvitationWithModules, ModuleData, ModuleName } from "@/types";
+import { InvitationWithModules, ModuleData } from "@/types";
 
 export function MainInvitation({
 	activeInvitation,
@@ -37,14 +36,18 @@ export function MainInvitation({
 					const Component = moduleData;
 					if (!Component) return null;
 					if (mod.content === null) return null;
+
+					// Get the design-specific ModuleForm component from the design definition
+					const ModuleForm = editMode
+						? design.forms?.[mod.name as keyof typeof design.forms]
+						: null;
+
+					console.log(editMode);
+					console.log(ModuleForm);
+
 					return (
 						<div key={mod.name} id={id as string} className="relative group">
-							{editMode && (
-								<ModuleForm
-									moduleName={mod.name as ModuleName}
-									activeInvitation={activeInvitation}
-								/>
-							)}
+							{editMode && ModuleForm && <ModuleForm activeInvitation={activeInvitation} />}
 							<Component data={mod.content as ModuleData} />
 						</div>
 					);

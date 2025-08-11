@@ -22,7 +22,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useInvitations } from "@/hooks/use-invitations";
-import { ImageIcon, Pen } from "lucide-react";
+import { Pen, Video } from "lucide-react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,60 +32,7 @@ import { InvitationWithModules } from "@/types";
 import Image from "next/image";
 
 export const Schema = z.object({
-	envelope_image: z
-		.string({ error: "Gambar tidak boleh kosong" })
-		.min(1, { message: "Gambar tidak boleh kosong" })
-		.url({ message: "URL gambar tidak valid" })
-		.refine(
-			url => {
-				// Check if it's a valid image URL (basic check)
-				const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
-				const isImageUrl = imageExtensions.some(
-					ext =>
-						url.toLowerCase().includes(ext) ||
-						url.includes("cloudinary.com") ||
-						url.includes("res.cloudinary.com")
-				);
-				return isImageUrl;
-			},
-			{ message: "URL harus berupa gambar yang valid" }
-		),
-	image1: z
-		.string({ error: "Gambar tidak boleh kosong" })
-		.min(1, { message: "Gambar tidak boleh kosong" })
-		.url({ message: "URL gambar tidak valid" })
-		.refine(
-			url => {
-				// Check if it's a valid image URL (basic check)
-				const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
-				const isImageUrl = imageExtensions.some(
-					ext =>
-						url.toLowerCase().includes(ext) ||
-						url.includes("cloudinary.com") ||
-						url.includes("res.cloudinary.com")
-				);
-				return isImageUrl;
-			},
-			{ message: "URL harus berupa gambar yang valid" }
-		),
-	image2: z
-		.string({ error: "Gambar tidak boleh kosong" })
-		.min(1, { message: "Gambar tidak boleh kosong" })
-		.url({ message: "URL gambar tidak valid" })
-		.refine(
-			url => {
-				// Check if it's a valid image URL (basic check)
-				const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
-				const isImageUrl = imageExtensions.some(
-					ext =>
-						url.toLowerCase().includes(ext) ||
-						url.includes("cloudinary.com") ||
-						url.includes("res.cloudinary.com")
-				);
-				return isImageUrl;
-			},
-			{ message: "URL harus berupa gambar yang valid" }
-		),
+	images: z.array(z.string()).optional().default([]),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -156,10 +103,10 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="envelope_image"
+								name="images"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel required>Gambar</FormLabel>
+										<FormLabel>Gambar</FormLabel>
 										<FormControl>
 											<div className="space-y-3">
 												{/* Hidden input for form validation */}
@@ -176,118 +123,18 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 														allowedTypes={["image"]}
 														trigger={
 															<Button type="button" variant="outline" size="sm">
-																<ImageIcon className="h-4 w-4 mr-2" />
+																<Video className="h-4 w-4 mr-2" />
 																{field.value ? "Ganti Gambar" : "Pilih Gambar"}
 															</Button>
 														}
 													/>
 													{field.value && (
-														<div className="relative w-16 h-16 border rounded-lg overflow-hidden">
+														<div className="relative w-32 h-32 border rounded-lg overflow-hidden">
 															<Image
-																src={field.value}
-																alt="Selected image preview"
-																fill
-																className="object-cover"
-																onError={e => {
-																	// Hide the image if it fails to load
-																	e.currentTarget.style.display = "none";
-																}}
-															/>
-														</div>
-													)}
-												</div>
-											</div>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="image1"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel required>Gambar</FormLabel>
-										<FormControl>
-											<div className="space-y-3">
-												{/* Hidden input for form validation */}
-												<Input type="text" {...field} className="hidden" />
-												<div className="flex flex-col gap-3">
-													<MediaSelector
-														onSelect={urls => {
-															if (urls.length > 0) {
-																field.onChange(urls[0]);
-																// Trigger validation after setting the value
-																field.onBlur();
-															}
-														}}
-														allowedTypes={["image"]}
-														trigger={
-															<Button type="button" variant="outline" size="sm">
-																<ImageIcon className="h-4 w-4 mr-2" />
-																{field.value ? "Ganti Gambar" : "Pilih Gambar"}
-															</Button>
-														}
-													/>
-													{field.value && (
-														<div className="relative w-16 h-16 border rounded-lg overflow-hidden">
-															<Image
-																src={field.value}
-																alt="Selected image preview"
-																fill
-																className="object-cover"
-																onError={e => {
-																	// Hide the image if it fails to load
-																	e.currentTarget.style.display = "none";
-																}}
-															/>
-														</div>
-													)}
-												</div>
-											</div>
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="image2"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel required>Gambar</FormLabel>
-										<FormControl>
-											<div className="space-y-3">
-												{/* Hidden input for form validation */}
-												<Input type="text" {...field} className="hidden" />
-												<div className="flex flex-col gap-3">
-													<MediaSelector
-														onSelect={urls => {
-															if (urls.length > 0) {
-																field.onChange(urls[0]);
-																// Trigger validation after setting the value
-																field.onBlur();
-															}
-														}}
-														allowedTypes={["image"]}
-														trigger={
-															<Button type="button" variant="outline" size="sm">
-																<ImageIcon className="h-4 w-4 mr-2" />
-																{field.value ? "Ganti Gambar" : "Pilih Gambar"}
-															</Button>
-														}
-													/>
-													{field.value && (
-														<div className="relative w-16 h-16 border rounded-lg overflow-hidden">
-															<Image
-																src={field.value}
-																alt="Selected image preview"
-																fill
-																className="object-cover"
-																onError={e => {
-																	// Hide the image if it fails to load
-																	e.currentTarget.style.display = "none";
-																}}
+																src={field.value[0]}
+																alt="Gambar"
+																className="w-full h-full object-cover"
+																style={{ aspectRatio: 1 }}
 															/>
 														</div>
 													)}
