@@ -22,21 +22,24 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useInvitations } from "@/hooks/use-invitations";
-import { Pen } from "lucide-react";
+import { ImageIcon, Pen } from "lucide-react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef } from "react";
 import { InvitationWithModules } from "@/types";
+import { MediaSelector } from "@/components/media-selector";
+import Image from "next/image";
 
 export const Schema = z.object({
-	title: z
-		.string({ error: "Judul tidak boleh kosong" })
-		.min(1, { message: "Judul tidak boleh kosong" }),
-	subtitle: z.string().optional(),
+	full_name: z
+		.string({ error: "Nama tidak boleh kosong" })
+		.min(1, { message: "Nama tidak boleh kosong" }),
+	description: z.string().optional(),
 	image: z
 		.string({ error: "Gambar tidak boleh kosong" })
 		.min(1, { message: "Gambar tidak boleh kosong" }),
+	instagram: z.string().optional(),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -107,12 +110,12 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="title"
+								name="full_name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Judul</FormLabel>
+										<FormLabel>Nama Lengkap</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<Input type="text" defaultValue="Jane Doe" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -120,12 +123,12 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 							/>
 							<FormField
 								control={form.control}
-								name="subtitle"
+								name="description"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Sub Judul</FormLabel>
+										<FormLabel>Deskripsi</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<Input type="text" defaultValue="Daughter of Mr. and Mrs. Doe" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -136,9 +139,57 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 								name="image"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>URL Gambar</FormLabel>
+										<FormLabel required>Foto</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<div className="space-y-3">
+												{/* Hidden input for form validation */}
+												<Input type="text" {...field} className="hidden" />
+												<div className="flex flex-col gap-3">
+													<MediaSelector
+														onSelect={urls => {
+															if (urls.length > 0) {
+																field.onChange(urls[0]);
+																// Trigger validation after setting the value
+																field.onBlur();
+															}
+														}}
+														allowedTypes={["image"]}
+														trigger={
+															<Button type="button" variant="outline" size="sm">
+																<ImageIcon className="h-4 w-4 mr-2" />
+																{field.value ? "Ganti Gambar" : "Pilih Gambar"}
+															</Button>
+														}
+													/>
+													{field.value && (
+														<div className="relative w-16 h-16 border rounded-lg overflow-hidden">
+															<Image
+																src={field.value}
+																alt="Selected image preview"
+																fill
+																className="object-cover"
+																onError={e => {
+																	// Hide the image if it fails to load
+																	e.currentTarget.style.display = "none";
+																}}
+															/>
+														</div>
+													)}
+												</div>
+											</div>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="instagram"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Instagram</FormLabel>
+										<FormControl>
+											<Input type="text" defaultValue="jane_doe" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

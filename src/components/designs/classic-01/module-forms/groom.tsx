@@ -40,6 +40,7 @@ export const Schema = z.object({
 	image: z
 		.string({ error: "Gambar tidak boleh kosong" })
 		.min(1, { message: "Gambar tidak boleh kosong" }),
+	instagram: z.string().optional(),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -177,6 +178,19 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 													)}
 												</div>
 											</div>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="instagram"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Instagram</FormLabel>
+										<FormControl>
+											<Input type="text" defaultValue="john_doe" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
