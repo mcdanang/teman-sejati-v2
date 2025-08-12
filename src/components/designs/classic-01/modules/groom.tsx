@@ -32,7 +32,10 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 					height={150}
 				/>
 			</div>
-			<Button variant="outline" className="flex justify-center items-center gap-2">
+			<Button
+				variant="outline"
+				className="flex justify-center items-center border-white gap-2 hover:bg-gray-100/10"
+			>
 				<a
 					href={`https://www.instagram.com/${moduleData.instagram ?? "john_doe"}`}
 					className="flex items-center gap-2"
