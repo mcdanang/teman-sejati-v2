@@ -39,6 +39,7 @@ export const Schema = z.object({
 	akadTime: z.string().optional(),
 	resepsiDate: z.string().optional(),
 	resepsiTime: z.string().optional(),
+	google_calendar_url: z.string().optional(),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -189,6 +190,19 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 													)}
 												</div>
 											</div>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="google_calendar_url"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Google Calendar URL</FormLabel>
+										<FormControl>
+											<Input type="text" defaultValue="https://www.google.com" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { InputJsonValue } from "@prisma/client/runtime/library";
+import { CalendarDays } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -8,6 +10,7 @@ type ModuleData = {
 	akadTime?: string;
 	resepsiDate?: string;
 	resepsiTime?: string;
+	google_calendar_url?: string;
 	// add other fields as needed
 };
 
@@ -29,7 +32,7 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 			</div>
 
 			{/* Content */}
-			<div className="absolute top-0 left-0 w-full h-full flex-1 z-10 flex flex-col gap-2 py-16 px-4">
+			<div className="absolute top-0 left-0 w-full h-full flex-1 z-10 flex flex-col gap-2 py-16 px-4 items-center">
 				{/* Title */}
 				<h1 className="text-4xl font-bold text-[#e08944] font-cedarville">
 					{moduleData.akadDate ?? "November 15th 2025"}
@@ -40,6 +43,20 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 				<p className="text-lg text-[#e08944] font-cedarville">
 					Resepsi: {moduleData.resepsiTime ?? "10.30 - 13.00"}
 				</p>
+				<Button
+					variant="outline"
+					className="flex justify-center w-fit items-center border-[#e08944] gap-2 hover:bg-gray-100/10 mt-4"
+				>
+					<a
+						href={moduleData.google_calendar_url ?? "https://www.google.com"}
+						className="flex items-center gap-2"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<CalendarDays className="h-6 w-6 text-[#e08944]" />
+						<p className="text-[#e08944]">Add to Calendar</p>
+					</a>
+				</Button>
 			</div>
 		</section>
 	);

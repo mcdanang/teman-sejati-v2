@@ -32,13 +32,14 @@ import { MediaSelector } from "@/components/media-selector";
 import Image from "next/image";
 
 export const Schema = z.object({
-	title: z
-		.string({ error: "Judul tidak boleh kosong" })
-		.min(1, { message: "Judul tidak boleh kosong" }),
-	subtitle: z.string().optional(),
+	location_name: z
+		.string({ error: "Nama lokasi tidak boleh kosong" })
+		.min(1, { message: "Nama lokasi tidak boleh kosong" }),
+	location_address: z.string().optional(),
 	image: z
 		.string({ error: "Gambar tidak boleh kosong" })
 		.min(1, { message: "Gambar tidak boleh kosong" }),
+	google_maps_url: z.string().optional(),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -109,12 +110,12 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="title"
+								name="location_name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Judul</FormLabel>
+										<FormLabel>Nama Lokasi</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<Input type="text" defaultValue="Joglo House Puspitek" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -122,12 +123,16 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 							/>
 							<FormField
 								control={form.control}
-								name="subtitle"
+								name="location_address"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Sub Judul</FormLabel>
+										<FormLabel>Alamat Lokasi</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<Input
+												type="text"
+												defaultValue="Jl. Raya Puspitek, Buaran, Kec. Serpong, Kota Tangerang Selatan, Banten 15310"
+												{...field}
+											/>
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -176,6 +181,19 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 													)}
 												</div>
 											</div>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="google_maps_url"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Google Maps URL</FormLabel>
+										<FormControl>
+											<Input type="text" defaultValue="https://www.google.com" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
