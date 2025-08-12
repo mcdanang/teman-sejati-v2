@@ -22,21 +22,23 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useInvitations } from "@/hooks/use-invitations";
-import { Pen } from "lucide-react";
+import { ImageIcon, Pen } from "lucide-react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef } from "react";
 import { InvitationWithModules } from "@/types";
+import { MediaSelector } from "@/components/media-selector";
+import Image from "next/image";
 
 export const Schema = z.object({
-	title: z
-		.string({ error: "Judul tidak boleh kosong" })
-		.min(1, { message: "Judul tidak boleh kosong" }),
-	subtitle: z.string().optional(),
 	image: z
 		.string({ error: "Gambar tidak boleh kosong" })
 		.min(1, { message: "Gambar tidak boleh kosong" }),
+	akadDate: z.string().optional(),
+	akadTime: z.string().optional(),
+	resepsiDate: z.string().optional(),
+	resepsiTime: z.string().optional(),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -89,7 +91,7 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 		<Sheet>
 			<SheetTrigger asChild>
 				<Button
-					className="absolute top-2 right-2 lg:opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-1 shadow hover:bg-gray-100"
+					className="absolute top-2 right-2 lg:opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-1 shadow hover:bg-gray-100 z-20"
 					aria-label="Edit module"
 				>
 					<Pen className="h-4 w-4 text-gray-600" />
@@ -107,12 +109,12 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="title"
+								name="akadDate"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Judul</FormLabel>
+										<FormLabel>Tanggal Akad</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<Input type="text" defaultValue="November 15th 2025" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -120,12 +122,25 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 							/>
 							<FormField
 								control={form.control}
-								name="subtitle"
+								name="akadTime"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Sub Judul</FormLabel>
+										<FormLabel>Waktu Akad</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<Input type="text" defaultValue="07:30 - 09:30" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="resepsiTime"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Waktu Resepsi</FormLabel>
+										<FormControl>
+											<Input type="text" defaultValue="10.30 - 13.00" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>
@@ -136,9 +151,44 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 								name="image"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>URL Gambar</FormLabel>
+										<FormLabel required>Gambar Latar</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<div className="space-y-3">
+												{/* Hidden input for form validation */}
+												<Input type="text" {...field} className="hidden" />
+												<div className="flex flex-col gap-3">
+													<MediaSelector
+														onSelect={urls => {
+															if (urls.length > 0) {
+																field.onChange(urls[0]);
+																// Trigger validation after setting the value
+																field.onBlur();
+															}
+														}}
+														allowedTypes={["image"]}
+														trigger={
+															<Button type="button" variant="outline" size="sm">
+																<ImageIcon className="h-4 w-4 mr-2" />
+																{field.value ? "Ganti Gambar" : "Pilih Gambar"}
+															</Button>
+														}
+													/>
+													{field.value && (
+														<div className="relative w-16 h-16 border rounded-lg overflow-hidden">
+															<Image
+																src={field.value}
+																alt="Selected image preview"
+																fill
+																className="object-cover"
+																onError={e => {
+																	// Hide the image if it fails to load
+																	e.currentTarget.style.display = "none";
+																}}
+															/>
+														</div>
+													)}
+												</div>
+											</div>
 										</FormControl>
 										<FormMessage />
 									</FormItem>

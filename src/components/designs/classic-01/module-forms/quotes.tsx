@@ -106,7 +106,7 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 								name="verse"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Ayat Al-Qur'an</FormLabel>
+										<FormLabel>Ayat Al-Qur&apos;an</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>
