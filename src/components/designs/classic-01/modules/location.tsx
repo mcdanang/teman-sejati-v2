@@ -16,9 +16,11 @@ export const Lokasi = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
 
 	return (
-		<section className="text-center py-12 bg-[#e08944] flex flex-col gap-4 items-center">
-			<h1 className="text-4xl font-bold font-cedarville">{moduleData.title ?? "Lokasi Title"}</h1>
-			<p className="mt-2 text-lg text-gray-800 font-cedarville">
+		<section className="text-center py-12 bg-[#660033] flex flex-col gap-4 items-center">
+			<h1 className="text-4xl font-bold font-cedarville text-white">
+				{moduleData.title ?? "Lokasi Title"}
+			</h1>
+			<p className="mt-2 text-lg text-white font-cedarville">
 				{moduleData.subtitle ?? "Lokasi Subtitle"}
 			</p>
 			<div className="flex justify-center">

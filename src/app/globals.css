@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Vibur&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Vibur&family=Shadows+Into+Light+Two&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -45,6 +45,7 @@
 
   --font-vibur: "Vibur", cursive;
   --font-cedarville: "Cedarville Cursive", cursive;
+  --font-shadows: "Shadows Into Light Two", cursive;
 }
 :root {
   --radius: 0.625rem;

@@ -183,7 +183,7 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 									</FormItem>
 								)}
 							/>
-							<FormField
+							{/* <FormField
 								control={form.control}
 								name="instagram"
 								render={({ field }) => (
@@ -195,7 +195,7 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 										<FormMessage />
 									</FormItem>
 								)}
-							/>
+							/> */}
 						</div>
 						<SheetFooter className="mt-auto">
 							<Button type="submit">Simpan perubahan</Button>

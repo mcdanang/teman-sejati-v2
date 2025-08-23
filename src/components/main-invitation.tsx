@@ -21,11 +21,14 @@ export function MainInvitation({
 	const modules = activeInvitation.Modules;
 	const design = designs[activeInvitation.design];
 
+	console.log(activeInvitation);
+
 	return (
 		<div
 			className={`bg-fixed bg-gray-100 bg-cover bg-center relative`}
 			style={{
-				backgroundImage: `url(${activeInvitation.desktop_bg})`,
+				// backgroundImage: `url(${activeInvitation.desktop_bg})`,
+				backgroundImage: `url(/designs/bg.webp)`,
 			}}
 		>
 			<div className="absolute inset-0 max-w-md mx-auto min-h-screen bg-white shadow-lg ">

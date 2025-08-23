@@ -27,7 +27,13 @@ export default function ZoomableImage({
 			</DialogTrigger>
 			<DialogContent className="max-w-7xl border-0 bg-transparent p-0">
 				<div className="relative h-[calc(100vh-220px)] w-full overflow-clip rounded-md bg-transparent shadow-md">
-					<Image src={src} fill alt={alt || ""} className="h-full w-full object-contain" />
+					<Image
+						src={src}
+						fill
+						alt={alt || ""}
+						className="h-full w-full object-contain"
+						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+					/>
 				</div>
 			</DialogContent>
 		</Dialog>

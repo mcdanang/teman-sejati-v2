@@ -12,7 +12,7 @@ export const Quotes = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
 
 	return (
-		<section className="relative text-center py-16 bg-[#800020] overflow-hidden">
+		<section className="relative text-center py-16 bg-[#660033] overflow-hidden">
 			{/* Background Flower Images */}
 			<div className="absolute inset-0 pointer-events-none">
 				{/* Top Left Flower */}

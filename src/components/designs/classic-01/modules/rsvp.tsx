@@ -1,30 +1,17 @@
-import { InputJsonValue } from "@prisma/client/runtime/library";
-import Image from "next/image";
-import React from "react";
+import { Switch } from "@/components/ui/switch";
+// import Image from "next/image";
 
-type ModuleData = {
-	title?: string;
-	subtitle?: string;
-	image?: string;
-	// add other fields as needed
-};
-
-export const RSVP = ({ data }: { data: InputJsonValue }) => {
-	const moduleData = data as ModuleData;
-
+export const RSVP = () => {
 	return (
 		<section className="text-center py-12 bg-white">
-			<h1 className="text-4xl font-bold">{moduleData.title ?? "RSVP Title"}</h1>
-			<p className="mt-2 text-lg text-gray-500">{moduleData.subtitle ?? "RSVP Subtitle"}</p>
+			<h1 className="text-4xl font-bold font-shadows">RSVP</h1>
+			<p className="mt-2 text-lg text-gray-500 font-shadows">Will you attend our wedding?</p>
 			<div className="flex justify-center">
-				<Image
-					src={moduleData.image ?? "/designs/classic/couple.svg"}
-					alt="Couple"
-					className="mt-6 rounded-lg shadow-lg"
-					width={400}
-					height={300}
-				/>
+				<p>No</p>
+				<Switch className="disabled:opacity-100" />
+				<p>Yes</p>
 			</div>
+			<p className="mt-2 text-lg text-gray-500 font-shadows">People you bring including you?</p>
 		</section>
 	);
 };
