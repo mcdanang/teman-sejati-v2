@@ -3,6 +3,7 @@ import { InputJsonValue } from "@prisma/client/runtime/library";
 // import { Instagram } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import { motion } from "framer-motion";
 
 type ModuleData = {
 	full_name?: string;
@@ -17,13 +18,31 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section className="text-center flex flex-col items-center gap-4 py-12 bg-[#660033]">
-			<h1 className="text-4xl font-bold font-cedarville text-white">
+			<motion.h1
+				className="text-4xl font-bold font-cedarville text-white"
+				whileInView={{
+					scale: 1.05,
+					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+				}}
+			>
 				{moduleData.full_name ?? "John Doe"}
-			</h1>
-			<p className="mt-2 text-lg font-cedarville text-white max-w-72 mx-auto">
+			</motion.h1>
+			<motion.p
+				className="mt-2 text-lg font-cedarville text-white max-w-72 mx-auto"
+				whileInView={{
+					scale: 1.05,
+					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+				}}
+			>
 				{moduleData.description ?? "Son of Mr. and Mrs. Doe"}
-			</p>
-			<div className="flex justify-center">
+			</motion.p>
+			<motion.div
+				className="flex justify-center"
+				whileInView={{
+					scale: 1.05,
+					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+				}}
+			>
 				<Image
 					src={moduleData.image ?? "/designs/classic/doodle2.png"}
 					alt="Couple"
@@ -31,7 +50,7 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 					width={150}
 					height={150}
 				/>
-			</div>
+			</motion.div>
 			{/* <Button
 				variant="outline"
 				className="flex justify-center items-center border-white gap-2 hover:bg-gray-100/10"

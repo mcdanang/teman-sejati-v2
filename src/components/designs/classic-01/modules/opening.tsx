@@ -15,7 +15,10 @@ export const Opening = ({ data }: { data: ModuleData }) => {
 	return (
 		<section className="text-center py-12 bg-[#660033] flex flex-col items-center">
 			<motion.div
-				whileHover={{ scale: 1.05 }}
+				whileInView={{
+					scale: 1.05,
+					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+				}}
 				className="text-5xl mx-auto font-cedarville font-bold text-white space-y-1 z-10"
 			>
 				<h1>You&apos;re</h1>
@@ -122,7 +125,10 @@ export const Opening = ({ data }: { data: ModuleData }) => {
 			</div>
 
 			<motion.div
-				whileHover={{ scale: 1.05 }}
+				whileInView={{
+					scale: 1.05,
+					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+				}}
 				className="text-5xl mx-auto font-cedarville font-bold text-white space-y-1 z-10"
 			>
 				<h1>invited</h1>

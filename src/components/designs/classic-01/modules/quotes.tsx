@@ -16,65 +16,74 @@ export const Quotes = ({ data }: { data: InputJsonValue }) => {
 			{/* Background Flower Images */}
 			<div className="absolute inset-0 pointer-events-none">
 				{/* Top Left Flower */}
-				<div className="absolute top-4 left-10 transform rotate-12 opacity-50">
+				{/* <div className="absolute top-4 left-4 transform rotate-12 opacity-50">
 					<Image
-						src="/designs/classic/flower2.png"
+						src="/designs/classic/bunga-2.png"
 						alt="Flower decoration"
 						width={120}
 						height={120}
 						className="object-contain"
 					/>
-				</div>
+				</div> */}
 
 				{/* Top Right Flower */}
-				<div className="absolute top-4 right-4 transform -rotate-15 opacity-50">
+				{/* <div className="absolute top-4 right-0 transform -rotate-15 opacity-50">
 					<Image
-						src="/designs/classic/flower2.png"
+						src="/designs/classic/bunga-2.png"
 						alt="Flower decoration"
 						width={200}
 						height={200}
 						className="object-contain"
 					/>
-				</div>
+				</div> */}
 
 				{/* Bottom Left Flower */}
-				<div className="absolute bottom-8 left-8 transform rotate-45 opacity-50">
+				{/* <div className="absolute bottom-0 left-0 transform rotate-45 opacity-50">
 					<Image
-						src="/designs/classic/flower1.png"
+						src="/designs/classic/bunga-2.png"
 						alt="Flower decoration"
 						width={100}
 						height={100}
 						className="object-contain"
 					/>
-				</div>
+				</div> */}
 
 				{/* Bottom Right Flower */}
-				<div className="absolute bottom-6 right-8 transform rotate-180 opacity-50">
+				{/* <div className="absolute bottom-0 right-0 transform rotate-180 opacity-50">
 					<Image
-						src="/designs/classic/flower2.png"
+						src="/designs/classic/bunga-2.png"
 						alt="Flower decoration"
 						width={100}
 						height={100}
 						className="object-contain"
 					/>
-				</div>
+				</div> */}
 
 				{/* Bottom Center Flower */}
-				<div className="absolute bottom-4 right-1/3 transform opacity-50">
+				{/* <div className="absolute bottom-4 right-1/3 transform opacity-50">
 					<Image
-						src="/designs/classic/flower2.png"
+						src="/designs/classic/bunga-2.png"
 						alt="Flower decoration"
 						width={150}
 						height={150}
 						className="object-contain"
 					/>
-				</div>
+				</div> */}
 			</div>
 
 			{/* Main Content */}
 			<div className="relative z-10 max-w-2xl mx-auto px-4">
 				{/* Quran Verse Card */}
 				<div className="bg-white/90 w-80 backdrop-blur-sm rounded-2xl shadow-xl p-8 mx-auto max-w-2xl border border-white/20">
+					<div className="absolute bottom-4 right-1/3 transform opacity-50">
+						<Image
+							src="/designs/classic/bunga-2.png"
+							alt="Flower decoration"
+							width={150}
+							height={150}
+							className="object-contain opacity-30 rotate-90"
+						/>
+					</div>
 					<div className="text-center">
 						{/* Arabic Text */}
 						<div className="mb-6">
