@@ -37,29 +37,33 @@ export const NAV_MAIN = [
 		isActive: true,
 		items: [
 			{
+				title: "Pengaturan Umum",
+				url: "settings",
+			},
+			{
 				title: "Bagikan Undangan",
 				url: "publish",
 			},
-			{
-				title: "Template Desain",
-				url: "#",
-			},
+			// {
+			// 	title: "Template Desain",
+			// 	url: "#",
+			// },
 			{
 				title: "Atur Media",
 				url: "media",
 			},
-			{
-				title: "Data RSVP",
-				url: "#",
-			},
-			{
-				title: "Data Wedding Gift",
-				url: "#",
-			},
-			{
-				title: "Data Wedding Wishes",
-				url: "#",
-			},
+			// {
+			// 	title: "Data RSVP",
+			// 	url: "#",
+			// },
+			// {
+			// 	title: "Data Wedding Gift",
+			// 	url: "#",
+			// },
+			// {
+			// 	title: "Data Wedding Wishes",
+			// 	url: "#",
+			// },
 		],
 	},
 ];

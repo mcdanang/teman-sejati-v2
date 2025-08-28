@@ -67,7 +67,7 @@ export function MediaSelector({
 			case "images":
 				return "Gambar";
 			case "videos":
-				return "Video";
+				return "Audio/Video";
 			case "audios":
 				return "Audio";
 			default:
@@ -254,7 +254,7 @@ export function MediaSelector({
 								{getTabName("videos")} ({videos.length})
 							</Button>
 						)}
-						{allowedTypes.includes("audio") && (
+						{/* {allowedTypes.includes("audio") && (
 							<Button
 								variant={activeTab === "audios" ? "default" : "outline"}
 								size="sm"
@@ -264,7 +264,7 @@ export function MediaSelector({
 								<Music className="h-4 w-4" />
 								{getTabName("audios")} ({audios.length})
 							</Button>
-						)}
+						)} */}
 					</div>
 
 					{/* Media content - scrollable area */}

@@ -11,7 +11,6 @@ type ModuleData = {
 
 export const Gallery = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
-	console.log(moduleData);
 
 	const items = [
 		{

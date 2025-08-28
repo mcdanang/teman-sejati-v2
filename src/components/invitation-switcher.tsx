@@ -74,11 +74,11 @@ export function InvitationSwitcher({
 								<DropdownMenuShortcut>#{invitation.index}</DropdownMenuShortcut>
 							</DropdownMenuItem>
 						))}
-						<DropdownMenuSeparator />
+						{/* <DropdownMenuSeparator />
 						<DropdownMenuItem className="gap-2 p-2 text-accent">
 							<Plus className="size-4" />
 							<div>Tambah undangan</div>
-						</DropdownMenuItem>
+						</DropdownMenuItem> */}
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</SidebarMenuItem>

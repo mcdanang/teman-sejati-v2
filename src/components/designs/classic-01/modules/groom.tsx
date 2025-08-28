@@ -14,7 +14,6 @@ type ModuleData = {
 
 export const Groom = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
-	console.log(moduleData);
 
 	return (
 		<section className="text-center flex flex-col items-center gap-4 py-20 bg-[#660033]">

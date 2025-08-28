@@ -74,8 +74,8 @@ export default function ShareLinkCard({
 				<CardFooter>
 					<div className="text-sm flex flex-col gap-2">
 						<div>
-							Atau Anda bisa menggunakan template Google Sheet berikut untuk memasukkan nama tamu
-							sekaligus:{" "}
+							Atau Anda bisa menggunakan template Google Sheet berikut untuk memasukkan banyak nama
+							tamu sekaligus:{" "}
 						</div>
 						<Link
 							href="https://docs.google.com/spreadsheets/d/1Y-wvuK8DJkSAITsa_M5zlD3kE3JGefZVlfb6g_8VmqE/copy"

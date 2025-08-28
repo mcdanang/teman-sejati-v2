@@ -28,17 +28,18 @@ enum LoginMethodType {
 }
 
 model Invitation {
-  id           String   @id @default(uuid())
-  user_id      String
-  design       String
-  desktop_bg   String
-  slug         String   @unique
-  index        Int
-  is_paid      Boolean  @default(false)
-  is_published Boolean  @default(false)
-  created_at   DateTime @default(now())
-  Modules      Module[]
-  User         User     @relation(fields: [user_id], references: [id])
+  id               String   @id @default(uuid())
+  user_id          String
+  design           String
+  desktop_bg       String
+  background_music String?
+  slug             String   @unique
+  index            Int
+  is_paid          Boolean  @default(false)
+  is_published     Boolean  @default(false)
+  created_at       DateTime @default(now())
+  Modules          Module[]
+  User             User     @relation(fields: [user_id], references: [id])
 
   @@unique([user_id, index]) // ✅ index is unique only within each user
 }

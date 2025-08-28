@@ -14,7 +14,6 @@ type ModuleData = {
 
 export const Lokasi = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
-	console.log(moduleData);
 
 	return (
 		<section className="text-center py-20 bg-[#660033] flex flex-col gap-4 items-center">
