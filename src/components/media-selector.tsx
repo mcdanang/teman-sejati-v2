@@ -288,7 +288,7 @@ export function MediaSelector({
 											}`}
 											onClick={() => handleItemClick(item)}
 										>
-											<CardContent className="p-2">
+											<CardContent className="">
 												<div className="relative aspect-square rounded-md overflow-hidden">
 													{item.resource_type === "image" ? (
 														<Image
@@ -317,11 +317,11 @@ export function MediaSelector({
 														</div>
 													)}
 												</div>
-												<div className="mt-2">
+												{/* <div className="mt-2">
 													<p className="text-xs text-muted-foreground truncate">
 														{getFileName(item)}
 													</p>
-												</div>
+												</div> */}
 											</CardContent>
 										</Card>
 									))

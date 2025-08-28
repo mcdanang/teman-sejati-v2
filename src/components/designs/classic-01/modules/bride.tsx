@@ -16,7 +16,7 @@ export const Bride = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
 
 	return (
-		<section className="text-center flex flex-col items-center gap-4 py-12 bg-[#660033]">
+		<section className="text-center flex flex-col items-center gap-4 py-20 bg-[#660033]">
 			<motion.h1
 				className="text-4xl font-bold font-cedarville text-white"
 				whileInView={{
