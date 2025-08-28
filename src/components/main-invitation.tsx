@@ -1,7 +1,7 @@
 import { designs } from "@/lib/designs";
 import { InvitationWithModules, ModuleData } from "@/types";
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function MainInvitation({
@@ -12,7 +12,6 @@ export function MainInvitation({
 	editMode?: boolean;
 }) {
 	const [isPlaying, setIsPlaying] = useState(false);
-	const [isMuted, setIsMuted] = useState(false);
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	// Background music functionality
@@ -60,7 +59,16 @@ export function MainInvitation({
 	const modules = activeInvitation.Modules;
 	const design = designs[activeInvitation.design];
 
-	console.log(activeInvitation);
+	// Validate the background image URL
+	const isValidImageUrl = (url: string) => {
+		if (!url || url.length < 5) return false;
+		return url.startsWith("http") || url.startsWith("/");
+	};
+
+	const backgroundImageUrl =
+		activeInvitation.desktop_bg && isValidImageUrl(activeInvitation.desktop_bg)
+			? activeInvitation.desktop_bg
+			: "/designs/bg.webp";
 
 	const togglePlay = () => {
 		if (!audioRef.current) return;
@@ -76,50 +84,33 @@ export function MainInvitation({
 		}
 	};
 
-	const toggleMute = () => {
-		if (!audioRef.current) return;
-
-		if (isMuted) {
-			audioRef.current.volume = 0.3;
-			setIsMuted(false);
-		} else {
-			audioRef.current.volume = 0;
-			setIsMuted(true);
-		}
-	};
-
 	return (
 		<div
-			className={`bg-fixed bg-gray-100 bg-cover bg-center relative`}
+			className="relative min-h-screen w-full"
 			style={{
-				backgroundImage: `url(${activeInvitation.desktop_bg || "/designs/bg.webp"})`,
+				backgroundImage: `url(${backgroundImageUrl})`,
+				backgroundSize: "cover",
+				backgroundPosition: "center",
+				backgroundRepeat: "no-repeat",
+				backgroundAttachment: "fixed",
 			}}
 		>
 			{/* Background Music Controls */}
 			{activeInvitation.background_music && (
-				<div className="fixed bottom-4 ml-4 z-50 flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-lg">
+				<div className="fixed bottom-4 ml-4 z-50 flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg">
 					<Button
 						type="button"
 						variant="ghost"
 						size="sm"
 						onClick={togglePlay}
-						className="h-8 w-8 p-0"
+						className="h-10 w-10 p-0"
 					>
 						{isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-					</Button>
-					<Button
-						type="button"
-						variant="ghost"
-						size="sm"
-						onClick={toggleMute}
-						className="h-8 w-8 p-0"
-					>
-						{isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
 					</Button>
 				</div>
 			)}
 
-			<div className="absolute inset-0 max-w-md mx-auto min-h-screen bg-white shadow-lg ">
+			<div className="relative max-w-md mx-auto min-h-screen bg-white/95 shadow-lg backdrop-blur-sm">
 				{modules.map(mod => {
 					const id = mod.name.replace(/\s+/g, "");
 					const moduleData = design.modules[mod.name as keyof typeof design.modules];

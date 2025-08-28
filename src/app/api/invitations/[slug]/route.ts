@@ -49,6 +49,8 @@ export async function PATCH(request: NextRequest, { params }: { params: { slug: 
 				id: true,
 				slug: true,
 				design: true,
+				desktop_bg: true,
+				background_music: true,
 				is_paid: true,
 				is_published: true,
 				created_at: true,
