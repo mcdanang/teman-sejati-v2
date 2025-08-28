@@ -1,20 +1,12 @@
-import Pricing from "@/components/Pricing";
-import FAQ from "@/components/FAQ";
-import Image from "next/image";
 import { Timeline } from "@/components/ui/timeline";
-import Hero from "@/components/Hero";
+
 import React from "react";
 import ZoomableImage from "@/components/ui/zoomable-image";
 
 export default function Home() {
 	return (
 		<>
-			<Hero />
 			<HowItWorks />
-			<div className="container">
-				{/* <Pricing /> */}
-				<FAQ />
-			</div>
 		</>
 	);
 }
@@ -25,8 +17,8 @@ const data = [
 		content: (
 			<div>
 				<p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-					Start by clicking &quot;Create a new invitation&quot;. We&apos;ll then create a template for your
-					invitation.
+					Start by clicking &quot;Create a new invitation&quot;. We&apos;ll then create a template
+					for your invitation.
 				</p>
 				<div className="grid grid-cols-1 gap-4">
 					<ZoomableImage
@@ -71,7 +63,8 @@ const data = [
 		content: (
 			<div>
 				<p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
-					Share your creation with friends and family. Your invitation is now ready to be seen by the world!
+					Share your creation with friends and family. Your invitation is now ready to be seen by
+					the world!
 				</p>
 
 				<div className="grid grid-cols-1 gap-4">
