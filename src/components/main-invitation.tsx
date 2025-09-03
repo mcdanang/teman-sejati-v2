@@ -1,8 +1,7 @@
 import { designs } from "@/lib/designs";
 import { InvitationWithModules, ModuleData } from "@/types";
 import { useEffect, useRef, useState } from "react";
-import { Play, Pause } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 export function MainInvitation({
 	activeInvitation,
@@ -97,16 +96,22 @@ export function MainInvitation({
 		>
 			{/* Background Music Controls */}
 			{activeInvitation.background_music && (
-				<div className="fixed bottom-4 ml-4 z-50 flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full shadow-lg">
-					<Button
+				<div className="fixed bottom-4 ml-4 z-50">
+					<button
 						type="button"
-						variant="ghost"
-						size="sm"
 						onClick={togglePlay}
-						className="h-10 w-10 p-0"
+						className="p-0 border-none bg-transparent cursor-pointer"
 					>
-						{isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-					</Button>
+						<Image
+							src="/images/vinyl.png"
+							alt="Vinyl Record"
+							width={48}
+							height={48}
+							className={`h-12 w-12 transition-transform duration-1000 hover:cursor-pointer ${
+								isPlaying ? "animate-spin" : ""
+							}`}
+						/>
+					</button>
 				</div>
 			)}
 
