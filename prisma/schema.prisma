@@ -39,6 +39,7 @@ model Invitation {
   is_published     Boolean  @default(false)
   created_at       DateTime @default(now())
   Modules          Module[]
+  RSVPs            RSVP[]
   User             User     @relation(fields: [user_id], references: [id])
 
   @@unique([user_id, index]) // ✅ index is unique only within each user
@@ -55,5 +56,18 @@ model Module {
   Invitation Invitation @relation(fields: [invitation_id], references: [id], onDelete: Cascade)
 
   @@unique([invitation_id, order]) // prevent duplicate order within the same invitation
+  @@index([invitation_id])
+}
+
+model RSVP {
+  id            String   @id @default(uuid())
+  invitation_id String
+  guest_name    String
+  will_attend   Boolean
+  people_count  Int
+  created_at    DateTime @default(now())
+
+  Invitation Invitation @relation(fields: [invitation_id], references: [id], onDelete: Cascade)
+
   @@index([invitation_id])
 }
