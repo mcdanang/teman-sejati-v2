@@ -30,13 +30,21 @@ import { useEffect, useRef } from "react";
 import { InvitationWithModules } from "@/types";
 
 export const Schema = z.object({
-	title: z
-		.string({ error: "Judul tidak boleh kosong" })
-		.min(1, { message: "Judul tidak boleh kosong" }),
-	subtitle: z.string().optional(),
-	image: z
-		.string({ error: "Gambar tidak boleh kosong" })
-		.min(1, { message: "Gambar tidak boleh kosong" }),
+	address_name: z
+		.string({ error: "Nama alamat tidak boleh kosong" })
+		.min(1, { message: "Nama alamat tidak boleh kosong" }),
+	address_detail: z
+		.string({ error: "Detail alamat tidak boleh kosong" })
+		.min(1, { message: "Detail alamat tidak boleh kosong" }),
+	bank_name: z
+		.string({ error: "Nama bank tidak boleh kosong" })
+		.min(1, { message: "Nama bank tidak boleh kosong" }),
+	bank_account_number: z
+		.string({ error: "Nomor rekening tidak boleh kosong" })
+		.min(1, { message: "Nomor rekening tidak boleh kosong" }),
+	account_name: z
+		.string({ error: "Nama pemilik rekening tidak boleh kosong" })
+		.min(1, { message: "Nama pemilik rekening tidak boleh kosong" }),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -54,6 +62,15 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 	useEffect(() => {
 		if (moduleData) {
 			form.reset(moduleData);
+		} else {
+			// Set default values if no module data exists
+			form.reset({
+				address_name: "Home Address",
+				address_detail: "Jl. Example Street No. 123, City, Country",
+				bank_name: "Bank Name",
+				bank_account_number: "1234567890",
+				account_name: "John & Jane Doe",
+			});
 		}
 	}, [moduleData, form, activeInvitation]);
 
@@ -107,10 +124,10 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="title"
+								name="address_name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Judul</FormLabel>
+										<FormLabel>Nama Alamat</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>
@@ -120,10 +137,10 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 							/>
 							<FormField
 								control={form.control}
-								name="subtitle"
+								name="address_detail"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Sub Judul</FormLabel>
+										<FormLabel>Detail Alamat</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>
@@ -133,10 +150,36 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 							/>
 							<FormField
 								control={form.control}
-								name="image"
+								name="bank_name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>URL Gambar</FormLabel>
+										<FormLabel>Nama Bank</FormLabel>
+										<FormControl>
+											<Input type="text" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="bank_account_number"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Nomor Rekening</FormLabel>
+										<FormControl>
+											<Input type="text" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="account_name"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Nama Pemilik Rekening</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>
