@@ -56,12 +56,12 @@ export const NAV_MAIN = [
 				title: "Data RSVP",
 				url: "rsvp",
 			},
+			{
+				title: "Data Wedding Wishes",
+				url: "wedding-wishes",
+			},
 			// {
 			// 	title: "Data Wedding Gift",
-			// 	url: "#",
-			// },
-			// {
-			// 	title: "Data Wedding Wishes",
 			// 	url: "#",
 			// },
 		],
