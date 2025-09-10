@@ -32,6 +32,7 @@ export type ModuleData =
 
 export type ModuleDefinition = React.FC<{
 	data: ModuleData;
+	invitationId: string;
 }>;
 
 export type FormDefinition = React.FC<{

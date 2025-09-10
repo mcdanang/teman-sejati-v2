@@ -52,10 +52,10 @@ export const NAV_MAIN = [
 				title: "Atur Media",
 				url: "media",
 			},
-			// {
-			// 	title: "Data RSVP",
-			// 	url: "#",
-			// },
+			{
+				title: "Data RSVP",
+				url: "rsvp",
+			},
 			// {
 			// 	title: "Data Wedding Gift",
 			// 	url: "#",

@@ -132,7 +132,7 @@ export function MainInvitation({
 					return (
 						<div key={mod.name} id={id as string} className="relative group">
 							{editMode && ModuleForm && <ModuleForm activeInvitation={activeInvitation} />}
-							<Component data={mod.content as ModuleData} />
+							<Component data={mod.content as ModuleData} invitationId={activeInvitation.id} />
 						</div>
 					);
 				})}
