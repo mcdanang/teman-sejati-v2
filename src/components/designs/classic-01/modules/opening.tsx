@@ -20,7 +20,7 @@ export const Opening = ({ data }: { data: ModuleData }) => {
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-5xl mx-auto font-cedarville font-bold text-white space-y-1 z-10"
+				className="text-6xl mx-auto font-pinyon text-white space-y-1 z-10"
 			>
 				<h1>You&apos;re</h1>
 			</motion.div>
@@ -130,7 +130,7 @@ export const Opening = ({ data }: { data: ModuleData }) => {
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-5xl mx-auto font-cedarville font-bold text-white space-y-1 z-10"
+				className="text-6xl mx-auto font-pinyon text-white space-y-1 z-10"
 			>
 				<h1>invited</h1>
 			</motion.div>

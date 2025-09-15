@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Vibur&family=Shadows+Into+Light+Two&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Vibur&family=Shadows+Into+Light+Two&family=Alex+Brush&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -46,6 +46,9 @@
   --font-vibur: "Vibur", cursive;
   --font-cedarville: "Cedarville Cursive", cursive;
   --font-shadows: "Shadows Into Light Two", cursive;
+  --font-pinyon: "Pinyon Script", cursive;
+  --font-alex-brush: "Alex Brush", cursive;
+  --font-edensor: "Edensor", cursive;
 }
 :root {
   --radius: 0.625rem;
@@ -144,4 +147,18 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@font-face {
+  font-family: 'Pinyon Script';
+  src: url('/fonts/PinyonScript-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Edensor';
+  src: url('/fonts/Edensor-Free.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }

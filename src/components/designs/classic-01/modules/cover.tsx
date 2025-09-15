@@ -7,21 +7,27 @@ import { motion } from "motion/react";
 export const Cover = ({ data }: { data: ModuleData }) => {
 	const moduleData = data as Data;
 	return (
-		<section className="text-center py-12 bg-[#660033] flex flex-col items-center">
+		<section
+			className="text-center bg-cover bg-center bg-no-repeat flex flex-col items-center py-12"
+			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
+		>
 			<motion.div
 				whileInView={{
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-5xl mx-auto font-cedarville font-bold text-white -rotate-6 space-y-1 translate-y-6"
+				className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-3 translate-y-12"
 			>
 				<h1>{moduleData?.groom_short_name ?? "John"}</h1>
-				<h1>{`and ${moduleData?.bride_short_name ?? "Jane"}`}</h1>
+				<div className="flex">
+					<h1 className="text-4xl font-alex-brush font-light translate-x-2 -translate-y-2">&</h1>
+					<h1>{moduleData?.bride_short_name ?? "Jane"}</h1>
+				</div>
 			</motion.div>
 
-			<div className="flex w-fit justify-center bg-black/80 p-6">
+			<div className="flex w-fit justify-center bg-black/80 p-3">
 				<Image
-					src={moduleData?.image ?? "/designs/classic/gif-test-2.gif"}
+					src={moduleData?.image ?? "/designs/classic/prewedding-dancing.gif"}
 					alt="Couple"
 					className="object-cover"
 					width={300}
@@ -34,7 +40,7 @@ export const Cover = ({ data }: { data: ModuleData }) => {
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-5xl mx-auto font-cedarville font-bold text-white -rotate-6 space-y-1 -translate-y-8"
+				className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-1 -translate-y-12"
 			>
 				<h1>are getting</h1>
 				<h1>married</h1>
@@ -45,7 +51,7 @@ export const Cover = ({ data }: { data: ModuleData }) => {
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-5xl mx-auto font-cedarville font-bold text-white space-y-1"
+				className="text-6xl mx-auto font-pinyon text-white space-y-1 mt-10"
 			>
 				<h1>and...</h1>
 			</motion.div>
