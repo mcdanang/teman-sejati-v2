@@ -55,7 +55,7 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 				onClick={() => copyToClipboard(text, itemType)}
 				variant="outline"
 				size="sm"
-				className="ml-2 font-shadows"
+				className="ml-2 font-edensor border-[#660033] text-[#660033] hover:bg-[#660033] hover:text-white"
 			>
 				{isCopied ? (
 					<>
@@ -73,26 +73,29 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 	};
 
 	return (
-		<section className="text-center py-12 bg-white">
-			<div className="max-w-4xl mx-auto px-4">
-				<h1 className="text-4xl font-bold font-shadows text-gray-800 mb-4">Wedding Gift</h1>
-				<p className="text-lg text-gray-600 font-shadows mb-8">
+		<section
+			className="text-center py-16 bg-[#d6c6b3] overflow-hidden h-dvh flex items-center justify-center"
+			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
+		>
+			<div className="max-w-sm mx-auto">
+				<h1 className="text-4xl font-bold font-pinyon text-[#660033] mb-4">Wedding Gift</h1>
+				<p className="text-lg text-[#660033]/80 font-edensor mb-8">
 					Your presence is the greatest gift, but if you wish to give something
 				</p>
 
 				<div className="flex flex-col gap-4">
 					{/* Address Card */}
-					<Card className="text-left">
+					<Card className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
 						<CardHeader>
-							<CardTitle className="flex items-center text-xl font-shadows text-gray-800">
-								<MapPin className="h-5 w-5 mr-2 text-red-500" />
+							<CardTitle className="flex items-center text-xl font-edensor text-[#660033]">
+								<MapPin className="h-5 w-5 mr-2 text-[#660033]" />
 								{moduleData?.address_name || "Home Address"}
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div className="space-y-4">
 								<div>
-									<p className="text-gray-700 leading-relaxed font-shadows">
+									<p className="text-[#660033] leading-relaxed font-edensor">
 										{moduleData?.address_detail || "Jl. Example Street No. 123, City, Country"}
 									</p>
 								</div>
@@ -108,10 +111,10 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 					</Card>
 
 					{/* Bank Account Card */}
-					<Card className="text-left">
+					<Card className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
 						<CardHeader>
-							<CardTitle className="flex items-center text-xl font-shadows text-gray-800">
-								<CreditCard className="h-5 w-5 mr-2 text-blue-500" />
+							<CardTitle className="flex items-center text-xl font-edensor text-[#660033]">
+								<CreditCard className="h-5 w-5 mr-2 text-[#660033]" />
 								Bank Account
 							</CardTitle>
 						</CardHeader>
@@ -119,20 +122,20 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 							<div className="space-y-4">
 								<div>
 									<div className="mb-2">
-										<p className="text-sm text-gray-500 font-shadows">Bank Name</p>
-										<p className="text-gray-800 font-semibold font-shadows">
+										<p className="text-sm text-[#660033]/70 font-edensor">Bank Name</p>
+										<p className="text-[#660033] font-semibold font-edensor">
 											{moduleData?.bank_name || "Bank Name"}
 										</p>
 									</div>
 									<div className="mb-2">
-										<p className="text-sm text-gray-500 font-shadows">Account Name</p>
-										<p className="text-gray-800 font-semibold font-shadows">
+										<p className="text-sm text-[#660033]/70 font-edensor">Account Name</p>
+										<p className="text-[#660033] font-semibold font-edensor">
 											{moduleData?.account_name || "John & Jane Doe"}
 										</p>
 									</div>
 									<div>
-										<p className="text-sm text-gray-500 font-shadows">Account Number</p>
-										<p className="text-gray-800 font-semibold font-shadows text-lg">
+										<p className="text-sm text-[#660033]/70 font-edensor">Account Number</p>
+										<p className="text-[#660033] font-semibold font-edensor text-lg">
 											{moduleData?.bank_account_number || "1234567890"}
 										</p>
 									</div>
@@ -151,9 +154,9 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 
 				{/* Additional Message */}
 				<div className="mt-8 max-w-2xl mx-auto">
-					<Card className="bg-gray-50 border-gray-200">
+					<Card className="bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
 						<CardContent className="p-6">
-							<p className="text-gray-600 font-shadows leading-relaxed">
+							<p className="text-[#660033] font-edensor leading-relaxed">
 								Your presence at our wedding is the greatest gift we could ask for. However, if you
 								would like to give us something to help us start our new life together, we would be
 								deeply grateful. Thank you for your love and support!

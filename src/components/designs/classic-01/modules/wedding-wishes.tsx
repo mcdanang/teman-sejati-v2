@@ -157,24 +157,27 @@ export const WeddingWishes = ({
 	};
 
 	return (
-		<section className="text-center py-12 bg-white">
-			<div className="max-w-4xl mx-auto px-4">
-				<h1 className="text-4xl font-bold font-shadows text-gray-800 mb-4">
+		<section
+			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center"
+			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
+		>
+			<div className="max-w-sm mx-auto">
+				<h1 className="text-4xl font-bold font-pinyon text-[#660033] mb-4">
 					{moduleData?.title || "Wedding Wishes"}
 				</h1>
-				<p className="text-lg text-gray-600 font-shadows mb-8">
+				<p className="text-lg text-[#660033]/80 font-edensor mb-8">
 					{moduleData?.description || "Leave your wishes for the happy couple"}
 				</p>
 
 				{/* Wish Form */}
-				<Card className="max-w-2xl mx-auto mb-8">
+				<Card className="max-w-sm mx-auto mb-8 bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
 					<CardHeader>
-						<CardTitle className="text-xl font-shadows">Share Your Wishes</CardTitle>
+						<CardTitle className="text-xl font-edensor text-[#660033]">Share Your Wishes</CardTitle>
 					</CardHeader>
 					<CardContent>
 						{isSubmitted ? (
 							<div className="text-center py-6">
-								<div className="w-16 h-16 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center">
+								<div className="w-16 h-16 mx-auto mb-4 bg-[#660033] rounded-full flex items-center justify-center">
 									<svg
 										className="w-8 h-8 text-white"
 										fill="none"
@@ -189,12 +192,16 @@ export const WeddingWishes = ({
 										/>
 									</svg>
 								</div>
-								<h3 className="text-lg font-semibold text-gray-800 mb-2">Thank You!</h3>
-								<p className="text-gray-600 mb-4">Your wish has been submitted successfully.</p>
+								<h3 className="text-lg font-semibold text-[#660033] mb-2 font-edensor">
+									Thank You!
+								</h3>
+								<p className="text-[#660033]/80 mb-4 font-edensor">
+									Your wish has been submitted successfully.
+								</p>
 								<Button
 									onClick={() => setIsSubmitted(false)}
 									variant="outline"
-									className="font-shadows"
+									className="font-edensor border-[#660033] text-[#660033] hover:bg-[#660033] hover:text-white"
 								>
 									Submit Another Wish
 								</Button>
@@ -202,7 +209,7 @@ export const WeddingWishes = ({
 						) : (
 							<form onSubmit={handleSubmit} className="space-y-4">
 								<div className="space-y-2">
-									<Label htmlFor="guest_name" className="font-shadows">
+									<Label htmlFor="guest_name" className="font-edensor text-[#660033]">
 										Your Name
 									</Label>
 									<Input
@@ -211,12 +218,12 @@ export const WeddingWishes = ({
 										value={guestName}
 										onChange={e => setGuestName(e.target.value)}
 										placeholder="Enter your name"
-										className="font-shadows"
+										className="font-edensor bg-white/80 border-[#660033]/30 text-[#660033] placeholder:text-[#660033]/60 focus:border-[#660033]"
 										required
 									/>
 								</div>
 								<div className="space-y-2">
-									<Label htmlFor="wish_message" className="font-shadows">
+									<Label htmlFor="wish_message" className="font-edensor text-[#660033]">
 										Your Wish
 									</Label>
 									<Textarea
@@ -226,11 +233,15 @@ export const WeddingWishes = ({
 											setWishMessage(e.target.value)
 										}
 										placeholder="Share your wishes for the happy couple..."
-										className="min-h-[100px] font-shadows"
+										className="min-h-[100px] font-edensor bg-white/80 border-[#660033]/30 text-[#660033] placeholder:text-[#660033]/60 focus:border-[#660033]"
 										required
 									/>
 								</div>
-								<Button type="submit" disabled={submitting} className="w-full font-shadows">
+								<Button
+									type="submit"
+									disabled={submitting}
+									className="w-full font-edensor bg-[#660033] hover:bg-[#660033]/90 text-white"
+								>
 									{submitting ? "Submitting..." : "Submit Wish"}
 								</Button>
 							</form>
@@ -241,22 +252,27 @@ export const WeddingWishes = ({
 				{/* Wishes Display */}
 				{wishes.length > 0 && (
 					<div className="space-y-4">
-						<h2 className="text-2xl font-bold font-shadows text-gray-800 mb-6">
+						<h2 className="text-2xl font-bold font-edensor text-[#660033] mb-6">
 							Wishes from Friends & Family
 						</h2>
 						<div className="grid gap-4">
 							{wishes.map(wish => (
-								<Card key={wish.id} className="text-left">
+								<Card
+									key={wish.id}
+									className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg"
+								>
 									<CardContent className="p-4">
 										<div className="flex justify-between items-start mb-2">
-											<h3 className="font-semibold text-gray-800 font-shadows">
+											<h3 className="font-semibold text-[#660033] font-edensor">
 												{wish.guest_name}
 											</h3>
-											<span className="text-sm text-gray-500">
+											<span className="text-sm text-[#660033]/70 font-edensor">
 												{new Date(wish.created_at).toLocaleDateString()}
 											</span>
 										</div>
-										<p className="text-gray-700 leading-relaxed">{wish.wish_message}</p>
+										<p className="text-[#660033] leading-relaxed font-edensor">
+											{wish.wish_message}
+										</p>
 									</CardContent>
 								</Card>
 							))}
@@ -268,7 +284,7 @@ export const WeddingWishes = ({
 								<Button
 									onClick={loadMoreWishes}
 									variant="outline"
-									className="font-shadows"
+									className="font-edensor border-[#660033] text-[#660033] hover:bg-[#660033] hover:text-white"
 									disabled={loading}
 								>
 									{loading ? "Loading..." : "Load More Wishes"}
@@ -280,7 +296,7 @@ export const WeddingWishes = ({
 
 				{wishes.length === 0 && !loading && (
 					<div className="text-center py-8">
-						<p className="text-gray-500 font-shadows">
+						<p className="text-[#660033]/70 font-edensor">
 							No wishes yet. Be the first to share your wishes!
 						</p>
 					</div>
