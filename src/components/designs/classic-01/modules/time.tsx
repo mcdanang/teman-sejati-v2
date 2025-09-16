@@ -18,12 +18,15 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
 
 	return (
-		<section className="text-center relative">
+		<section
+			className="text-center relative"
+			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
+		>
 			{/* <h1 className="text-4xl font-bold">{moduleData.title ?? "Waktu Title"}</h1>
 			<p className="mt-2 text-lg text-gray-500">{moduleData.subtitle ?? "Waktu Subtitle"}</p> */}
 			<div className="flex justify-center">
 				<Image
-					src={moduleData.image ?? "/designs/classic/illustration.jpeg"}
+					src={moduleData.image ?? "/designs/classic/main-illustration-compressed.png"}
 					alt="Couple"
 					className=""
 					width={800}
@@ -32,20 +35,20 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 			</div>
 
 			{/* Content */}
-			<div className="absolute top-0 left-0 w-full h-full flex-1 z-10 flex flex-col gap-2 py-16 px-4 items-center">
+			<div className="absolute top-0 left-0 w-full h-full flex-1 z-10 flex flex-col gap-2 py-16 px-4 items-center font-medium">
 				{/* Title */}
-				<h1 className="text-4xl font-bold text-[#e08944] font-cedarville">
-					{moduleData.akadDate ?? "November 15th 2025"}
+				<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
+					{moduleData.akadDate ?? "Saturday, 15 November 2025"}
 				</h1>
-				<p className="text-lg text-[#e08944] font-cedarville">
-					Akad: {moduleData.akadTime ?? "07:30 - 09:30"}
+				<p className="text-lg text-[#660033] font-edensor font-medium">
+					Akad: {moduleData.akadTime ?? "7.30 - 9.30 WIB"}
 				</p>
-				<p className="text-lg text-[#e08944] font-cedarville">
-					Resepsi: {moduleData.resepsiTime ?? "10.30 - 13.00"}
+				<p className="text-lg text-[#660033] font-edensor font-medium">
+					Reception: {moduleData.resepsiTime ?? "10.30 - 13.00 WIB"}
 				</p>
 				<Button
 					variant="outline"
-					className="flex justify-center w-fit items-center border-[#e08944] gap-2 hover:bg-gray-100/10 mt-4"
+					className="flex justify-center w-fit items-center border-[#660033] gap-2 hover:bg-gray-100/10 mt-4"
 				>
 					<a
 						href={moduleData.google_calendar_url ?? "https://www.google.com"}
@@ -53,8 +56,8 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						<CalendarDays className="h-6 w-6 text-[#e08944]" />
-						<p className="text-[#e08944]">Add to Calendar</p>
+						<CalendarDays className="h-6 w-6 text-[#660033]" />
+						<p className="text-[#660033] font-edensor font-medium">Add to Calendar</p>
 					</a>
 				</Button>
 			</div>

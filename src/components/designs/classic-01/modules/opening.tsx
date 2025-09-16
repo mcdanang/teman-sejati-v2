@@ -1,139 +1,62 @@
-"use client";
+import { ModuleData } from "@/types";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import React from "react";
-import { useSearchParams } from "next/navigation";
-
-type ModuleData = {
-	envelope_image: string;
-};
+import { Data } from "../module-forms/opening";
+import { motion } from "motion/react";
 
 export const Opening = ({ data }: { data: ModuleData }) => {
-	const moduleData = data as ModuleData;
-	const searchParams = useSearchParams();
-	const to = searchParams.get("to");
-
+	const moduleData = data as Data;
 	return (
-		<section className="text-center py-12 bg-[#660033] flex flex-col items-center">
-			<motion.div
-				whileInView={{
-					scale: 1.05,
-					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
-				}}
-				className="text-6xl mx-auto font-pinyon text-white space-y-1 z-10"
-			>
-				<h1>You&apos;re</h1>
-			</motion.div>
-
-			<div className="relative w-[300px] h-[640px]">
-				<Image
-					src={moduleData?.envelope_image ?? "/designs/classic/envelope_back.png"}
-					alt="Invitation"
-					className="object-cover absolute top-55 left-0"
-					width={300}
-					height={300}
-				/>
+		<section
+			className="text-center bg-cover bg-center bg-no-repeat flex flex-col items-center py-12 h-dvh"
+			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
+		>
+			<div className="flex flex-col justify-evenly items-center h-lvh">
 				<motion.div
-					whileInView={{ translateY: -75, translateX: -15 }}
-					transition={{ duration: 1, ease: "easeInOut" }}
-					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+					}}
+					className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-3 translate-y-12"
 				>
-					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/main_back.png"}
-						alt="Invitation"
-						className="object-cover absolute top-25 left-0 -rotate-12"
-						width={250}
-						height={250}
-					/>
-				</motion.div>
-				<motion.div
-					whileInView={{ translateY: -100, translateX: -7.5 }}
-					transition={{ duration: 1, ease: "easeInOut" }}
-					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
-				>
-					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/photobox-2.jpeg"}
-						alt="Invitation"
-						className="object-cover absolute top-30 right-10 -rotate-6"
-						width={80}
-						height={80}
-					/>
-				</motion.div>
-				<motion.div
-					whileInView={{ translateY: -50 }}
-					transition={{ duration: 1, ease: "easeInOut" }}
-					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
-				>
-					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/round_front.png"}
-						alt="Invitation"
-						className="object-cover absolute top-40 left-15"
-						width={200}
-						height={200}
-					/>
-				</motion.div>
-				<motion.div
-					whileInView={{ translateY: -100, translateX: 7.5 }}
-					transition={{ duration: 1, ease: "easeInOut" }}
-					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
-				>
-					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/photobox-1.png"}
-						alt="Invitation"
-						className="object-cover absolute top-45 -right-3 rotate-6"
-						width={80}
-						height={80}
-					/>
-				</motion.div>
-				<motion.div
-					whileInView={{ translateY: -75, translateX: 15 }}
-					transition={{ duration: 1, ease: "easeInOut" }}
-					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
-				>
-					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/round_back.png"}
-						alt="Invitation"
-						className="object-cover absolute top-80 right-0 rotate-12"
-						width={180}
-						height={180}
-					/>
-				</motion.div>
-				<motion.div
-					whileInView={{ translateY: -75, translateX: -15 }}
-					transition={{ duration: 1, ease: "easeInOut" }}
-					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
-				>
-					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/main_front.png"}
-						alt="Invitation"
-						className="object-cover absolute top-70 left-5 -rotate-12"
-						width={200}
-						height={200}
-					/>
+					<h1>{moduleData?.groom_short_name ?? "John"}</h1>
+					<div className="flex">
+						<h1 className="text-4xl font-alex-brush font-light translate-x-2 -translate-y-2">&</h1>
+						<h1>{moduleData?.bride_short_name ?? "Jane"}</h1>
+					</div>
 				</motion.div>
 
-				<Image
-					src={moduleData?.envelope_image ?? "/designs/classic/envelope_front.png"}
-					alt="Invitation"
-					className="object-cover absolute top-55 left-0"
-					width={300}
-					height={300}
-				/>
-				<div className="absolute bottom-3 left-7 text-black bg-white p-3 rounded-lg text-[0.5rem] w-28 h-16 text-left flex flex-col justify-between">
-					<p>Dear,</p>
-					<p className="">{to || "Guest"}</p>
+				<div className="flex w-fit justify-center bg-black/80 p-3">
+					<Image
+						src={moduleData?.image ?? "/designs/classic/prewedding-dancing.gif"}
+						alt="Couple"
+						className="object-cover"
+						width={300}
+						height={300}
+					/>
 				</div>
-			</div>
 
-			<motion.div
+				<motion.div
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+					}}
+					className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-1 -translate-y-12"
+				>
+					<h1>are getting</h1>
+					<h1>married</h1>
+				</motion.div>
+
+				{/* <motion.div
 				whileInView={{
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-6xl mx-auto font-pinyon text-white space-y-1 z-10"
+				className="text-6xl mx-auto font-pinyon text-[#d6c6b3] space-y-1 mt-10"
 			>
-				<h1>invited</h1>
-			</motion.div>
+				<h1>and...</h1>
+			</motion.div> */}
+			</div>
 		</section>
 	);
 };

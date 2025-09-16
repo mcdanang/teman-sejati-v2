@@ -22,17 +22,41 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useInvitations } from "@/hooks/use-invitations";
-import { Pen, Video } from "lucide-react";
+import { Pen, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef } from "react";
 import { MediaSelector } from "@/components/media-selector";
-import { InvitationWithModules } from "@/types";
 import Image from "next/image";
+import { InvitationWithModules } from "@/types";
+import { cn } from "@/lib/utils";
 
 export const Schema = z.object({
-	images: z.array(z.string()).optional().default([]),
+	groom_short_name: z
+		.string({ error: "Nama pria tidak boleh kosong" })
+		.min(1, { message: "Nama pria tidak boleh kosong" }),
+	bride_short_name: z
+		.string({ error: "Nama perempuan tidak boleh kosong" })
+		.min(1, { message: "Nama perempuan tidak boleh kosong" }),
+	image: z
+		.string({ error: "Gambar tidak boleh kosong" })
+		.min(1, { message: "Gambar tidak boleh kosong" })
+		.url({ message: "URL gambar tidak valid" })
+		.refine(
+			url => {
+				// Check if it's a valid image URL (basic check)
+				const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"];
+				const isImageUrl = imageExtensions.some(
+					ext =>
+						url.toLowerCase().includes(ext) ||
+						url.includes("cloudinary.com") ||
+						url.includes("res.cloudinary.com")
+				);
+				return isImageUrl;
+			},
+			{ message: "URL harus berupa gambar yang valid" }
+		),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -85,7 +109,9 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 		<Sheet>
 			<SheetTrigger asChild>
 				<Button
-					className="absolute top-2 right-2 lg:opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-1 shadow hover:bg-gray-100"
+					className={cn(
+						"absolute z-30 top-2 right-2 lg:opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-1 shadow hover:bg-gray-100"
+					)}
 					aria-label="Edit module"
 				>
 					<Pen className="h-4 w-4 text-gray-600" />
@@ -103,10 +129,38 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="images"
+								name="groom_short_name"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Gambar</FormLabel>
+										<FormLabel required>Nama Singkat Pengantin Pria</FormLabel>
+										<FormControl>
+											<Input type="text" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="bride_short_name"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel required>Nama Singkat Pengantin Perempuan</FormLabel>
+										<FormControl>
+											<Input type="text" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="image"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel required>Gambar</FormLabel>
 										<FormControl>
 											<div className="space-y-3">
 												{/* Hidden input for form validation */}
@@ -123,18 +177,22 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 														allowedTypes={["image"]}
 														trigger={
 															<Button type="button" variant="outline" size="sm">
-																<Video className="h-4 w-4 mr-2" />
+																<ImageIcon className="h-4 w-4 mr-2" />
 																{field.value ? "Ganti Gambar" : "Pilih Gambar"}
 															</Button>
 														}
 													/>
 													{field.value && (
-														<div className="relative w-32 h-32 border rounded-lg overflow-hidden">
+														<div className="relative w-16 h-16 border rounded-lg overflow-hidden">
 															<Image
-																src={field.value[0]}
-																alt="Gambar"
-																className="w-full h-full object-cover"
-																style={{ aspectRatio: 1 }}
+																src={field.value}
+																alt="Selected image preview"
+																fill
+																className="object-cover"
+																onError={e => {
+																	// Hide the image if it fails to load
+																	e.currentTarget.style.display = "none";
+																}}
 															/>
 														</div>
 													)}

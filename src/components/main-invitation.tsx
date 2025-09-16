@@ -130,7 +130,7 @@ export function MainInvitation({
 						: null;
 
 					return (
-						<div key={mod.name} id={id as string} className="relative group">
+						<div key={mod.name} id={id as string} className="relative group overflow-hidden">
 							{editMode && ModuleForm && <ModuleForm activeInvitation={activeInvitation} />}
 							<Component data={mod.content as ModuleData} invitationId={activeInvitation.id} />
 						</div>

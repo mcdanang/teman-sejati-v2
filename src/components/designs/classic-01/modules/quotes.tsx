@@ -12,99 +12,43 @@ export const Quotes = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
 
 	return (
-		<section className="relative text-center py-16 bg-[#660033] overflow-hidden">
-			{/* Background Flower Images */}
-			<div className="absolute inset-0 pointer-events-none">
-				{/* Top Left Flower */}
-				{/* <div className="absolute top-4 left-4 transform rotate-12 opacity-50">
+		<section
+			className="relative text-center py-16 bg-[#d6c6b3] overflow-hidden h-dvh flex items-center justify-center"
+			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
+		>
+			{/* Centered Frame with Quotes */}
+			<div className="relative flex items-center justify-center">
+				{/* Burgundy Frame */}
+				<div className="relative">
 					<Image
-						src="/designs/classic/bunga-2.png"
-						alt="Flower decoration"
-						width={120}
-						height={120}
+						src="/designs/classic/frame-burgundy.png"
+						alt="Burgundy frame"
+						width={500}
+						height={500}
 						className="object-contain"
 					/>
-				</div> */}
 
-				{/* Top Right Flower */}
-				{/* <div className="absolute top-4 right-0 transform -rotate-15 opacity-50">
-					<Image
-						src="/designs/classic/bunga-2.png"
-						alt="Flower decoration"
-						width={200}
-						height={200}
-						className="object-contain"
-					/>
-				</div> */}
+					{/* Quotes Content Overlay */}
+					<div className="absolute inset-0 flex flex-col items-center justify-center px-18">
+						<div className="text-center max-w-xs flex flex-col gap-6">
+							{/* Arabic Text */}
 
-				{/* Bottom Left Flower */}
-				{/* <div className="absolute bottom-0 left-0 transform rotate-45 opacity-50">
-					<Image
-						src="/designs/classic/bunga-2.png"
-						alt="Flower decoration"
-						width={100}
-						height={100}
-						className="object-contain"
-					/>
-				</div> */}
-
-				{/* Bottom Right Flower */}
-				{/* <div className="absolute bottom-0 right-0 transform rotate-180 opacity-50">
-					<Image
-						src="/designs/classic/bunga-2.png"
-						alt="Flower decoration"
-						width={100}
-						height={100}
-						className="object-contain"
-					/>
-				</div> */}
-
-				{/* Bottom Center Flower */}
-				{/* <div className="absolute bottom-4 right-1/3 transform opacity-50">
-					<Image
-						src="/designs/classic/bunga-2.png"
-						alt="Flower decoration"
-						width={150}
-						height={150}
-						className="object-contain"
-					/>
-				</div> */}
-			</div>
-
-			{/* Main Content */}
-			<div className="relative z-10 max-w-2xl mx-auto px-4">
-				{/* Quran Verse Card */}
-				<div className="bg-white/90 w-80 backdrop-blur-sm rounded-2xl shadow-xl p-8 mx-auto max-w-2xl border border-white/20">
-					<div className="absolute bottom-4 right-1/3 transform opacity-50">
-						<Image
-							src="/designs/classic/bunga-2.png"
-							alt="Flower decoration"
-							width={150}
-							height={150}
-							className="object-contain opacity-30 rotate-90"
-						/>
-					</div>
-					<div className="text-center">
-						{/* Arabic Text */}
-						<div className="mb-6">
-							<p className="text-xl leading-relaxed text-gray-800 font-arabic mb-4">
+							<p className="text-lg leading-relaxed text-[#660033] font-arabic mt-4">
 								{moduleData.verse ??
-									"وَمِنْ ءَايَـٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةًۭ وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍۢ يَتَفَكَّرُونَ"}
+									"وَمِنْ ءَايَـٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةًۭ وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍۢ يَتَفَكَّرُونَ"}
 							</p>
-						</div>
 
-						{/* Translation */}
-						<div className="mb-4">
-							<p className=" text-gray-700 leading-relaxed italic">
+							{/* Translation */}
+
+							<p className=" text-[#660033] italic text-justify font-edensor font-medium">
 								{moduleData.translation ??
 									"And one of His signs is that He created for you spouses from among yourselves so that you may find comfort in them. And He has placed between you compassion and mercy. Surely in this are signs for people who reflect."}
 							</p>
-						</div>
 
-						{/* Surah Reference */}
-						<div className="pt-4 border-t border-gray-200">
-							<p className="text-sm text-gray-500 font-medium">
-								— {moduleData.reference ?? "Surah Ar-Rum, 30:21"}
+							{/* Surah Reference */}
+
+							<p className="text-[#660033] font-medium mt-4 font-pinyon">
+								{moduleData.reference ?? "Ar-Rum, 30:21"}
 							</p>
 						</div>
 					</div>
