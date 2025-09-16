@@ -94,11 +94,14 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 
 	if (isSubmitted) {
 		return (
-			<section className="text-center py-12 bg-[#660033]">
-				<Card className="max-w-md mx-auto bg-white/10 backdrop-blur-sm border-white/20">
+			<section
+				className="text-center py-16 bg-[#d6c6b3] overflow-hidden h-dvh flex items-center justify-center"
+				style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
+			>
+				<Card className="max-w-md mx-auto bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
 					<CardContent className="pt-6">
 						<div className="text-center">
-							<div className="w-16 h-16 mx-auto mb-4 bg-green-500 rounded-full flex items-center justify-center">
+							<div className="w-16 h-16 mx-auto mb-4 bg-[#660033] rounded-full flex items-center justify-center">
 								<svg
 									className="w-8 h-8 text-white"
 									fill="none"
@@ -113,8 +116,8 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 									/>
 								</svg>
 							</div>
-							<h2 className="text-2xl font-bold text-white font-shadows mb-2">Thank You!</h2>
-							<p className="text-white/80 font-shadows">
+							<h2 className="text-2xl font-bold text-[#660033] font-pinyon mb-2">Thank You!</h2>
+							<p className="text-[#660033]/80 font-edensor">
 								Your RSVP has been submitted successfully. We look forward to celebrating with you!
 							</p>
 						</div>
@@ -125,12 +128,15 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 	}
 
 	return (
-		<section className="text-center py-12 bg-[#660033]">
-			<div className="max-w-md mx-auto px-4">
-				<Card className="bg-white/10 backdrop-blur-sm border-white/20">
+		<section
+			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center"
+			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
+		>
+			<div className="w-full mx-auto px-8">
+				<Card className="bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
 					<CardHeader>
-						<CardTitle className="text-white font-shadows text-xl">RSVP</CardTitle>
-						<CardDescription className="text-lg text-white/80 font-shadows mb-8">
+						<CardTitle className="text-[#660033] font-pinyon text-4xl">RSVP</CardTitle>
+						<CardDescription className="text-lg text-[#660033]/80 font-edensor mb-8">
 							Will you attend our wedding?
 						</CardDescription>
 					</CardHeader>
@@ -138,7 +144,7 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 						<form onSubmit={handleSubmit} className="space-y-6">
 							{/* Guest Name */}
 							<div className="space-y-2">
-								<Label htmlFor="guest_name" className="text-white font-shadows">
+								<Label htmlFor="guest_name" className="text-[#660033] font-edensor font-medium">
 									Your Name *
 								</Label>
 								<Input
@@ -147,29 +153,29 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 									value={rsvpData.guest_name}
 									onChange={e => handleInputChange("guest_name", e.target.value)}
 									placeholder="Enter your full name"
-									className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
+									className="bg-white/80 border-[#660033]/30 text-[#660033] placeholder:text-[#660033]/60 focus:border-[#660033]"
 									required
 								/>
 							</div>
 
 							{/* Attendance Toggle */}
 							<div className="space-y-3">
-								<Label className="text-white font-shadows block">
+								<Label className="text-[#660033] font-edensor font-medium block">
 									Will you attend our wedding?
 								</Label>
 								<div className="flex items-center justify-center space-x-4">
 									<span
-										className={`font-shadows ${!rsvpData.will_attend ? "text-white" : "text-white/60"}`}
+										className={`font-edensor ${!rsvpData.will_attend ? "text-[#660033]" : "text-[#660033]/60"}`}
 									>
 										No
 									</span>
 									<Switch
 										checked={rsvpData.will_attend}
 										onCheckedChange={checked => handleInputChange("will_attend", checked)}
-										className="data-[state=checked]:bg-amber-700/40 data-[state=unchecked]:bg-white/20"
+										className="data-[state=checked]:bg-[#660033] data-[state=unchecked]:bg-[#660033]/30"
 									/>
 									<span
-										className={`font-shadows ${rsvpData.will_attend ? "text-white" : "text-white/60"}`}
+										className={`font-edensor ${rsvpData.will_attend ? "text-[#660033]" : "text-[#660033]/60"}`}
 									>
 										Yes
 									</span>
@@ -179,7 +185,7 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 							{/* People Count - only show if attending */}
 							{rsvpData.will_attend && (
 								<div className="space-y-2">
-									<Label htmlFor="people_count" className="text-white font-shadows">
+									<Label htmlFor="people_count" className="text-[#660033] font-edensor font-medium">
 										Number of people (including you) *
 									</Label>
 									<Input
@@ -189,7 +195,7 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 										max={maxPeopleCount}
 										value={rsvpData.people_count}
 										onChange={e => handleInputChange("people_count", parseInt(e.target.value) || 1)}
-										className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
+										className="bg-white/80 border-[#660033]/30 text-[#660033] placeholder:text-[#660033]/60 focus:border-[#660033]"
 										required
 									/>
 								</div>
@@ -199,7 +205,7 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 							<Button
 								type="submit"
 								disabled={isSubmitting}
-								className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 font-shadows"
+								className="w-full bg-[#660033] hover:bg-[#660033]/90 text-white border border-[#660033] font-edensor font-medium"
 							>
 								{isSubmitting ? "Submitting..." : "Submit RSVP"}
 							</Button>
