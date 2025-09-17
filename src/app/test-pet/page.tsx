@@ -49,6 +49,7 @@ const Pet = () => {
 				userSelect: "none",
 			}}
 		>
+			{/* eslint-disable-next-line @next/next/no-img-element */}
 			<img src={sprite} alt="Pet" />
 		</div>
 	);

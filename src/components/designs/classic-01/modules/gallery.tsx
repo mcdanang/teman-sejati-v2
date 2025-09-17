@@ -10,6 +10,7 @@ type ModuleData = {
 };
 
 export const Gallery = ({ data }: { data: InputJsonValue }) => {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const moduleData = data as ModuleData;
 
 	const items = [

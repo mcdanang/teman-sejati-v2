@@ -44,6 +44,7 @@ export const RSVPDisplay = ({ invitationId }: RSVPDisplayProps) => {
 
 	useEffect(() => {
 		fetchRSVPs();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [invitationId]);
 
 	console.log("rsvps", rsvps);

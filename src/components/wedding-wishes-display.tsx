@@ -55,6 +55,7 @@ export function WeddingWishesDisplay({ invitationId }: WeddingWishesDisplayProps
 		if (invitationId) {
 			fetchWishes();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [invitationId]);
 
 	const formatDate = (dateString: string) => {
