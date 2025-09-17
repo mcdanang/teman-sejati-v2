@@ -68,3 +68,5 @@ export const designs: Record<string, DesignDefinition> = {
 };
 
 export type DesignId = keyof typeof designs;
+export type DesignKey = DesignId;
+export type ModuleKey = keyof (typeof designs)[DesignId]["modules"];
