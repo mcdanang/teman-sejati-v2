@@ -1,8 +1,8 @@
 import { DesignKey, designs } from "@/lib/designs";
 import { Editor } from "@/components/editor/editor";
 
-export default function EditPage({ params }: { params: { design: DesignKey } }) {
-	const selectedDesign = params.design; // Simulate selected design
+export default async function EditPage({ params }: { params: Promise<{ design: DesignKey }> }) {
+	const { design: selectedDesign } = await params;
 
 	const design = designs[selectedDesign];
 
