@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 
-export async function GET(request: NextRequest, { params }: { params: { slug: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
 	const { slug } = await params;
 	const invitation = await prisma.invitation.findUnique({
 		where: { slug },
@@ -15,7 +15,10 @@ export async function GET(request: NextRequest, { params }: { params: { slug: st
 	return NextResponse.json(invitation);
 }
 
-export async function PATCH(request: NextRequest, { params }: { params: { slug: string } }) {
+export async function PATCH(
+	request: NextRequest,
+	{ params }: { params: Promise<{ slug: string }> }
+) {
 	try {
 		const session = await auth();
 		if (!session?.user?.id) {

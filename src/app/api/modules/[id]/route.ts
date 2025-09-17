@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
 	try {
-		const { id } = params;
+		const { id } = await params;
 		const body = await request.json();
 
 		// Validate the module exists
@@ -34,9 +34,9 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 	}
 }
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
 	try {
-		const { id } = params;
+		const { id } = await params;
 
 		const moduleData = await prisma.module.findUnique({
 			where: { id },
