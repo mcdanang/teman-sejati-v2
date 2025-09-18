@@ -3,7 +3,7 @@ import { InputJsonValue } from "@prisma/client/runtime/library";
 // import { Instagram } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 type ModuleData = {
 	full_name?: string;
@@ -16,41 +16,45 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 	const moduleData = data as ModuleData;
 
 	return (
-		<section className="text-center flex flex-col items-center gap-4 py-20 bg-[#660033]">
-			<motion.h1
-				className="text-4xl font-bold font-cedarville text-white"
-				whileInView={{
-					scale: 1.05,
-					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
-				}}
-			>
-				{moduleData.full_name ?? "John Doe"}
-			</motion.h1>
-			<motion.p
-				className="mt-2 text-lg font-cedarville text-white max-w-72 mx-auto"
-				whileInView={{
-					scale: 1.05,
-					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
-				}}
-			>
-				{moduleData.description ?? "Son of Mr. and Mrs. Doe"}
-			</motion.p>
-			<motion.div
-				className="flex justify-center"
-				whileInView={{
-					scale: 1.05,
-					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
-				}}
-			>
-				<Image
-					src={moduleData.image ?? "/designs/classic/doodle2.png"}
-					alt="Couple"
-					className=""
-					width={150}
-					height={150}
-				/>
-			</motion.div>
-			{/* <Button
+		<section
+			className="text-center flex flex-col justify-center items-center gap-4 bg-[#660033] h-dvh"
+			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
+		>
+			<div className="flex flex-col items-center gap-4">
+				<motion.h1
+					className="text-4xl font-bold font-edensor text-white max-w-sm"
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+					}}
+				>
+					{moduleData.full_name ?? "John Doe"}
+				</motion.h1>
+				<motion.p
+					className="text-lg font-edensor text-white max-w-72 mx-auto"
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+					}}
+				>
+					{moduleData.description ?? "Son of Mr. and Mrs. Doe"}
+				</motion.p>
+				<motion.div
+					className="flex justify-center"
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+					}}
+				>
+					<Image
+						src={moduleData.image ?? "/designs/classic/doodle2.png"}
+						alt="Couple"
+						className="mt-10"
+						width={350}
+						height={350}
+					/>
+				</motion.div>
+				{/* <Button
 				variant="outline"
 				className="flex justify-center items-center border-white gap-2 hover:bg-gray-100/10"
 			>
@@ -64,6 +68,7 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 					<p className="text-white">{moduleData.instagram ?? "john_doe"}</p>
 				</a>
 			</Button> */}
+			</div>
 		</section>
 	);
 };

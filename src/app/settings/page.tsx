@@ -66,6 +66,8 @@ export default function Page() {
 				throw new Error("Failed to update background image");
 			}
 
+			// const updatedData = await response.json();
+
 			// Update local state
 			setInvitation(prev => (prev ? { ...prev, desktop_bg: imageUrl } : null));
 			toast.success("Background image berhasil diperbarui");
@@ -299,7 +301,7 @@ const BackgroundMusicCard = ({
 				audio.src = "";
 			}
 		};
-	}, [invitation.background_music]);
+	}, [invitation.background_music, audio]);
 
 	const togglePlay = () => {
 		if (!audio) return;

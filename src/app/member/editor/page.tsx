@@ -2,17 +2,21 @@ import { designs } from "@/lib/designs";
 import { ModuleEditor } from "@/components/editor/module-editor";
 
 export default function EditPage() {
-	const selectedDesign = "classic"; // Simulate selected design
-	const selectedModule = "cover"; // Simulate selected module
+	const selectedDesign = "classic-01"; // Simulate selected design
+	const selectedModule = "Cover"; // Simulate selected module
 
 	const moduleData = designs[selectedDesign].modules[selectedModule];
+
+	if (!moduleData) {
+		return <div>Module not found</div>;
+	}
 
 	// Simulate invitation content loaded from DB
 	const invitationContent = {
 		order: ["cover", "eventDetails", "photoGallery"],
 		desktopBackground: "/designs/classic/bg.webp",
 		modules: {
-			cover: {
+			Cover: {
 				title: "Bismillahirrahmanirrahim",
 				subtitle: "Dengan izin Allah, kami akan menikah",
 				image1: "/designs/classic/couple.svg",

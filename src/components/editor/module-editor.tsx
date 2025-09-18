@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ModuleForm } from "./module-form";
+// import { ModuleForm } from "./module-form";
 import { PreviewWrapper } from "./preview-wrapper";
 import { ModuleDefinition } from "@/lib/designs";
 
@@ -14,9 +14,9 @@ export function ModuleEditor({
 	data: Record<string, string | string[]>;
 	desktopBackground: string;
 }) {
-	const [formData, setFormData] = useState(data);
+	const [formData] = useState(data);
 
-	const Component = moduleData.Component;
+	const Component = moduleData;
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -30,13 +30,10 @@ import { useEffect, useRef } from "react";
 import { InvitationWithModules } from "@/types";
 
 export const Schema = z.object({
-	title: z
-		.string({ error: "Judul tidak boleh kosong" })
-		.min(1, { message: "Judul tidak boleh kosong" }),
-	subtitle: z.string().optional(),
-	image: z
-		.string({ error: "Gambar tidak boleh kosong" })
-		.min(1, { message: "Gambar tidak boleh kosong" }),
+	max_people_count: z
+		.number({ error: "Max people count harus berupa angka" })
+		.min(1, { message: "Max people count minimal 1" })
+		.max(20, { message: "Max people count maksimal 20" }),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -54,13 +51,17 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 	useEffect(() => {
 		if (moduleData) {
 			form.reset(moduleData);
+		} else {
+			// Set default values if no module data exists
+			form.reset({
+				max_people_count: 2,
+			});
 		}
 	}, [moduleData, form, activeInvitation]);
 
 	const onSubmit = async (values: z.infer<typeof Schema>) => {
 		try {
 			if (!activeInvitation || !editedModule) return;
-
 			const updatedModule = {
 				...editedModule,
 				invitation_id: activeInvitation.id,
@@ -70,6 +71,8 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 
 			// Show loading toast
 			const loadingToast = toast.loading("Menyimpan perubahan...");
+
+			console.log("activeInvitation", activeInvitation);
 
 			await updateModule(activeInvitation.id, updatedModule);
 
@@ -107,40 +110,23 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="title"
+								name="max_people_count"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Judul</FormLabel>
+										<FormLabel>Max People Count</FormLabel>
 										<FormControl>
-											<Input type="text" {...field} />
+											<Input
+												type="number"
+												min="1"
+												max="20"
+												{...field}
+												onChange={e => field.onChange(parseInt(e.target.value) || 1)}
+											/>
 										</FormControl>
 										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="subtitle"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Sub Judul</FormLabel>
-										<FormControl>
-											<Input type="text" {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-							<FormField
-								control={form.control}
-								name="image"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>URL Gambar</FormLabel>
-										<FormControl>
-											<Input type="text" {...field} />
-										</FormControl>
-										<FormMessage />
+										<p className="text-sm text-gray-500">
+											Maximum number of people a guest can bring (including themselves)
+										</p>
 									</FormItem>
 								)}
 							/>

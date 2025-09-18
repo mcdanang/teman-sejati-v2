@@ -54,6 +54,14 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 	useEffect(() => {
 		if (moduleData) {
 			form.reset(moduleData);
+		} else {
+			// Set default values if no module data exists
+			form.reset({
+				title: "Terima Kasih",
+				subtitle:
+					"Atas kehadiran dan doa restu dari Bapak/Ibu/Saudara/i sekalian, kami ucapkan terima kasih yang sebesar-besarnya. Semoga Allah SWT membalas kebaikan Bapak/Ibu/Saudara/i sekalian dengan yang lebih baik.",
+				image: "/designs/classic/couple.svg",
+			});
 		}
 	}, [moduleData, form, activeInvitation]);
 

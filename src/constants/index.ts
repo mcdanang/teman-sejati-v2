@@ -8,6 +8,7 @@ export const DEFAULT_INVITATIONS: InvitationWithModules[] = [
 		slug: "contoh-undangan",
 		design: "classic-01",
 		desktop_bg: "/designs/classic/bg.webp",
+		background_music: null,
 		index: 1,
 		is_paid: false,
 		is_published: false,
@@ -52,16 +53,16 @@ export const NAV_MAIN = [
 				title: "Atur Media",
 				url: "media",
 			},
-			// {
-			// 	title: "Data RSVP",
-			// 	url: "#",
-			// },
+			{
+				title: "Data RSVP",
+				url: "rsvp",
+			},
+			{
+				title: "Data Wedding Wishes",
+				url: "wedding-wishes",
+			},
 			// {
 			// 	title: "Data Wedding Gift",
-			// 	url: "#",
-			// },
-			// {
-			// 	title: "Data Wedding Wishes",
 			// 	url: "#",
 			// },
 		],
