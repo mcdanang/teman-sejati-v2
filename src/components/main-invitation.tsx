@@ -11,6 +11,7 @@ export function MainInvitation({
 	editMode?: boolean;
 }) {
 	const [isPlaying, setIsPlaying] = useState(false);
+	const [showPlayPrompt, setShowPlayPrompt] = useState(false);
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	// Background music functionality
@@ -20,19 +21,66 @@ export function MainInvitation({
 		const audio = new Audio(activeInvitation.background_music);
 		audio.loop = true;
 		audio.volume = 0.3; // Set volume to 30%
+		audio.autoplay = true;
+		audio.preload = "auto";
 		audioRef.current = audio;
+
+		// Set up audio event listeners
+		audio.addEventListener("canplaythrough", () => {
+			console.log("Audio can play through");
+		});
+
+		audio.addEventListener("playing", () => {
+			setIsPlaying(true);
+			setShowPlayPrompt(false);
+			console.log("Audio is playing");
+		});
+
+		audio.addEventListener("pause", () => {
+			setIsPlaying(false);
+			console.log("Audio paused");
+		});
+
+		audio.addEventListener("error", e => {
+			console.error("Audio error:", e);
+		});
 
 		// Auto-play when component mounts (if not in edit mode)
 		if (!editMode) {
+			// Try to play immediately
 			const playPromise = audio.play();
 			if (playPromise !== undefined) {
 				playPromise
 					.then(() => {
 						setIsPlaying(true);
+						console.log("Audio auto-played successfully");
 					})
 					.catch(error => {
 						console.log("Auto-play prevented:", error);
-						// Auto-play was prevented, but we don't show error to user
+						setShowPlayPrompt(true);
+
+						// Auto-play was prevented, try again on user interaction
+						const handleUserInteraction = () => {
+							audio
+								.play()
+								.then(() => {
+									setIsPlaying(true);
+									setShowPlayPrompt(false);
+									console.log("Audio played after user interaction");
+								})
+								.catch(err => {
+									console.log("Still cannot play:", err);
+								});
+							// Remove listeners after first interaction
+							document.removeEventListener("click", handleUserInteraction);
+							document.removeEventListener("touchstart", handleUserInteraction);
+							document.removeEventListener("keydown", handleUserInteraction);
+						};
+
+						// Listen for user interaction to start audio
+						document.addEventListener("click", handleUserInteraction, { once: true });
+						document.addEventListener("touchstart", handleUserInteraction, { once: true });
+						document.addEventListener("keydown", handleUserInteraction, { once: true });
 					});
 			}
 		}
@@ -93,14 +141,20 @@ export function MainInvitation({
 				backgroundRepeat: "no-repeat",
 				backgroundAttachment: "fixed",
 			}}
+			onClick={() => {
+				// If audio exists and is not playing, try to play it
+				if (audioRef.current && !isPlaying && activeInvitation?.background_music) {
+					audioRef.current.play().catch(err => console.log("Click to play failed:", err));
+				}
+			}}
 		>
 			{/* Background Music Controls */}
 			{activeInvitation.background_music && (
-				<div className="fixed bottom-4 ml-4 z-50">
+				<div className="fixed bottom-1 ml-2 z-50">
 					<button
 						type="button"
 						onClick={togglePlay}
-						className="p-0 border-none bg-transparent cursor-pointer"
+						className="p-0 border-none bg-transparent cursor-pointer relative"
 					>
 						<Image
 							src="/images/vinyl.png"
@@ -111,6 +165,13 @@ export function MainInvitation({
 								isPlaying ? "animate-spin" : ""
 							}`}
 						/>
+						{/* Play prompt when auto-play is blocked */}
+						{/* {showPlayPrompt && (
+							<div className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-black/80 text-white text-xs px-3 py-2 rounded-lg whitespace-nowrap shadow-lg">
+								🎵 Tap anywhere to play music
+								<div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-black/80"></div>
+							</div>
+						)} */}
 					</button>
 				</div>
 			)}
