@@ -9,7 +9,7 @@ type CoverModuleData = {
 	envelope_image?: string;
 };
 
-export const Cover = ({ data, invitationId }: { data: InputJsonValue; invitationId?: string }) => {
+export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string }) => {
 	const moduleData = data as CoverModuleData;
 	const searchParams = useSearchParams();
 	const to = searchParams.get("to");

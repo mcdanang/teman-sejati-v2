@@ -11,7 +11,7 @@ export function MainInvitation({
 	editMode?: boolean;
 }) {
 	const [isPlaying, setIsPlaying] = useState(false);
-	const [showPlayPrompt, setShowPlayPrompt] = useState(false);
+	// const [showPlayPrompt, setShowPlayPrompt] = useState(false); // Commented out since prompt is disabled
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
 	// Background music functionality
@@ -32,7 +32,7 @@ export function MainInvitation({
 
 		audio.addEventListener("playing", () => {
 			setIsPlaying(true);
-			setShowPlayPrompt(false);
+			// setShowPlayPrompt(false); // Commented out since prompt is disabled
 			console.log("Audio is playing");
 		});
 
@@ -57,7 +57,7 @@ export function MainInvitation({
 					})
 					.catch(error => {
 						console.log("Auto-play prevented:", error);
-						setShowPlayPrompt(true);
+						// setShowPlayPrompt(true); // Commented out since prompt is disabled
 
 						// Auto-play was prevented, try again on user interaction
 						const handleUserInteraction = () => {
@@ -65,7 +65,7 @@ export function MainInvitation({
 								.play()
 								.then(() => {
 									setIsPlaying(true);
-									setShowPlayPrompt(false);
+									// setShowPlayPrompt(false); // Commented out since prompt is disabled
 									console.log("Audio played after user interaction");
 								})
 								.catch(err => {

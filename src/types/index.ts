@@ -11,6 +11,7 @@ import { Data as WeddingGiftData } from "@/components/module-form/wedding-gift";
 import { Data as WeddingWishesData } from "@/components/module-form/wedding-wishes";
 import { Data as ClosingData } from "@/components/module-form/closing";
 import { Invitation, Prisma } from "@prisma/client";
+import { InputJsonValue } from "@prisma/client/runtime/library";
 
 export type InvitationWithModules = Invitation & {
 	Modules: Prisma.ModuleCreateWithoutInvitationInput[];
@@ -31,7 +32,7 @@ export type ModuleData =
 	| ClosingData;
 
 export type ModuleDefinition = React.FC<{
-	data: any;
+	data: InputJsonValue;
 	invitationId?: string;
 }>;
 

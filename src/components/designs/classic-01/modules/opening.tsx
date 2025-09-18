@@ -4,13 +4,7 @@ import { Data } from "../module-forms/opening";
 import { motion } from "motion/react";
 import { InputJsonValue } from "@prisma/client/runtime/library";
 
-export const Opening = ({
-	data,
-	invitationId,
-}: {
-	data: InputJsonValue;
-	invitationId?: string;
-}) => {
+export const Opening = ({ data }: { data: InputJsonValue; invitationId?: string }) => {
 	const moduleData = data as Data;
 	return (
 		<section
