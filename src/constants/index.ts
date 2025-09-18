@@ -8,6 +8,7 @@ export const DEFAULT_INVITATIONS: InvitationWithModules[] = [
 		slug: "contoh-undangan",
 		design: "classic-01",
 		desktop_bg: "/designs/classic/bg.webp",
+		background_music: null,
 		index: 1,
 		is_paid: false,
 		is_published: false,

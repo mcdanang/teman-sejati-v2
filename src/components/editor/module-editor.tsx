@@ -16,7 +16,7 @@ export function ModuleEditor({
 }) {
 	const [formData] = useState(data);
 
-	const Component = moduleData.Component;
+	const Component = moduleData;
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 gap-6">

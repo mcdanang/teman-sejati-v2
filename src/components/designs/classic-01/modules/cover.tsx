@@ -3,13 +3,14 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import React from "react";
 import { useSearchParams } from "next/navigation";
+import { InputJsonValue } from "@prisma/client/runtime/library";
 
-type ModuleData = {
-	envelope_image: string;
+type CoverModuleData = {
+	envelope_image?: string;
 };
 
-export const Cover = ({ data }: { data: ModuleData }) => {
-	const moduleData = data as ModuleData;
+export const Cover = ({ data, invitationId }: { data: InputJsonValue; invitationId?: string }) => {
+	const moduleData = data as CoverModuleData;
 	const searchParams = useSearchParams();
 	const to = searchParams.get("to");
 

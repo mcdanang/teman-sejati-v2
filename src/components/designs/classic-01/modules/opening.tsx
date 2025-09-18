@@ -1,10 +1,16 @@
-import { ModuleData } from "@/types";
 import Image from "next/image";
 import React from "react";
 import { Data } from "../module-forms/opening";
 import { motion } from "motion/react";
+import { InputJsonValue } from "@prisma/client/runtime/library";
 
-export const Opening = ({ data }: { data: ModuleData }) => {
+export const Opening = ({
+	data,
+	invitationId,
+}: {
+	data: InputJsonValue;
+	invitationId?: string;
+}) => {
 	const moduleData = data as Data;
 	return (
 		<section

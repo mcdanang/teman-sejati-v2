@@ -20,7 +20,7 @@ interface RSVPModuleData {
 	max_people_count: number;
 }
 
-export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationId: string }) => {
+export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationId?: string }) => {
 	const moduleData = data as unknown as RSVPModuleData;
 	console.log("invitationId", invitationId);
 	console.log("moduleData", moduleData);

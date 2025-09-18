@@ -32,7 +32,7 @@ import { InvitationWithModules } from "@/types";
 import Image from "next/image";
 
 export const Schema = z.object({
-	images: z.array(z.string()).optional().default([]),
+	images: z.array(z.string()).default([]),
 });
 
 export type Data = z.infer<typeof Schema>;
@@ -43,7 +43,7 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 	const moduleData = editedModule?.content as Data;
 	const sheetCloseRef = useRef<HTMLButtonElement>(null);
 
-	const form = useForm<z.infer<typeof Schema>>({
+	const form = useForm({
 		resolver: zodResolver(Schema),
 	});
 

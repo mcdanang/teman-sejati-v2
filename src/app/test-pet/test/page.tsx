@@ -26,7 +26,7 @@ export default function TestPage() {
 		},
 	};
 
-	const orderedModules = invitationContent.order ?? design.defaultOrder;
+	const orderedModules = invitationContent.order;
 
 	return (
 		<div className="min-h-screen bg-gray-100 space-y-6">
@@ -34,7 +34,7 @@ export default function TestPage() {
 				const moduleData = design.modules[moduleId as keyof typeof design.modules];
 				if (!moduleData) return null;
 
-				const Component = moduleData.Component;
+				const Component = moduleData;
 				const data =
 					invitationContent.modules[moduleId as keyof typeof invitationContent.modules] ?? {};
 				return <Component key={moduleId} data={data} />;

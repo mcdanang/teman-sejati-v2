@@ -36,7 +36,7 @@ export const WeddingWishes = ({
 	invitationId,
 }: {
 	data: InputJsonValue;
-	invitationId: string;
+	invitationId?: string;
 }) => {
 	const moduleData = data as unknown as WeddingWishModuleData;
 	const [wishes, setWishes] = useState<WeddingWish[]>([]);

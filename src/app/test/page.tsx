@@ -53,7 +53,7 @@ export default function TestPage() {
 					const moduleData = design.modules[moduleId as keyof typeof design.modules];
 					if (!moduleData) return null;
 
-					const Component = moduleData.Component;
+					const Component = moduleData;
 					const data =
 						invitationContent.modules[moduleId as keyof typeof invitationContent.modules] ?? {};
 					return <Component key={moduleId} data={data} />;

@@ -31,8 +31,8 @@ export type ModuleData =
 	| ClosingData;
 
 export type ModuleDefinition = React.FC<{
-	data: ModuleData;
-	invitationId: string;
+	data: any;
+	invitationId?: string;
 }>;
 
 export type FormDefinition = React.FC<{

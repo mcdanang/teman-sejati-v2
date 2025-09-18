@@ -13,7 +13,7 @@ export function Editor({
 }) {
 	// const [formData, setFormData] = useState(data);
 
-	const orderedModules = invitationContent.order ?? design.defaultOrder;
+	const orderedModules = invitationContent.order;
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -32,7 +32,7 @@ export function Editor({
 								const moduleData = design.modules[moduleId as keyof typeof design.modules];
 								if (!moduleData) return null;
 
-								const Component = moduleData.Component;
+								const Component = moduleData;
 								const data =
 									invitationContent.modules[moduleId as keyof typeof invitationContent.modules] ??
 									{};
