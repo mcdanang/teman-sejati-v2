@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion } from "motion/react";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { InputJsonValue } from "@prisma/client/runtime/library";
 
@@ -9,7 +9,7 @@ type CoverModuleData = {
 	envelope_image?: string;
 };
 
-export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string }) => {
+const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string }) => {
 	const moduleData = data as CoverModuleData;
 	const searchParams = useSearchParams();
 	const to = searchParams.get("to");
@@ -136,5 +136,13 @@ export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string })
 				<h1>to invite you</h1>
 			</motion.div>
 		</section>
+	);
+};
+
+export const Cover = ({ data, invitationId }: { data: InputJsonValue; invitationId?: string }) => {
+	return (
+		<Suspense fallback={<div className="h-dvh flex items-center justify-center">Loading...</div>}>
+			<CoverContent data={data} invitationId={invitationId} />
+		</Suspense>
 	);
 };
