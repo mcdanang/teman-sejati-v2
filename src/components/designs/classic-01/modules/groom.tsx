@@ -17,7 +17,7 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center flex flex-col justify-center items-center gap-4 bg-[#660033] min-h-svh"
+			className="text-center flex flex-col justify-center items-center gap-4 bg-[#660033] min-h-svh snap-start snap-always"
 			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
 		>
 			<div className="flex flex-col items-center gap-4">

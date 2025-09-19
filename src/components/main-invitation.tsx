@@ -176,7 +176,7 @@ export function MainInvitation({
 				</div>
 			)}
 
-			<div className="relative max-w-md mx-auto min-h-screen bg-white/95 shadow-lg backdrop-blur-sm">
+			<div className="relative max-w-md mx-auto min-h-screen bg-white/95 shadow-lg backdrop-blur-sm snap-y snap-mandatory h-screen overflow-y-auto">
 				{modules.map(mod => {
 					const id = mod.name.replace(/\s+/g, "");
 					const moduleData = design.modules[mod.name as keyof typeof design.modules];
@@ -191,7 +191,11 @@ export function MainInvitation({
 						: null;
 
 					return (
-						<div key={mod.name} id={id as string} className="relative group overflow-hidden">
+						<div
+							key={mod.name}
+							id={id as string}
+							className="relative group overflow-hidden snap-start snap-always"
+						>
 							{editMode && ModuleForm && <ModuleForm activeInvitation={activeInvitation} />}
 							<Component data={mod.content as ModuleData} invitationId={activeInvitation.id} />
 						</div>
