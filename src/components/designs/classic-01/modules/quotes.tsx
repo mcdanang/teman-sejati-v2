@@ -13,7 +13,7 @@ export const Quotes = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="relative text-center py-16 bg-[#d6c6b3] overflow-hidden h-dvh flex items-center justify-center"
+			className="relative text-center py-16 bg-[#d6c6b3] overflow-hidden min-h-svh flex items-center justify-center"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			{/* Centered Frame with Quotes */}

@@ -17,7 +17,7 @@ export const Bride = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center flex flex-col justify-center items-center gap-4 bg-[#660033] h-dvh"
+			className="text-center flex flex-col justify-center items-center gap-4 bg-[#660033] min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
 		>
 			<div className="flex flex-col items-center gap-4">
@@ -50,8 +50,8 @@ export const Bride = ({ data }: { data: InputJsonValue }) => {
 						src={moduleData.image ?? "/designs/classic/doodle3.png"}
 						alt="Couple"
 						className="mt-10"
-						width={350}
-						height={350}
+						width={300}
+						height={300}
 					/>
 				</motion.div>
 				{/* <Button

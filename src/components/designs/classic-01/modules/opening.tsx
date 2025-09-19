@@ -8,7 +8,7 @@ export const Opening = ({ data }: { data: InputJsonValue; invitationId?: string 
 	const moduleData = data as Data;
 	return (
 		<section
-			className="text-center bg-cover bg-center bg-no-repeat flex flex-col items-center py-12 h-dvh"
+			className="text-center bg-cover bg-center bg-no-repeat flex flex-col items-center min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
 		>
 			<div className="flex flex-col justify-evenly items-center h-lvh">

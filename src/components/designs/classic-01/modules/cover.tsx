@@ -15,24 +15,24 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 	const to = searchParams.get("to");
 
 	return (
-		<section className="text-center bg-white flex flex-col justify-evenly items-center h-dvh">
+		<section className="text-center bg-white flex flex-col justify-evenly items-center min-h-svh">
 			<motion.div
 				whileInView={{
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-6xl mx-auto font-pinyon text-black space-y-1 z-10"
+				className="text-5xl mx-auto font-pinyon text-black space-y-1 z-10"
 			>
 				<h1>We are pleased</h1>
 			</motion.div>
 
-			<div className="relative w-[300px] h-[640px]">
+			<div className="relative w-[calc(300px*4/5)] h-[calc(640px*4/5)]">
 				<Image
 					src={moduleData?.envelope_image ?? "/designs/classic/amplop-back.png"}
 					alt="Invitation"
 					className="object-cover absolute top-55 left-0 shadow-2xl shadow-[#660033]"
-					width={300}
-					height={300}
+					width={(300 * 4) / 5}
+					height={(300 * 4) / 5}
 				/>
 				<motion.div
 					whileInView={{ translateY: -75, translateX: -15 }}
@@ -43,8 +43,8 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 						src={moduleData?.envelope_image ?? "/designs/classic/main_back.png"}
 						alt="Invitation"
 						className="object-cover absolute top-20 -left-4 -rotate-[12deg] shadow-lg"
-						width={250}
-						height={250}
+						width={(250 * 4) / 5}
+						height={(250 * 4) / 5}
 					/>
 				</motion.div>
 				<motion.div
@@ -56,8 +56,8 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 						src={moduleData?.envelope_image ?? "/designs/classic/photobox-2.jpeg"}
 						alt="Invitation"
 						className="object-cover absolute top-30 right-10 -rotate-6 grayscale"
-						width={80}
-						height={80}
+						width={(80 * 4) / 5}
+						height={(80 * 4) / 5}
 					/>
 				</motion.div>
 				<motion.div
@@ -69,8 +69,8 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 						src={moduleData?.envelope_image ?? "/designs/classic/round_back.png"}
 						alt="Invitation"
 						className="object-cover absolute top-45 left-25"
-						width={180}
-						height={180}
+						width={(180 * 4) / 5}
+						height={(180 * 4) / 5}
 					/>
 				</motion.div>
 				<motion.div
@@ -82,8 +82,8 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 						src={moduleData?.envelope_image ?? "/designs/classic/photobox-1.png"}
 						alt="Invitation"
 						className="object-cover absolute top-45 -right-3 rotate-6 grayscale"
-						width={80}
-						height={80}
+						width={(80 * 4) / 5}
+						height={(80 * 4) / 5}
 					/>
 				</motion.div>
 				<motion.div
@@ -95,8 +95,8 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 						src={moduleData?.envelope_image ?? "/designs/classic/main_front.png"}
 						alt="Invitation"
 						className="object-cover absolute top-65 -left-2 -rotate-12"
-						width={200}
-						height={200}
+						width={(200 * 4) / 5}
+						height={(200 * 4) / 5}
 					/>
 				</motion.div>
 				<motion.div
@@ -107,9 +107,9 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 					<Image
 						src={moduleData?.envelope_image ?? "/designs/classic/round_front.png"}
 						alt="Invitation"
-						className="object-cover absolute top-70 -right-10 rotate-[20deg]"
-						width={240}
-						height={240}
+						className="object-cover absolute top-70 -right-7 rotate-[20deg]"
+						width={(240 * 4) / 5}
+						height={(240 * 4) / 5}
 					/>
 				</motion.div>
 
@@ -117,12 +117,12 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 					src={moduleData?.envelope_image ?? "/designs/classic/amplop-front.png"}
 					alt="Invitation"
 					className="object-cover absolute top-55 left-0"
-					width={300}
-					height={300}
+					width={(300 * 4) / 5}
+					height={(300 * 4) / 5}
 				/>
-				<div className="absolute bottom-2 left-7 text-[#d6c6b3] border border-[#d6c6b3] px-3 py-1 rounded-lg w-42 h-22 text-left flex flex-col justify-between font-edensor font-bold">
-					<p>dear,</p>
-					<p className="">{to || "Muhamad Danang Priambodo"}</p>
+				<div className="absolute -bottom-10 left-7 text-[#d6c6b3] border border-[#d6c6b3] px-3 py-1 rounded-lg w-38 h-18 text-left flex flex-col justify-between font-edensor font-bold">
+					<p className="text-xs">dear,</p>
+					<p className="text-sm">{to || "Muhamad Danang Priambodo"}</p>
 				</div>
 			</div>
 
@@ -131,7 +131,7 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-6xl mx-auto font-pinyon text-black space-y-1 z-10 mt-6"
+				className="text-5xl mx-auto font-pinyon text-black space-y-1 z-10 mt-10"
 			>
 				<h1>to invite you</h1>
 			</motion.div>
@@ -141,7 +141,9 @@ const CoverContent = ({ data }: { data: InputJsonValue; invitationId?: string })
 
 export const Cover = ({ data, invitationId }: { data: InputJsonValue; invitationId?: string }) => {
 	return (
-		<Suspense fallback={<div className="h-dvh flex items-center justify-center">Loading...</div>}>
+		<Suspense
+			fallback={<div className="min-h-svh flex items-center justify-center">Loading...</div>}
+		>
 			<CoverContent data={data} invitationId={invitationId} />
 		</Suspense>
 	);

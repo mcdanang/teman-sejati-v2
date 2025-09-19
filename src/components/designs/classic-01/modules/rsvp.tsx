@@ -95,7 +95,7 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 	if (isSubmitted) {
 		return (
 			<section
-				className="text-center py-16 bg-[#d6c6b3] overflow-hidden h-dvh flex items-center justify-center"
+				className="text-center py-16 bg-[#d6c6b3] overflow-hidden min-h-svh flex items-center justify-center"
 				style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 			>
 				<Card className="max-w-md mx-auto bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
@@ -129,13 +129,13 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 
 	return (
 		<section
-			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center"
+			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
-			<div className="w-full mx-auto px-8">
+			<div className="w-full mx-auto px-4">
 				<Card className="bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
 					<CardHeader>
-						<CardTitle className="text-[#660033] font-pinyon text-4xl">RSVP</CardTitle>
+						<CardTitle className="text-[#660033] font-edensor text-4xl">RSVP</CardTitle>
 						<CardDescription className="text-lg text-[#660033]/80 font-edensor mb-8">
 							Will you attend our wedding?
 						</CardDescription>
@@ -205,7 +205,7 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 							<Button
 								type="submit"
 								disabled={isSubmitting}
-								className="w-full bg-[#660033] hover:bg-[#660033]/90 text-white border border-[#660033] font-edensor font-medium"
+								className="w-full bg-[#660033] hover:bg-[#660033]/90 text-white border border-[#660033] font-edensor font-semibold"
 							>
 								{isSubmitting ? "Submitting..." : "Submit RSVP"}
 							</Button>

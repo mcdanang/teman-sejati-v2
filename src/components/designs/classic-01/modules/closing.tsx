@@ -1,5 +1,6 @@
 import { InputJsonValue } from "@prisma/client/runtime/library";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 type ModuleData = {
@@ -23,9 +24,10 @@ export const Closing = ({ data }: { data: InputJsonValue }) => {
 						{moduleData.title ?? "Terima Kasih"}
 					</h1>
 					<div className="max-w-3xl mx-auto">
-						<p className="text-lg text-[#660033]/80 font-edensor leading-relaxed">
+						<p className="text-md text-[#660033]/80 font-edensor leading-relaxed font-semibold">
 							{moduleData.subtitle ??
-								"Atas kehadiran dan doa restu dari Bapak/Ibu/Saudara/i sekalian, kami ucapkan terima kasih yang sebesar-besarnya. Semoga Allah SWT membalas kebaikan Bapak/Ibu/Saudara/i sekalian dengan yang lebih baik."}
+								//translate to english
+								"Thank you for your presence and prayers from all of you. We appreciate your love and support. May Allah SWT reward you with the best."}
 						</p>
 					</div>
 				</div>
@@ -50,8 +52,18 @@ export const Closing = ({ data }: { data: InputJsonValue }) => {
 				{/* Powered by Teman Sejati */}
 				<div className="flex flex-col items-center gap-2">
 					<div className="flex items-center gap-2">
-						<p className="text-sm text-[#660033]/70 font-edensor">Powered by Teman Sejati</p>
-						<Image src="/images/logo1.svg" alt="Teman Sejati" width={100} height={100} />
+						<p className="text-sm text-[#660033]/70 font-edensor">
+							Powered by{" "}
+							<Link
+								href="https://teman-sejati.com"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="text-[#660033] font-edensor font-semibold"
+							>
+								Teman Sejati
+							</Link>
+						</p>
+						{/* <Image src="/images/logo1.svg" alt="Teman Sejati" width={100} height={100} /> */}
 					</div>
 				</div>
 			</div>

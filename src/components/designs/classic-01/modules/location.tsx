@@ -17,7 +17,7 @@ export const Lokasi = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center py-20 bg-[#660033] flex flex-col gap-4 items-center"
+			className="text-center py-20 bg-[#660033] flex flex-col gap-10 items-center min-h-svh justify-center"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			<h1 className="text-4xl font-semibold font-edensor text-[#660033] max-w-sm">

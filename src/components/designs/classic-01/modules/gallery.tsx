@@ -46,7 +46,7 @@ export const Gallery = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center bg-[#d6c6b3] overflow-hidden flex items-center justify-center"
+			className="text-center bg-[#d6c6b3] overflow-hidden flex items-center justify-center min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			<DraggableCard items={items} />

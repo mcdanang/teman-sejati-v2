@@ -74,13 +74,14 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center py-16 bg-[#d6c6b3] overflow-hidden h-dvh flex items-center justify-center"
+			className="text-center py-16 bg-[#d6c6b3] overflow-hidden min-h-svh flex items-center justify-center px-4"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			<div className="max-w-sm mx-auto">
-				<h1 className="text-4xl font-bold font-pinyon text-[#660033] mb-4">Wedding Gift</h1>
-				<p className="text-lg text-[#660033]/80 font-edensor mb-8">
-					Your presence is the greatest gift, but if you wish to give something
+				<h1 className="text-4xl font-bold font-edensor text-[#660033] mb-4">Wedding Gift</h1>
+				<p className="text-md text-[#660033]/80 font-edensor mb-8 font-semibold">
+					Your presence at our wedding is the greatest gift we could ask for. However, if you would
+					like to give us something, we would be deeply grateful!
 				</p>
 
 				<div className="flex flex-col gap-4">
@@ -153,7 +154,7 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 				</div>
 
 				{/* Additional Message */}
-				<div className="mt-8 max-w-2xl mx-auto">
+				{/* <div className="mt-8 max-w-2xl mx-auto">
 					<Card className="bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
 						<CardContent className="p-6">
 							<p className="text-[#660033] font-edensor leading-relaxed">
@@ -163,7 +164,7 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 							</p>
 						</CardContent>
 					</Card>
-				</div>
+				</div> */}
 			</div>
 		</section>
 	);
