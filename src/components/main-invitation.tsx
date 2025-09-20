@@ -47,7 +47,7 @@ export function MainInvitation({
 
 		// Auto-play when component mounts (if not in edit mode)
 		if (!editMode) {
-			// Try to play immediately
+			// Try to play immediately - no fallback user interaction
 			const playPromise = audio.play();
 			if (playPromise !== undefined) {
 				playPromise
@@ -56,31 +56,8 @@ export function MainInvitation({
 						console.log("Audio auto-played successfully");
 					})
 					.catch(error => {
-						console.log("Auto-play prevented:", error);
-						// setShowPlayPrompt(true); // Commented out since prompt is disabled
-
-						// Auto-play was prevented, try again on user interaction
-						const handleUserInteraction = () => {
-							audio
-								.play()
-								.then(() => {
-									setIsPlaying(true);
-									// setShowPlayPrompt(false); // Commented out since prompt is disabled
-									console.log("Audio played after user interaction");
-								})
-								.catch(err => {
-									console.log("Still cannot play:", err);
-								});
-							// Remove listeners after first interaction
-							document.removeEventListener("click", handleUserInteraction);
-							document.removeEventListener("touchstart", handleUserInteraction);
-							document.removeEventListener("keydown", handleUserInteraction);
-						};
-
-						// Listen for user interaction to start audio
-						document.addEventListener("click", handleUserInteraction, { once: true });
-						document.addEventListener("touchstart", handleUserInteraction, { once: true });
-						document.addEventListener("keydown", handleUserInteraction, { once: true });
+						console.log("Auto-play prevented by browser:", error);
+						// No fallback - user must use play button if auto-play fails
 					});
 			}
 		}
@@ -140,12 +117,6 @@ export function MainInvitation({
 				backgroundPosition: "center",
 				backgroundRepeat: "no-repeat",
 				backgroundAttachment: "fixed",
-			}}
-			onClick={() => {
-				// If audio exists and is not playing, try to play it
-				if (audioRef.current && !isPlaying && activeInvitation?.background_music) {
-					audioRef.current.play().catch(err => console.log("Click to play failed:", err));
-				}
 			}}
 		>
 			{/* Background Music Controls */}

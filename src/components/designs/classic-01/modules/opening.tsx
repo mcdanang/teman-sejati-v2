@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
-import { motion, AnimatePresence } from "motion/react";
-import React, { Suspense, useState } from "react";
+import { motion } from "motion/react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { InputJsonValue } from "@prisma/client/runtime/library";
 
@@ -13,15 +13,15 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 	const moduleData = data as OpeningModuleData;
 	const searchParams = useSearchParams();
 	const to = searchParams.get("to");
-	const [isOverlayOpen, setIsOverlayOpen] = useState(true);
+	// const [isOverlayOpen, setIsOverlayOpen] = useState(true);
 
-	const handleEnvelopeClick = () => {
-		setIsOverlayOpen(false);
-	};
+	// const handleEnvelopeClick = () => {
+	//	setIsOverlayOpen(false);
+	// };
 
 	return (
 		<section
-			className="text-center flex flex-col justify-evenly items-center min-h-svh relative overflow-hidden"
+			className="text-center flex flex-col justify-evenly items-center min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			<motion.div
@@ -48,7 +48,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
 				>
 					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/main_back.png"}
+						src={moduleData?.envelope_image ?? "/designs/classic/hard-cover-burgundy-back.png"}
 						alt="Invitation"
 						className="object-cover absolute top-20 -left-4 -rotate-[12deg] shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
 						width={(250 * 4) / 5}
@@ -100,7 +100,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
 				>
 					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/main_front.png"}
+						src={moduleData?.envelope_image ?? "/designs/classic/hard-cover-burgundy-front.png"}
 						alt="Invitation"
 						className="object-cover absolute top-65 -left-2 -rotate-12 shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
 						width={(200 * 4) / 5}
@@ -122,7 +122,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 				</motion.div>
 
 				<Image
-					src={moduleData?.envelope_image ?? "/designs/classic/amplop-front.png"}
+					src={moduleData?.envelope_image ?? "/designs/classic/envelope-burgundy-front.png"}
 					alt="Invitation"
 					className="object-cover absolute top-55 left-0"
 					width={(300 * 4) / 5}
@@ -144,8 +144,8 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 				<h1>to invite you</h1>
 			</motion.div>
 
-			{/* Overlay Layer */}
-			<AnimatePresence>
+			{/* Overlay Layer - Commented Out */}
+			{/* <AnimatePresence>
 				{isOverlayOpen && (
 					<motion.div
 						initial={{ y: 0 }}
@@ -155,7 +155,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						className="absolute inset-0 bg-gradient-to-b from-[#660033] to-[#4a0025] flex flex-col items-center justify-center z-50 cursor-pointer"
 					>
 						{/* Welcome Text */}
-						<motion.div
+			{/* <motion.div
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: 0.3, duration: 0.8 }}
@@ -166,7 +166,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						</motion.div>
 
 						{/* Envelope Display */}
-						<motion.div
+			{/* <motion.div
 							initial={{ opacity: 0, scale: 0.8 }}
 							animate={{ opacity: 1, scale: 1 }}
 							transition={{ delay: 0.6, duration: 0.8 }}
@@ -182,7 +182,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 							/>
 
 							{/* Tap instruction */}
-							<motion.div
+			{/* <motion.div
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
 								transition={{ delay: 1.2, duration: 0.8 }}
@@ -195,7 +195,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						</motion.div>
 
 						{/* Guest Name */}
-						{to && (
+			{/* {to && (
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
@@ -210,7 +210,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						)}
 					</motion.div>
 				)}
-			</AnimatePresence>
+			</AnimatePresence> */}
 		</section>
 	);
 };
