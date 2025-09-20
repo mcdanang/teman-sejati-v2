@@ -11,7 +11,7 @@ export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string })
 			className="text-center bg-cover bg-center bg-no-repeat flex flex-col items-center min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
 		>
-			<div className="flex flex-col justify-evenly items-center h-lvh">
+			<div className="flex flex-col justify-evenly items-center h-svh">
 				<motion.div
 					whileInView={{
 						scale: 1.05,
