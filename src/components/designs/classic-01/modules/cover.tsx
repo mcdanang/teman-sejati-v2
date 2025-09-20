@@ -31,8 +31,8 @@ export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string })
 						src={moduleData?.image ?? "/designs/classic/prewedding-dancing.gif"}
 						alt="Couple"
 						className="object-cover"
-						width={300}
-						height={300}
+						width={280}
+						height={280}
 					/>
 				</div>
 

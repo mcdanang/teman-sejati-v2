@@ -29,13 +29,13 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 				<h1>and</h1>
 			</motion.div>
 
-			<div className="relative w-[calc(300px*4/5)] h-[calc(640px*4/5)]">
+			<div className="relative w-[calc(300px*7/10)] h-[calc(640px*7/10)]">
 				<Image
 					src={moduleData?.envelope_image ?? "/designs/classic/envelope-burgundy-front.png"}
 					alt="Invitation"
 					className="object-cover absolute top-55 left-0 shadow-lg shadow-[#660033]"
-					width={(300 * 4) / 5}
-					height={(300 * 4) / 5}
+					width={(300 * 7) / 10}
+					height={(300 * 7) / 10}
 				/>
 				<motion.div
 					whileInView={{ translateY: -75, translateX: -15 }}
@@ -46,8 +46,8 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						src={moduleData?.envelope_image ?? "/designs/classic/hard-cover-burgundy-back.png"}
 						alt="Invitation"
 						className="object-cover absolute top-20 -left-4 -rotate-[12deg] shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
-						width={(250 * 4) / 5}
-						height={(250 * 4) / 5}
+						width={(250 * 7) / 10}
+						height={(250 * 7) / 10}
 					/>
 				</motion.div>
 				<motion.div
@@ -59,8 +59,8 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						src={moduleData?.envelope_image ?? "/designs/classic/photobox-2.jpeg"}
 						alt="Invitation"
 						className="object-cover absolute top-30 right-10 -rotate-6 grayscale shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
-						width={(80 * 4) / 5}
-						height={(80 * 4) / 5}
+						width={(80 * 7) / 10}
+						height={(80 * 7) / 10}
 					/>
 				</motion.div>
 				<motion.div
@@ -72,8 +72,8 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						src={moduleData?.envelope_image ?? "/designs/classic/round_back.png"}
 						alt="Invitation"
 						className="object-cover absolute top-45 left-25"
-						width={(180 * 4) / 5}
-						height={(180 * 4) / 5}
+						width={(180 * 7) / 10}
+						height={(180 * 7) / 10}
 					/>
 				</motion.div>
 				<motion.div
@@ -85,8 +85,8 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						src={moduleData?.envelope_image ?? "/designs/classic/photobox-1.png"}
 						alt="Invitation"
 						className="object-cover absolute top-45 -right-3 rotate-6 grayscale shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
-						width={(80 * 4) / 5}
-						height={(80 * 4) / 5}
+						width={(80 * 7) / 10}
+						height={(80 * 7) / 10}
 					/>
 				</motion.div>
 				<motion.div
@@ -98,8 +98,8 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						src={moduleData?.envelope_image ?? "/designs/classic/hard-cover-burgundy-front.png"}
 						alt="Invitation"
 						className="object-cover absolute top-65 -left-2 -rotate-12 shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
-						width={(200 * 4) / 5}
-						height={(200 * 4) / 5}
+						width={(200 * 7) / 10}
+						height={(200 * 7) / 10}
 					/>
 				</motion.div>
 				<motion.div
@@ -111,8 +111,8 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						src={moduleData?.envelope_image ?? "/designs/classic/round_front.png"}
 						alt="Invitation"
 						className="object-cover absolute top-70 -right-7 rotate-[20deg]"
-						width={(240 * 4) / 5}
-						height={(240 * 4) / 5}
+						width={(240 * 7) / 10}
+						height={(240 * 7) / 10}
 					/>
 				</motion.div>
 
@@ -120,8 +120,8 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					src={moduleData?.envelope_image ?? "/designs/classic/envelope-burgundy-front.png"}
 					alt="Invitation"
 					className="object-cover absolute top-55 left-0"
-					width={(300 * 4) / 5}
-					height={(300 * 4) / 5}
+					width={(300 * 7) / 10}
+					height={(300 * 7) / 10}
 				/>
 				<div className="absolute -bottom-10 left-7 text-[#d6c6b3] border border-[#d6c6b3] px-3 py-1 rounded-lg w-38 h-18 text-left flex flex-col justify-between font-edensor font-bold">
 					<p className="text-xs">dear,</p>
@@ -134,7 +134,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-5xl mx-auto font-pinyon text-black space-y-1 z-10 mt-10"
+				className="text-5xl mx-auto font-pinyon text-black space-y-1 z-10 mt-16 mb-8"
 			>
 				<h1>you are invited</h1>
 			</motion.div>
