@@ -17,13 +17,9 @@ export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string })
 						scale: 1.05,
 						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 					}}
-					className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-3 translate-y-12"
+					className="text-5xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-3 translate-y-12"
 				>
-					<h1>{moduleData?.groom_short_name ?? "John"}</h1>
-					<div className="flex">
-						<h1 className="text-4xl font-alex-brush font-light translate-x-2 -translate-y-2">&</h1>
-						<h1>{moduleData?.bride_short_name ?? "Jane"}</h1>
-					</div>
+					<h1>The Wedding of</h1>
 				</motion.div>
 
 				<div className="flex w-fit justify-center bg-black/80 p-3">
@@ -43,8 +39,11 @@ export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string })
 					}}
 					className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-1 -translate-y-12"
 				>
-					<h1>are getting</h1>
-					<h1>married</h1>
+					<h1>{moduleData?.groom_short_name ?? "John"}</h1>
+					<div className="flex">
+						<h1 className="text-4xl font-alex-brush font-light translate-x-2 -translate-y-2">&</h1>
+						<h1>{moduleData?.bride_short_name ?? "Jane"}</h1>
+					</div>
 				</motion.div>
 
 				{/* <motion.div

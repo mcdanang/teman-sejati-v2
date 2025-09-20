@@ -54,7 +54,7 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 
 				{/* Name */}
 				<motion.h1
-					className="text-3xl font-bold font-edensor text-white"
+					className="text-3xl font-bold font-edensor text-white px-4"
 					whileInView={{
 						scale: 1.05,
 						transition: { delay: 0.6, duration: 1.5, bounce: 0.7, type: "spring" },
@@ -65,7 +65,7 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 
 				{/* Parents Names */}
 				<motion.div
-					className="text-center space-y-1"
+					className="text-center space-y-1 px-4"
 					whileInView={{
 						scale: 1.05,
 						transition: { delay: 0.8, duration: 1.5, bounce: 0.7, type: "spring" },
