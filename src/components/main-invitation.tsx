@@ -11,6 +11,8 @@ export function MainInvitation({
 	editMode?: boolean;
 }) {
 	const [isPlaying, setIsPlaying] = useState(false);
+	const [hasClicked, setHasClicked] = useState(false);
+	console.log("hasClicked", hasClicked);
 	// const [showPlayPrompt, setShowPlayPrompt] = useState(false); // Commented out since prompt is disabled
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -45,21 +47,33 @@ export function MainInvitation({
 			console.error("Audio error:", e);
 		});
 
-		// Auto-play when component mounts (if not in edit mode)
-		if (!editMode) {
-			// Try to play immediately - no fallback user interaction
-			const playPromise = audio.play();
-			if (playPromise !== undefined) {
-				playPromise
-					.then(() => {
-						setIsPlaying(true);
-						console.log("Audio auto-played successfully");
-					})
-					.catch(error => {
-						console.log("Auto-play prevented by browser:", error);
-						// No fallback - user must use play button if auto-play fails
-					});
-			}
+		// Auto-play on first click (if not in edit mode)
+		if (!editMode && !hasClicked) {
+			const handleFirstClick = () => {
+				if (!hasClicked) {
+					setHasClicked(true);
+					console.log("First click detected, attempting to play music");
+
+					const playPromise = audio.play();
+					if (playPromise !== undefined) {
+						playPromise
+							.then(() => {
+								setIsPlaying(true);
+								console.log("Audio auto-played on first click");
+							})
+							.catch(error => {
+								console.log("Auto-play still prevented:", error);
+								// User can still use the play button
+							});
+					}
+				}
+			};
+
+			// Add click listener to the document
+			setTimeout(() => {
+				document.addEventListener("click", handleFirstClick, { once: true });
+				console.log("Click listener added to document");
+			}, 100); // Small delay to ensure DOM is ready
 		}
 
 		return () => {
@@ -68,7 +82,7 @@ export function MainInvitation({
 				audio.src = "";
 			}
 		};
-	}, [activeInvitation?.background_music, editMode]);
+	}, [activeInvitation?.background_music, editMode, hasClicked]);
 
 	if (!activeInvitation) {
 		return (

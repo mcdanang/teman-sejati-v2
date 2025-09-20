@@ -31,7 +31,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 				}}
 				className="text-5xl mx-auto font-pinyon text-black space-y-1 z-10"
 			>
-				<h1>We are pleased</h1>
+				<h1>and you are</h1>
 			</motion.div>
 
 			<div className="relative w-[calc(300px*4/5)] h-[calc(640px*4/5)]">
@@ -141,7 +141,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 				}}
 				className="text-5xl mx-auto font-pinyon text-black space-y-1 z-10 mt-10"
 			>
-				<h1>to invite you</h1>
+				<h1>invited</h1>
 			</motion.div>
 
 			{/* Overlay Layer - Commented Out */}
