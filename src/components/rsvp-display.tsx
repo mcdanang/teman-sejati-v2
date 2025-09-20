@@ -47,8 +47,6 @@ export const RSVPDisplay = ({ invitationId }: RSVPDisplayProps) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [invitationId]);
 
-	console.log("rsvps", rsvps);
-
 	const attendingCount = rsvps.filter(rsvp => rsvp.will_attend).length;
 	const totalGuests = rsvps.reduce(
 		(sum, rsvp) => sum + (rsvp.will_attend ? rsvp.people_count : 0),

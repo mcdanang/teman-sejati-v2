@@ -14,15 +14,15 @@ export const Closing = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center"
+			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
-			<div className="max-w-4xl mx-auto px-4">
+			<div className="max-w-4xl mx-auto px-4 h-full flex flex-col justify-evenly">
 				{/* Main Content */}
 				<div className="mb-12">
-					<h1 className="text-5xl font-bold font-pinyon text-[#660033] mb-6">
+					{/* <h1 className="text-5xl font-bold font-pinyon text-[#660033] mb-6">
 						{moduleData.title ?? "Terima Kasih"}
-					</h1>
+					</h1> */}
 					<div className="max-w-3xl mx-auto">
 						<p className="text-md text-[#660033]/80 font-edensor leading-relaxed font-semibold">
 							{moduleData.subtitle ??

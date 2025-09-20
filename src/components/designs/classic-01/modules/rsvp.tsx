@@ -22,8 +22,6 @@ interface RSVPModuleData {
 
 export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationId?: string }) => {
 	const moduleData = data as unknown as RSVPModuleData;
-	console.log("invitationId", invitationId);
-	console.log("moduleData", moduleData);
 	const maxPeopleCount = moduleData?.max_people_count || 2;
 	const [rsvpData, setRsvpData] = useState<RSVPData>({
 		guest_name: "",

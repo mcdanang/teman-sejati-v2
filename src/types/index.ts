@@ -7,6 +7,7 @@ import { Data as WaktuData } from "@/components/module-form/time";
 import { Data as LokasiData } from "@/components/module-form/location";
 import { Data as RSVPData } from "@/components/module-form/rsvp";
 import { Data as GalleryData } from "@/components/module-form/gallery";
+import { Data as GallerySlideshowData } from "@/components/module-form/gallery-slideshow";
 import { Data as WeddingGiftData } from "@/components/module-form/wedding-gift";
 import { Data as WeddingWishesData } from "@/components/module-form/wedding-wishes";
 import { Data as ClosingData } from "@/components/module-form/closing";
@@ -27,6 +28,7 @@ export type ModuleData =
 	| LokasiData
 	| RSVPData
 	| GalleryData
+	| GallerySlideshowData
 	| WeddingGiftData
 	| WeddingWishesData
 	| ClosingData;
@@ -50,6 +52,7 @@ export type ModuleName =
 	| "Lokasi"
 	| "RSVP"
 	| "Gallery"
+	| "Gallery Slideshow"
 	| "Wedding Gift"
 	| "Wedding Wishes"
 	| "Closing";

@@ -90,14 +90,15 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 						<CardHeader>
 							<CardTitle className="flex items-center text-xl font-edensor text-[#660033]">
 								<MapPin className="h-5 w-5 mr-2 text-[#660033]" />
-								{moduleData?.address_name || "Home Address"}
+								{moduleData?.address_name || "Rumah Danang"}
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div className="space-y-4">
 								<div>
-									<p className="text-[#660033] leading-relaxed font-edensor">
-										{moduleData?.address_detail || "Jl. Example Street No. 123, City, Country"}
+									<p className="text-[#660033] leading-relaxed font-edensor font-semibold">
+										{moduleData?.address_detail ||
+											"Jl. Cemara Raya No. 8, RT 09/RW 13, Baktijaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16418"}
 									</p>
 								</div>
 								<div className="flex items-center">
@@ -125,25 +126,25 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 									<div className="mb-2">
 										<p className="text-sm text-[#660033]/70 font-edensor">Bank Name</p>
 										<p className="text-[#660033] font-semibold font-edensor">
-											{moduleData?.bank_name || "Bank Name"}
+											{moduleData?.bank_name || "Bank Mandiri"}
 										</p>
 									</div>
 									<div className="mb-2">
 										<p className="text-sm text-[#660033]/70 font-edensor">Account Name</p>
 										<p className="text-[#660033] font-semibold font-edensor">
-											{moduleData?.account_name || "John & Jane Doe"}
+											{moduleData?.account_name || "Muhamad Danang Priambodo"}
 										</p>
 									</div>
 									<div>
 										<p className="text-sm text-[#660033]/70 font-edensor">Account Number</p>
 										<p className="text-[#660033] font-semibold font-edensor text-lg">
-											{moduleData?.bank_account_number || "1234567890"}
+											{moduleData?.bank_account_number || "700010201460"}
 										</p>
 									</div>
 								</div>
 								<div className="flex flex-wrap gap-2">
 									<CopyButton
-										text={moduleData?.bank_account_number || "1234567890"}
+										text={moduleData?.bank_account_number || "700010201460"}
 										itemType="accountNumber"
 										label="Number"
 									/>

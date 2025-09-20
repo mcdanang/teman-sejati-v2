@@ -12,7 +12,7 @@ export function MainInvitation({
 }) {
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [hasClicked, setHasClicked] = useState(false);
-	console.log("hasClicked", hasClicked);
+
 	// const [showPlayPrompt, setShowPlayPrompt] = useState(false); // Commented out since prompt is disabled
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -28,19 +28,15 @@ export function MainInvitation({
 		audioRef.current = audio;
 
 		// Set up audio event listeners
-		audio.addEventListener("canplaythrough", () => {
-			console.log("Audio can play through");
-		});
+		audio.addEventListener("canplaythrough", () => {});
 
 		audio.addEventListener("playing", () => {
 			setIsPlaying(true);
 			// setShowPlayPrompt(false); // Commented out since prompt is disabled
-			console.log("Audio is playing");
 		});
 
 		audio.addEventListener("pause", () => {
 			setIsPlaying(false);
-			console.log("Audio paused");
 		});
 
 		audio.addEventListener("error", e => {
@@ -52,17 +48,15 @@ export function MainInvitation({
 			const handleFirstClick = () => {
 				if (!hasClicked) {
 					setHasClicked(true);
-					console.log("First click detected, attempting to play music");
 
 					const playPromise = audio.play();
 					if (playPromise !== undefined) {
 						playPromise
 							.then(() => {
 								setIsPlaying(true);
-								console.log("Audio auto-played on first click");
 							})
 							.catch(error => {
-								console.log("Auto-play still prevented:", error);
+								console.error("Auto-play still prevented:", error);
 								// User can still use the play button
 							});
 					}
@@ -72,7 +66,6 @@ export function MainInvitation({
 			// Add click listener to the document
 			setTimeout(() => {
 				document.addEventListener("click", handleFirstClick, { once: true });
-				console.log("Click listener added to document");
 			}, 100); // Small delay to ensure DOM is ready
 		}
 
@@ -96,6 +89,8 @@ export function MainInvitation({
 
 	const modules = activeInvitation.Modules;
 	const design = designs[activeInvitation.design];
+
+	console.log("modules", modules);
 
 	// Validate the background image URL
 	const isValidImageUrl = (url: string) => {
