@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 
 interface CarouselItem {
 	image: string;
@@ -27,6 +28,8 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	const [isPaused, setIsPaused] = useState(false);
 	const [selectedImage, setSelectedImage] = useState<CarouselItem | null>(null);
 
+	console.log("selectedImage state:", selectedImage);
+
 	// Create duplicated items for seamless infinite scroll
 	const duplicatedItems = [...items, ...items];
 
@@ -34,6 +37,13 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	const itemWidth = 300; // Width of each item
 	const gap = 20; // Gap between items
 	const animationDistance = items.length * (itemWidth + gap);
+
+	const handleImageClick = (item: CarouselItem, e: React.MouseEvent) => {
+		e.stopPropagation();
+		console.log("Image clicked:", item);
+		setSelectedImage(item);
+		setIsPaused(true);
+	};
 
 	const closePopup = () => {
 		setSelectedImage(null);
@@ -77,13 +87,14 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 				{duplicatedItems.map((item, index) => (
 					<motion.div
 						key={`${item.image}-${index}`}
-						className="flex-shrink-0 relative px-1 bg-white cursor-pointer"
+						className="flex-shrink-0 relative px-1 py-1.5 bg-white cursor-pointer"
 						style={{ width: itemWidth }}
 						whileHover={{
 							scale: 1.05,
 							zIndex: 10,
 							transition: { duration: 0.3 },
 						}}
+						onClick={e => handleImageClick(item, e)}
 					>
 						<div className="relative w-full h-64 overflow-hidden shadow-xl bg-white backdrop-blur-sm">
 							<Image
@@ -131,60 +142,64 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 				))}
 			</motion.div>
 
-			{/* Full Image Popup */}
-			<AnimatePresence>
-				{selectedImage && (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50"
-						onClick={closePopup}
-					>
+			{/* Full Image Popup - Render in portal to avoid overflow issues */}
+			{selectedImage &&
+				typeof document !== "undefined" &&
+				createPortal(
+					<AnimatePresence>
 						<motion.div
-							initial={{ scale: 0.8, opacity: 0 }}
-							animate={{ scale: 1, opacity: 1 }}
-							exit={{ scale: 0.8, opacity: 0 }}
-							transition={{ type: "spring", bounce: 0.3 }}
-							className="relative max-w-4xl max-h-[90vh] mx-4"
-							onClick={e => e.stopPropagation()}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-[9999]"
+							onClick={closePopup}
+							style={{ pointerEvents: "auto" }}
 						>
-							<div className="relative w-full h-full">
-								<Image
-									src={selectedImage.image}
-									alt={selectedImage.alt || "Gallery image"}
-									width={800}
-									height={600}
-									className="object-contain rounded-lg shadow-2xl"
-									priority
-								/>
+							<motion.div
+								initial={{ scale: 0.8, opacity: 0 }}
+								animate={{ scale: 1, opacity: 1 }}
+								exit={{ scale: 0.8, opacity: 0 }}
+								transition={{ type: "spring", bounce: 0.3 }}
+								className="relative max-w-4xl max-h-[90vh] mx-4"
+								onClick={e => e.stopPropagation()}
+							>
+								<div className="relative w-full h-full">
+									<Image
+										src={selectedImage.image}
+										alt={selectedImage.alt || "Gallery image"}
+										width={800}
+										height={600}
+										className="object-contain rounded-lg shadow-2xl"
+										priority
+									/>
 
-								{/* Close button */}
-								<motion.button
-									onClick={closePopup}
-									className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-colors"
-									whileHover={{ scale: 1.1 }}
-									whileTap={{ scale: 0.95 }}
-								>
-									<svg
-										className="w-6 h-6 text-[#660033]"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
+									{/* Close button */}
+									<motion.button
+										onClick={closePopup}
+										className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-colors"
+										whileHover={{ scale: 1.1 }}
+										whileTap={{ scale: 0.95 }}
 									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M6 18L18 6M6 6l12 12"
-										/>
-									</svg>
-								</motion.button>
-							</div>
+										<svg
+											className="w-6 h-6 text-[#660033]"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M6 18L18 6M6 6l12 12"
+											/>
+										</svg>
+									</motion.button>
+								</div>
+							</motion.div>
 						</motion.div>
-					</motion.div>
+					</AnimatePresence>,
+					document.body
 				)}
-			</AnimatePresence>
 		</div>
 	);
 };
