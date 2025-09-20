@@ -98,7 +98,7 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 				className="text-center py-16 bg-[#d6c6b3] overflow-hidden min-h-svh flex items-center justify-center"
 				style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 			>
-				<Card className="max-w-md mx-auto bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
+				<Card className="max-w-md bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg mx-4">
 					<CardContent className="pt-6">
 						<div className="text-center">
 							<div className="w-16 h-16 mx-auto mb-4 bg-[#660033] rounded-full flex items-center justify-center">
@@ -188,16 +188,64 @@ export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationI
 									<Label htmlFor="people_count" className="text-[#660033] font-edensor font-medium">
 										Number of people (including you) *
 									</Label>
-									<Input
-										id="people_count"
-										type="number"
-										min="1"
-										max={maxPeopleCount}
-										value={rsvpData.people_count}
-										onChange={e => handleInputChange("people_count", parseInt(e.target.value) || 1)}
-										className="bg-white/80 border-[#660033]/30 text-[#660033] placeholder:text-[#660033]/60 focus:border-[#660033]"
-										required
-									/>
+									<div className="flex items-center justify-center space-x-4">
+										{/* Decrement Button */}
+										<button
+											type="button"
+											onClick={() => {
+												const newCount = Math.max(1, rsvpData.people_count - 1);
+												handleInputChange("people_count", newCount);
+											}}
+											disabled={rsvpData.people_count <= 1}
+											className={`
+												w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold text-lg
+												transition-all duration-200 ease-in-out
+												${
+													rsvpData.people_count <= 1
+														? "border-[#660033]/30 text-[#660033]/30 cursor-not-allowed bg-gray-100/50"
+														: "border-[#660033] text-[#660033] hover:bg-[#660033] hover:text-white active:scale-95"
+												}
+											`}
+										>
+											−
+										</button>
+
+										{/* Count Display */}
+										<div className="flex flex-col items-center">
+											<span className="text-2xl font-bold text-[#660033] font-edensor min-w-[3rem] text-center">
+												{rsvpData.people_count}
+											</span>
+											<span className="text-xs text-[#660033]/60 font-edensor">
+												{rsvpData.people_count === 1 ? "person" : "people"}
+											</span>
+										</div>
+
+										{/* Increment Button */}
+										<button
+											type="button"
+											onClick={() => {
+												const newCount = Math.min(maxPeopleCount, rsvpData.people_count + 1);
+												handleInputChange("people_count", newCount);
+											}}
+											disabled={rsvpData.people_count >= maxPeopleCount}
+											className={`
+												w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold text-lg
+												transition-all duration-200 ease-in-out
+												${
+													rsvpData.people_count >= maxPeopleCount
+														? "border-[#660033]/30 text-[#660033]/30 cursor-not-allowed bg-gray-100/50"
+														: "border-[#660033] text-[#660033] hover:bg-[#660033] hover:text-white active:scale-95"
+												}
+											`}
+										>
+											+
+										</button>
+									</div>
+
+									{/* Max limit indicator */}
+									{/* <p className="text-xs text-[#660033]/60 text-center font-edensor">
+										Maximum {maxPeopleCount} people allowed
+									</p> */}
 								</div>
 							)}
 
