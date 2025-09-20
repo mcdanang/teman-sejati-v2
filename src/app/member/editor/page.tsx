@@ -1,3 +1,5 @@
+"use client";
+
 import { designs } from "@/lib/designs";
 import { ModuleEditor } from "@/components/editor/module-editor";
 
