@@ -9,10 +9,27 @@ export function DraggableCard({
 }) {
 	return (
 		<DraggableCardContainer className="relative flex h-[800px] w-full items-center justify-center overflow-clip">
-			<p className="absolute top-1/2 mx-auto max-w-sm -translate-y-3/4 text-center text-2xl font-black text-neutral-400 md:text-4xl dark:text-neutral-800">
-				And one of His signs is that He created for you spouses from among yourselves so that you
-				may find comfort in them.
-			</p>
+			<div className="text-center max-w-xs flex flex-col gap-6">
+				{/* Arabic Text */}
+
+				<p className="text-lg leading-relaxed text-[#660033] font-arabic mt-4">
+					{
+						"وَمِنْ ءَايَـٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةًۭ وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍۢ يَتَفَكَّرُونَ"
+					}
+				</p>
+
+				{/* Translation */}
+
+				<p className=" text-[#660033] italic text-justify font-edensor font-medium">
+					{
+						"And one of His signs is that He created for you spouses from among yourselves so that you may find comfort in them. And He has placed between you compassion and mercy. Surely in this are signs for people who reflect."
+					}
+				</p>
+
+				{/* Surah Reference */}
+
+				<p className="text-[#660033] font-medium mt-4 font-pinyon">{"Ar-Rum, 30:21"}</p>
+			</div>
 			{items.map((item, index) => (
 				<DraggableCardBody className={item.className} key={index}>
 					<Image

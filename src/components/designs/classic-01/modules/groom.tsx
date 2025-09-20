@@ -75,7 +75,7 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 						{moduleData.father_name ?? "Putra dari Bapak Hanggoro"}
 					</p>
 					<p className="text-xl font-edensor text-[#d6c6b3] font-medium">
-						{moduleData.mother_name ?? "& Ibu Ida Risanti Wahyuni"}
+						{moduleData.mother_name ?? "& Almh. Ibu Ida Risanti Wahyuni"}
 					</p>
 				</motion.div>
 				{/* <Button

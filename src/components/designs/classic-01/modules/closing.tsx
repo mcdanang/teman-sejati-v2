@@ -42,10 +42,6 @@ export const Closing = ({ data }: { data: InputJsonValue }) => {
 							height={400}
 							priority
 						/>
-						{/* Decorative elements */}
-						<div className="absolute -top-4 -left-4 w-8 h-8 bg-[#660033]/20 rounded-full opacity-60"></div>
-						<div className="absolute -bottom-4 -right-4 w-6 h-6 bg-[#660033]/30 rounded-full opacity-60"></div>
-						<div className="absolute top-1/2 -right-6 w-4 h-4 bg-[#660033]/40 rounded-full opacity-60"></div>
 					</div>
 				</div>
 

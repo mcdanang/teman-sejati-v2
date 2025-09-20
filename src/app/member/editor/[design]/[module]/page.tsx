@@ -79,6 +79,16 @@ export default async function EditPage({
 				subtitle: "Our beautiful moments together",
 				image: "/designs/classic/photo1.jpg",
 			},
+			"Gallery Slideshow": {
+				title: "Gallery Slideshow",
+				subtitle: "Interactive photo gallery",
+				image: "/designs/classic/photo1.jpg",
+				images: [
+					"/designs/classic/photo1.jpg",
+					"/designs/classic/photo2.jpg",
+					"/designs/classic/photo3.jpg",
+				],
+			},
 			"Wedding Gift": {
 				address_name: "Home Address",
 				address_detail: "Jl. Example Street No. 123, City, Country",

@@ -6,7 +6,6 @@ import { ModuleForm as GallerySlideshowModuleForm } from "./gallery-slideshow";
 import { ModuleForm as GroomModuleForm } from "./groom";
 import { ModuleForm as LokasiModuleForm } from "./location";
 import { ModuleForm as OpeningModuleForm } from "./opening";
-import { ModuleForm as QuotesModuleForm } from "./quotes";
 import { ModuleForm as RSVPModuleForm } from "./rsvp";
 import { ModuleForm as WaktuModuleForm } from "./time";
 import { ModuleForm as WeddingGiftModuleForm } from "./wedding-gift";
@@ -20,7 +19,6 @@ const moduleFormsClassic01 = {
 	Gallery: GalleryModuleForm,
 	GallerySlideshow: GallerySlideshowModuleForm,
 	Closing: ClosingModuleForm,
-	Quotes: QuotesModuleForm,
 	Waktu: WaktuModuleForm,
 	Lokasi: LokasiModuleForm,
 	RSVP: RSVPModuleForm,

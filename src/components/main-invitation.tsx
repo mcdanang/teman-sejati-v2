@@ -90,6 +90,8 @@ export function MainInvitation({
 	const modules = activeInvitation.Modules;
 	const design = designs[activeInvitation.design];
 
+	console.log("design", design);
+
 	console.log("modules", modules);
 
 	// Validate the background image URL
@@ -158,10 +160,13 @@ export function MainInvitation({
 
 			<div
 				className="relative max-w-md mx-auto min-h-screen bg-white/95 shadow-lg backdrop-blur-sm snap-y snap-mandatory h-screen overflow-y-auto pb-20"
-				style={{ paddingBottom: "max(5rem, env(safe-area-inset-bottom))" }}
+				style={{
+					paddingBottom: "max(5rem, env(safe-area-inset-bottom))",
+				}}
 			>
 				{modules.map(mod => {
 					const id = mod.name.replace(/\s+/g, "");
+					console.log("mod.name", mod.name);
 					const moduleData = design.modules[mod.name as keyof typeof design.modules];
 					if (!moduleData) return null;
 					const Component = moduleData;
