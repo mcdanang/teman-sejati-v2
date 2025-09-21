@@ -100,11 +100,16 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					whileInView={{ translateY: -75, translateX: -15 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
 				>
 					<Image
 						src={moduleData?.envelope_image ?? "/designs/classic/hard-cover-burgundy-back.png"}
 						alt="Invitation"
-						className="object-cover absolute top-20 -left-4 -rotate-[12deg] shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
+						className="object-cover absolute top-25 -rotate-[12deg] shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
 						width={(250 * 7) / 10}
 						height={(250 * 7) / 10}
 					/>
@@ -113,6 +118,11 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					whileInView={{ translateY: -100, translateX: -7.5 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
 				>
 					<Image
 						src={moduleData?.envelope_image ?? "/designs/classic/photobox-2.jpeg"}
@@ -126,6 +136,11 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					whileInView={{ translateY: -50 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
 				>
 					<Image
 						src={moduleData?.envelope_image ?? "/designs/classic/round_back.png"}
@@ -139,6 +154,11 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					whileInView={{ translateY: -100, translateX: 7.5 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
 				>
 					<Image
 						src={moduleData?.envelope_image ?? "/designs/classic/photobox-1.png"}
@@ -152,6 +172,11 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					whileInView={{ translateY: -75, translateX: -15 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
 				>
 					<Image
 						src={moduleData?.envelope_image ?? "/designs/classic/hard-cover-burgundy-front.png"}
@@ -165,6 +190,11 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					whileInView={{ translateY: -75, translateX: 15 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
 				>
 					<Image
 						src={moduleData?.envelope_image ?? "/designs/classic/round_front.png"}
@@ -175,13 +205,21 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					/>
 				</motion.div>
 
-				<Image
-					src={moduleData?.envelope_image ?? "/designs/classic/envelope-open-front.png"}
-					alt="Invitation"
-					className="object-cover absolute top-58 left-0"
-					width={(400 * 7) / 10}
-					height={(400 * 7) / 10}
-				/>
+				<motion.div
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer absolute top-58 left-0"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/envelope-open-front.png"}
+						alt="Invitation"
+						className="object-cover"
+						width={(400 * 7) / 10}
+						height={(400 * 7) / 10}
+					/>
+				</motion.div>
 				{/* <div className="absolute -bottom-14 left-5 text-[#d6c6b3] border border-[#d6c6b3] px-3 py-1 rounded-lg w-38 h-18 text-left flex flex-col justify-between font-edensor font-bold">
 					<p className="text-xs">dear,</p>
 					<p className="text-sm">{to || "Muhamad Danang Priambodo"}</p>
