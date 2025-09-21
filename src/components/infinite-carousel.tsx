@@ -35,7 +35,7 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	const duplicatedItems = [...items, ...items];
 
 	// Calculate animation values
-	const itemWidth = 300; // Width of each item
+	const itemWidth = 380; // Width of each item
 	const gap = 20; // Gap between items
 	const animationDistance = items.length * (itemWidth + gap);
 
@@ -97,7 +97,7 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 						}}
 						onClick={e => handleImageClick(item, e)}
 					>
-						<div className="relative w-full h-64 overflow-hidden shadow-xl bg-white backdrop-blur-sm">
+						<div className="relative w-full h-80 overflow-hidden shadow-xl bg-white backdrop-blur-sm">
 							<Image
 								src={item.image}
 								alt={item.alt || `Gallery image ${(index % items.length) + 1}`}
@@ -161,7 +161,7 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 								animate={{ scale: 1, opacity: 1 }}
 								exit={{ scale: 0.8, opacity: 0 }}
 								transition={{ type: "spring", bounce: 0.3 }}
-								className="relative max-w-4xl max-h-[90vh] mx-4"
+								className="relative max-w-4xl max-h-[90vh] mx-3"
 								onClick={e => e.stopPropagation()}
 							>
 								<div className="relative w-full h-full">
@@ -177,7 +177,7 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 									{/* Close button */}
 									<motion.button
 										onClick={closePopup}
-										className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-colors"
+										className="absolute -top-12 right-0 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg hover:bg-white transition-colors"
 										whileHover={{ scale: 1.1 }}
 										whileTap={{ scale: 0.95 }}
 									>

@@ -251,7 +251,7 @@ export const WeddingWishes = ({
 
 				{/* Wishes Display */}
 				{wishes.length > 0 && (
-					<div className="space-y-4">
+					<div className="space-y-4 pt-10">
 						<h2 className="text-2xl font-bold font-edensor text-[#660033] mb-6">
 							Wishes from Friends & Family
 						</h2>

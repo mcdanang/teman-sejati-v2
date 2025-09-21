@@ -50,16 +50,16 @@ export const GallerySlideshow = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center bg-[#d6c6b3] overflow-hidden flex flex-col items-center justify-center snap-start snap-always py-12"
+			className="text-center bg-[#d6c6b3] overflow-hidden flex flex-col items-center justify-center snap-start snap-always py-12 h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			{/* Infinite Carousel */}
 			<InfiniteCarousel
 				items={carouselItems}
-				speed={25}
+				speed={50}
 				direction="left"
 				pauseOnHover={true}
-				className="h-80"
+				className="h-96"
 			/>
 		</section>
 	);

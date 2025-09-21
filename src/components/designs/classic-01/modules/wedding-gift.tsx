@@ -52,7 +52,7 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 
 		return (
 			<Button
-				onClick={() => copyToClipboard(text, itemType)}
+				onClick={() => copyToClipboard(text, label)}
 				variant="outline"
 				size="sm"
 				className="ml-2 font-edensor border-[#660033] text-[#660033] hover:bg-[#660033] hover:text-white"
@@ -74,7 +74,7 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center py-16 bg-[#d6c6b3] overflow-hidden min-h-svh flex items-center justify-center px-4"
+			className="text-center py-4 bg-[#d6c6b3] overflow-hidden min-h-svh flex items-center justify-center px-4"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			<div className="max-w-sm mx-auto">
@@ -86,9 +86,9 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 
 				<div className="flex flex-col gap-4">
 					{/* Address Card */}
-					<Card className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
+					<Card className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg gap-2">
 						<CardHeader>
-							<CardTitle className="flex items-center text-xl font-edensor text-[#660033]">
+							<CardTitle className="flex items-center text-lg font-edensor text-[#660033]">
 								<MapPin className="h-5 w-5 mr-2 text-[#660033]" />
 								{moduleData?.address_name || "Rumah Danang"}
 							</CardTitle>
@@ -96,7 +96,7 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 						<CardContent>
 							<div className="space-y-4">
 								<div>
-									<p className="text-[#660033] leading-relaxed font-edensor font-semibold">
+									<p className="text-[#660033] text-sm leading-relaxed font-edensor font-semibold">
 										{moduleData?.address_detail ||
 											"Jl. Cemara Raya No. 8, RT 09/RW 13, Baktijaya, Kec. Sukmajaya, Kota Depok, Jawa Barat 16418"}
 									</p>
@@ -113,9 +113,9 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 					</Card>
 
 					{/* Bank Account Card */}
-					<Card className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
+					<Card className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg gap-2">
 						<CardHeader>
-							<CardTitle className="flex items-center text-xl font-edensor text-[#660033]">
+							<CardTitle className="flex items-center text-lg font-edensor text-[#660033]">
 								<CreditCard className="h-5 w-5 mr-2 text-[#660033]" />
 								Bank Account
 							</CardTitle>
@@ -126,7 +126,7 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 									<div className="mb-2">
 										<p className="text-sm text-[#660033]/70 font-edensor">Bank Name</p>
 										<p className="text-[#660033] font-semibold font-edensor">
-											{moduleData?.bank_name || "Bank Mandiri"}
+											{moduleData?.bank_name || "Mandiri"}
 										</p>
 									</div>
 									<div className="mb-2">
@@ -146,7 +146,7 @@ export const WeddingGift = ({ data }: { data: InputJsonValue }) => {
 									<CopyButton
 										text={moduleData?.bank_account_number || "700010201460"}
 										itemType="accountNumber"
-										label="Number"
+										label="Account Number"
 									/>
 								</div>
 							</div>

@@ -133,6 +133,24 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					/>
 				</motion.div>
 				<motion.div
+					whileInView={{ translateY: -100, translateX: -7.5 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/flower-burgundy-1.png"}
+						alt="Invitation"
+						className="object-cover absolute top-50 right-18"
+						width={(80 * 7) / 10}
+						height={(80 * 7) / 10}
+					/>
+				</motion.div>
+				<motion.div
 					whileInView={{ translateY: -50 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
@@ -168,6 +186,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						height={(80 * 7) / 10}
 					/>
 				</motion.div>
+
 				<motion.div
 					whileInView={{ translateY: -75, translateX: -15 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
@@ -187,6 +206,24 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					/>
 				</motion.div>
 				<motion.div
+					whileInView={{ translateY: -40, translateX: -7.5 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/flower-burgundy-2.png"}
+						alt="Invitation"
+						className="object-cover absolute top-85 -left-10 -rotate-60"
+						width={(120 * 7) / 10}
+						height={(120 * 7) / 10}
+					/>
+				</motion.div>
+				<motion.div
 					whileInView={{ translateY: -75, translateX: 15 }}
 					transition={{ duration: 1, ease: "easeInOut" }}
 					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
@@ -202,6 +239,24 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 						className="object-cover absolute top-70 right-4 rotate-[15deg]"
 						width={(260 * 7) / 10}
 						height={(260 * 7) / 10}
+					/>
+				</motion.div>
+				<motion.div
+					whileInView={{ translateY: -40, translateX: -7.5 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/flower-burgundy-2.png"}
+						alt="Invitation"
+						className="object-cover absolute top-90 -right-7 rotate-150"
+						width={(80 * 7) / 10}
+						height={(80 * 7) / 10}
 					/>
 				</motion.div>
 
