@@ -7,6 +7,7 @@ import React from "react";
 type ModuleData = {
 	image?: string;
 	akadDate?: string;
+	akadDay?: string;
 	akadTime?: string;
 	resepsiDate?: string;
 	resepsiTime?: string;
@@ -37,9 +38,14 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 			{/* Content */}
 			<div className="absolute top-0 left-0 w-full h-full flex-1 z-10 flex flex-col gap-4 py-16 px-4 items-center font-medium">
 				{/* Title */}
-				<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
-					{moduleData.akadDate ?? "Saturday, 15 November 2025"}
-				</h1>
+				<div>
+					<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
+						{moduleData.akadDay ?? "Saturday,"}
+					</h1>
+					<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
+						{moduleData.akadDate ?? "15 November 2025"}
+					</h1>
+				</div>
 				<p className="text-lg text-[#660033] font-edensor font-semibold">
 					Akad: {moduleData.akadTime ?? "7.30 - 9.30 WIB"}
 				</p>

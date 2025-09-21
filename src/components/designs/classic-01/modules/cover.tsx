@@ -19,7 +19,7 @@ export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string })
 					}}
 					className="text-5xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-3 translate-y-12"
 				>
-					<h1>The Wedding of</h1>
+					<h1>the wedding of</h1>
 				</motion.div>
 
 				<div className="flex w-fit justify-center bg-black/80 p-3">

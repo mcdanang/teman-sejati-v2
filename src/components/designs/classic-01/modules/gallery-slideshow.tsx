@@ -50,17 +50,30 @@ export const GallerySlideshow = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center bg-[#d6c6b3] overflow-hidden flex flex-col items-center justify-center snap-start snap-always py-12 h-svh"
+			className="text-center bg-[#d6c6b3] overflow-hidden flex flex-col items-center justify-center snap-start snap-always py-8 min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
+			{/* Title */}
+			{/* <div className="mb-8">
+				<h2 className="text-4xl font-pinyon text-[#660033] mb-2">
+					{moduleData?.title || "Our Gallery"}
+				</h2>
+				{moduleData?.subtitle && (
+					<p className="text-lg text-[#8B4513] font-light">{moduleData.subtitle}</p>
+				)}
+			</div> */}
+
 			{/* Infinite Carousel */}
-			<InfiniteCarousel
-				items={carouselItems}
-				speed={50}
-				direction="left"
-				pauseOnHover={true}
-				className="h-96"
-			/>
+			<div className="w-full">
+				<InfiniteCarousel
+					items={carouselItems}
+					speed={50}
+					direction="left"
+					pauseOnHover={true}
+					className="w-full"
+					itemHeight={280}
+				/>
+			</div>
 		</section>
 	);
 };
