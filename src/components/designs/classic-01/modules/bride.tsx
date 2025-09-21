@@ -72,7 +72,7 @@ export const Bride = ({ data }: { data: InputJsonValue }) => {
 					}}
 				>
 					<p className="text-xl font-edensor text-[#d6c6b3] font-semibold">
-						{moduleData.father_name ?? "Putra dari Bapak Fendry"}
+						{moduleData.father_name ?? "Putri dari Bapak Fendry"}
 					</p>
 					<p className="text-xl font-edensor text-[#d6c6b3] font-semibold">
 						{moduleData.mother_name ?? "& Ibu Zubaedah"}
