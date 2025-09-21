@@ -170,7 +170,7 @@ export const WeddingWishes = ({
 				</p>
 
 				{/* Wish Form */}
-				<Card className="max-w-sm mx-auto mb-8 bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
+				<Card className="max-w-sm mb-8 bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg mx-4">
 					<CardHeader>
 						<CardTitle className="text-xl font-edensor text-[#660033]">Share Your Wishes</CardTitle>
 					</CardHeader>
@@ -259,7 +259,7 @@ export const WeddingWishes = ({
 							{wishes.map(wish => (
 								<Card
 									key={wish.id}
-									className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg py-0"
+									className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg py-0 mx-4"
 								>
 									<CardContent className="p-4">
 										<div className="flex justify-between items-start mb-2">
