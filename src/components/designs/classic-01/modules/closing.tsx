@@ -14,12 +14,12 @@ export const Closing = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center min-h-svh"
+			className="text-center bg-[#d6c6b3] overflow-hidden flex items-center justify-center min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
-			<div className="max-w-4xl mx-auto px-4 h-full flex flex-col justify-evenly">
+			<div className="max-w-4xl mx-auto px-4 h-svh flex flex-col justify-evenly">
 				{/* Main Content */}
-				<div className="mb-12">
+				<div className="">
 					{/* <h1 className="text-5xl font-bold font-pinyon text-[#660033] mb-6">
 						{moduleData.title ?? "Terima Kasih"}
 					</h1> */}
@@ -32,7 +32,7 @@ export const Closing = ({ data }: { data: InputJsonValue }) => {
 					</div>
 				</div>
 				{/* Image Section */}
-				<div className="flex justify-center mb-12">
+				<div className="flex justify-center">
 					<div className="relative">
 						<Image
 							src={moduleData.image ?? "/designs/classic/couple.svg"}
