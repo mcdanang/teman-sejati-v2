@@ -54,21 +54,21 @@ export const GallerySlideshow = ({ data }: { data: InputJsonValue }) => {
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			{/* Title */}
-			{/* <div className="mb-8">
-				<h2 className="text-4xl font-pinyon text-[#660033] mb-2">
-					{moduleData?.title || "Our Gallery"}
+			<div className="mb-16">
+				<h2 className="text-4xl font-edensor text-[#660033] mb-2 font-bold">
+					{moduleData?.title || "Photo Gallery"}
 				</h2>
 				{moduleData?.subtitle && (
 					<p className="text-lg text-[#8B4513] font-light">{moduleData.subtitle}</p>
 				)}
-			</div> */}
+			</div>
 
 			{/* Infinite Carousel */}
 			<div className="w-full">
 				<InfiniteCarousel
 					items={carouselItems}
 					speed={50}
-					direction="left"
+					direction="right"
 					pauseOnHover={true}
 					className="w-full"
 					itemHeight={280}
