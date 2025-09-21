@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -180,19 +181,7 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 										whileHover={{ scale: 1.1 }}
 										whileTap={{ scale: 0.95 }}
 									>
-										<svg
-											className="w-6 h-6 text-[#660033]"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M6 18L18 6M6 6l12 12"
-											/>
-										</svg>
+										<X className="w-4 h-4 text-[#660033]" />
 									</motion.button>
 								</div>
 							</motion.div>
