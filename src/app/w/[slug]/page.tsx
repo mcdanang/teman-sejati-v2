@@ -20,12 +20,16 @@ export default function Page() {
 			.then(res => res.json())
 			.then(data => {
 				setActiveInvitation(data);
+				// Add 2 second delay to ensure images have time to load
+				setTimeout(() => {
+					setLoading(false);
+				}, 3000);
 			})
 			.catch(error => {
 				console.error("Error fetching invitations:", error);
 				toast.error("Gagal memuat undangan");
-			})
-			.finally(() => setLoading(false));
+				setLoading(false);
+			});
 	}, [slug]);
 
 	if (isLoading)
