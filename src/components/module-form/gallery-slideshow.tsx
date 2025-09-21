@@ -30,16 +30,20 @@ import { useEffect, useRef } from "react";
 import { InvitationWithModules } from "@/types";
 
 export const Schema = z.object({
-	verse: z.string().optional(),
-	translation: z.string().optional(),
-	reference: z.string().optional(),
+	title: z
+		.string({ error: "Judul tidak boleh kosong" })
+		.min(1, { message: "Judul tidak boleh kosong" }),
+	subtitle: z.string().optional(),
+	image: z
+		.string({ error: "Gambar tidak boleh kosong" })
+		.min(1, { message: "Gambar tidak boleh kosong" }),
 });
 
 export type Data = z.infer<typeof Schema>;
 
 export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationWithModules }) {
 	const { updateModule } = useInvitations();
-	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Quotes");
+	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Gallery Slideshow");
 	const moduleData = editedModule?.content as Data;
 	const sheetCloseRef = useRef<HTMLButtonElement>(null);
 
@@ -85,7 +89,7 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 		<Sheet>
 			<SheetTrigger asChild>
 				<Button
-					className="absolute top-2 right-2 lg:opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-1 shadow hover:bg-gray-100 z-10"
+					className="absolute top-2 right-2 lg:opacity-0 group-hover:opacity-100 transition-opacity bg-white rounded-full p-1 shadow hover:bg-gray-100"
 					aria-label="Edit module"
 				>
 					<Pen className="h-4 w-4 text-gray-600" />
@@ -103,10 +107,10 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="verse"
+								name="title"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Ayat Al-Qur&apos;an</FormLabel>
+										<FormLabel>Judul</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>
@@ -116,10 +120,10 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 							/>
 							<FormField
 								control={form.control}
-								name="translation"
+								name="subtitle"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Terjemahan</FormLabel>
+										<FormLabel>Sub Judul</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>
@@ -129,10 +133,10 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 							/>
 							<FormField
 								control={form.control}
-								name="reference"
+								name="image"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Referensi</FormLabel>
+										<FormLabel>URL Gambar</FormLabel>
 										<FormControl>
 											<Input type="text" {...field} />
 										</FormControl>

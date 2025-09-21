@@ -22,28 +22,33 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { useInvitations } from "@/hooks/use-invitations";
-import { Pen, Video } from "lucide-react";
+import { Pen } from "lucide-react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef } from "react";
-import { MediaSelector } from "@/components/media-selector";
 import { InvitationWithModules } from "@/types";
-import Image from "next/image";
 
 export const Schema = z.object({
-	images: z.array(z.string()).default([]),
+	title: z
+		.string({ error: "Judul tidak boleh kosong" })
+		.min(1, { message: "Judul tidak boleh kosong" }),
+	subtitle: z.string().optional(),
+	image: z
+		.string({ error: "Gambar tidak boleh kosong" })
+		.min(1, { message: "Gambar tidak boleh kosong" }),
 });
 
 export type Data = z.infer<typeof Schema>;
 
 export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationWithModules }) {
 	const { updateModule } = useInvitations();
-	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Cover");
+	console.log("activeInvitation", activeInvitation);
+	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Gallery Slideshow");
 	const moduleData = editedModule?.content as Data;
 	const sheetCloseRef = useRef<HTMLButtonElement>(null);
 
-	const form = useForm({
+	const form = useForm<z.infer<typeof Schema>>({
 		resolver: zodResolver(Schema),
 	});
 
@@ -103,43 +108,38 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 						<div className="grid flex-1 auto-rows-min gap-6 px-4 overflow-y-auto">
 							<FormField
 								control={form.control}
-								name="images"
+								name="title"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Gambar</FormLabel>
+										<FormLabel>Judul</FormLabel>
 										<FormControl>
-											<div className="space-y-3">
-												{/* Hidden input for form validation */}
-												<Input type="text" {...field} className="hidden" />
-												<div className="flex flex-col gap-3">
-													<MediaSelector
-														onSelect={urls => {
-															if (urls.length > 0) {
-																field.onChange(urls[0]);
-																// Trigger validation after setting the value
-																field.onBlur();
-															}
-														}}
-														allowedTypes={["image"]}
-														trigger={
-															<Button type="button" variant="outline" size="sm">
-																<Video className="h-4 w-4 mr-2" />
-																{field.value ? "Ganti Gambar" : "Pilih Gambar"}
-															</Button>
-														}
-													/>
-													{field.value && (
-														<div className="relative w-32 h-32 border rounded-lg overflow-hidden">
-															<Image
-																src={field.value[0]}
-																alt="Gambar"
-																className="w-full h-full object-cover"
-																style={{ aspectRatio: 1 }}
-															/>
-														</div>
-													)}
-												</div>
-											</div>
+											<Input type="text" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="subtitle"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Sub Judul</FormLabel>
+										<FormControl>
+											<Input type="text" {...field} />
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="image"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>URL Gambar</FormLabel>
+										<FormControl>
+											<Input type="text" {...field} />
 										</FormControl>
 										<FormMessage />
 									</FormItem>

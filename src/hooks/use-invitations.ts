@@ -92,7 +92,6 @@ export function useInvitations() {
 
 				return { ...inv, Modules: updatedModules as Module[] };
 			});
-			console.log("Updated invitations:", updated);
 
 			// Update state immediately for optimistic UI update
 			setInvitations(updated as InvitationWithModules[]);
@@ -103,10 +102,8 @@ export function useInvitations() {
 
 			// Save to backend/storage
 			if (status === "unauthenticated") {
-				console.log("Saving guest invitations");
 				await saveGuestInvitations(updated as InvitationWithModules[]);
 			} else {
-				console.log("Saving user invitation module");
 				await saveUserInvitationModule(updatedModule);
 			}
 

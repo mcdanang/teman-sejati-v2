@@ -17,15 +17,17 @@ export const Lokasi = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center py-20 bg-[#660033] flex flex-col gap-4 items-center"
+			className="text-center py-20 bg-[#660033] flex flex-col gap-10 items-center min-h-svh justify-center"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
-			<h1 className="text-4xl font-semibold font-edensor text-[#660033] max-w-sm">
-				{moduleData.location_name ?? "Lokasi Title"}
-			</h1>
-			<p className="mt-2 text-lg text-[#660033] font-edensor max-w-sm font-medium">
-				{moduleData.location_address ?? "Lokasi Subtitle"}
-			</p>
+			<div className="flex flex-col gap-4">
+				<h1 className="text-4xl font-semibold font-edensor text-[#660033] max-w-sm">
+					{moduleData.location_name ?? "Lokasi Title"}
+				</h1>
+				<p className="mt-2 text-lg text-[#660033] font-edensor max-w-sm font-medium">
+					{moduleData.location_address ?? "Lokasi Subtitle"}
+				</p>
+			</div>
 			<div className="flex justify-center">
 				<Image
 					src={moduleData.image ?? "/designs/classic/couple.svg"}

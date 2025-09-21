@@ -2,10 +2,10 @@ import { Bride } from "./bride";
 import { Closing } from "./closing";
 import { Cover } from "./cover";
 import { Gallery } from "./gallery";
+import { GallerySlideshow } from "./gallery-slideshow";
 import { Groom } from "./groom";
 import { Lokasi } from "./location";
 import { Opening } from "./opening";
-import { Quotes } from "./quotes";
 import { RSVP } from "./rsvp";
 import { Waktu } from "./time";
 import { WeddingGift } from "./wedding-gift";
@@ -18,7 +18,7 @@ const modulesClassic01 = {
 	Groom: Groom,
 	Gallery: Gallery,
 	Closing: Closing,
-	Quotes: Quotes,
+	GallerySlideshow: GallerySlideshow,
 	Waktu: Waktu,
 	Lokasi: Lokasi,
 	RSVP: RSVP,

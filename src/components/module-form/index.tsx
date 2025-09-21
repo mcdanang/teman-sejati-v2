@@ -8,6 +8,7 @@ import { ModuleForm as TimeModuleForm } from "./time";
 import { ModuleForm as LocationModuleForm } from "./location";
 import { ModuleForm as RSVPModuleForm } from "./rsvp";
 import { ModuleForm as GalleryModuleForm } from "./gallery";
+import { ModuleForm as GallerySlideshowModuleForm } from "./gallery-slideshow";
 import { ModuleForm as WeddingGiftModuleForm } from "./wedding-gift";
 import { ModuleForm as WeddingWishesModuleForm } from "./wedding-wishes";
 import { ModuleForm as ClosingModuleForm } from "./closing";
@@ -38,6 +39,8 @@ export function ModuleForm({
 			return <RSVPModuleForm activeInvitation={activeInvitation} />;
 		case "Gallery":
 			return <GalleryModuleForm activeInvitation={activeInvitation} />;
+		case "Gallery Slideshow":
+			return <GallerySlideshowModuleForm activeInvitation={activeInvitation} />;
 		case "Wedding Gift":
 			return <WeddingGiftModuleForm activeInvitation={activeInvitation} />;
 		case "Wedding Wishes":

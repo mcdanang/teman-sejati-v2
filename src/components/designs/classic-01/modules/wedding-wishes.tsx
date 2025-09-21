@@ -158,19 +158,19 @@ export const WeddingWishes = ({
 
 	return (
 		<section
-			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center"
+			className="text-center py-16 bg-[#d6c6b3] overflow-hidden flex items-center justify-center min-h-svh"
 			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			<div className="max-w-sm mx-auto">
-				<h1 className="text-4xl font-bold font-pinyon text-[#660033] mb-4">
+				<h1 className="text-4xl font-bold font-edensor text-[#660033] mb-4">
 					{moduleData?.title || "Wedding Wishes"}
 				</h1>
-				<p className="text-lg text-[#660033]/80 font-edensor mb-8">
+				<p className="text-md text-[#660033]/80 font-edensor mb-8 font-semibold">
 					{moduleData?.description || "Leave your wishes for the happy couple"}
 				</p>
 
 				{/* Wish Form */}
-				<Card className="max-w-sm mx-auto mb-8 bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg">
+				<Card className="max-w-sm mb-8 bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg mx-4">
 					<CardHeader>
 						<CardTitle className="text-xl font-edensor text-[#660033]">Share Your Wishes</CardTitle>
 					</CardHeader>
@@ -240,7 +240,7 @@ export const WeddingWishes = ({
 								<Button
 									type="submit"
 									disabled={submitting}
-									className="w-full font-edensor bg-[#660033] hover:bg-[#660033]/90 text-white"
+									className="w-full font-edensor bg-[#660033] hover:bg-[#660033]/90 text-white font-semibold"
 								>
 									{submitting ? "Submitting..." : "Submit Wish"}
 								</Button>
@@ -251,15 +251,15 @@ export const WeddingWishes = ({
 
 				{/* Wishes Display */}
 				{wishes.length > 0 && (
-					<div className="space-y-4">
+					<div className="space-y-4 pt-10">
 						<h2 className="text-2xl font-bold font-edensor text-[#660033] mb-6">
 							Wishes from Friends & Family
 						</h2>
-						<div className="grid gap-4">
+						<div className="grid gap-1">
 							{wishes.map(wish => (
 								<Card
 									key={wish.id}
-									className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg"
+									className="text-left bg-white/90 backdrop-blur-sm border-[#660033]/20 shadow-lg py-0 mx-4"
 								>
 									<CardContent className="p-4">
 										<div className="flex justify-between items-start mb-2">

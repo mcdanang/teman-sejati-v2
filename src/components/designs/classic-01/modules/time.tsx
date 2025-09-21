@@ -7,6 +7,7 @@ import React from "react";
 type ModuleData = {
 	image?: string;
 	akadDate?: string;
+	akadDay?: string;
 	akadTime?: string;
 	resepsiDate?: string;
 	resepsiTime?: string;
@@ -19,8 +20,8 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center relative"
-			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
+			className="text-center relative min-h-svh flex items-end justify-center bg-[#dccbb8]"
+			// style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
 			{/* <h1 className="text-4xl font-bold">{moduleData.title ?? "Waktu Title"}</h1>
 			<p className="mt-2 text-lg text-gray-500">{moduleData.subtitle ?? "Waktu Subtitle"}</p> */}
@@ -35,15 +36,20 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 			</div>
 
 			{/* Content */}
-			<div className="absolute top-0 left-0 w-full h-full flex-1 z-10 flex flex-col gap-2 py-16 px-4 items-center font-medium">
+			<div className="absolute top-0 left-0 w-full h-full flex-1 z-10 flex flex-col gap-4 py-16 px-4 items-center font-medium">
 				{/* Title */}
-				<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
-					{moduleData.akadDate ?? "Saturday, 15 November 2025"}
-				</h1>
-				<p className="text-lg text-[#660033] font-edensor font-medium">
+				<div>
+					<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
+						{moduleData.akadDay ?? "Saturday,"}
+					</h1>
+					<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
+						{moduleData.akadDate ?? "15 November 2025"}
+					</h1>
+				</div>
+				<p className="text-lg text-[#660033] font-edensor font-semibold">
 					Akad: {moduleData.akadTime ?? "7.30 - 9.30 WIB"}
 				</p>
-				<p className="text-lg text-[#660033] font-edensor font-medium">
+				<p className="text-lg text-[#660033] font-edensor font-semibold">
 					Reception: {moduleData.resepsiTime ?? "10.30 - 13.00 WIB"}
 				</p>
 				<Button

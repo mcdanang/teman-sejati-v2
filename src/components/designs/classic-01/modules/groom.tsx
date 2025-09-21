@@ -7,9 +7,12 @@ import { motion } from "motion/react";
 
 type ModuleData = {
 	full_name?: string;
-	description?: string;
+	father_name?: string;
+	mother_name?: string;
 	image?: string;
 	instagram?: string;
+	// Legacy support
+	description?: string;
 };
 
 export const Groom = ({ data }: { data: InputJsonValue }) => {
@@ -17,42 +20,63 @@ export const Groom = ({ data }: { data: InputJsonValue }) => {
 
 	return (
 		<section
-			className="text-center flex flex-col justify-center items-center gap-4 bg-[#660033] h-dvh"
+			className="text-center flex flex-col justify-center items-center gap-6 bg-[#660033] min-h-svh snap-start snap-always py-12"
 			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
 		>
-			<div className="flex flex-col items-center gap-4">
-				<motion.h1
-					className="text-4xl font-bold font-edensor text-white max-w-sm"
+			<div className="flex flex-col items-center gap-6 max-w-sm mx-auto">
+				{/* Title */}
+				<motion.h2
+					className="text-3xl font-bold font-edensor text-[#d6c6b3] mb-2"
 					whileInView={{
 						scale: 1.05,
-						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+						transition: { delay: 0.2, duration: 1.5, bounce: 0.7, type: "spring" },
 					}}
 				>
-					{moduleData.full_name ?? "John Doe"}
-				</motion.h1>
-				<motion.p
-					className="text-lg font-edensor text-white max-w-72 mx-auto"
-					whileInView={{
-						scale: 1.05,
-						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
-					}}
-				>
-					{moduleData.description ?? "Son of Mr. and Mrs. Doe"}
-				</motion.p>
+					The Groom
+				</motion.h2>
+
+				{/* Image */}
 				<motion.div
 					className="flex justify-center"
 					whileInView={{
 						scale: 1.05,
-						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+						transition: { delay: 0.4, duration: 1.5, bounce: 0.7, type: "spring" },
 					}}
 				>
 					<Image
 						src={moduleData.image ?? "/designs/classic/doodle2.png"}
-						alt="Couple"
-						className="mt-10"
-						width={350}
-						height={350}
+						alt="The Groom"
+						className="object-cover"
+						width={200}
+						height={200}
 					/>
+				</motion.div>
+
+				{/* Name */}
+				<motion.h1
+					className="text-3xl font-bold font-edensor text-white px-4"
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.6, duration: 1.5, bounce: 0.7, type: "spring" },
+					}}
+				>
+					{moduleData.full_name ?? "John Doe"}
+				</motion.h1>
+
+				{/* Parents Names */}
+				<motion.div
+					className="text-center space-y-1 px-4"
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.8, duration: 1.5, bounce: 0.7, type: "spring" },
+					}}
+				>
+					<p className="text-xl font-edensor text-[#d6c6b3] font-medium">
+						{moduleData.father_name ?? "Putra dari Bapak Hanggoro"}
+					</p>
+					<p className="text-xl font-edensor text-[#d6c6b3] font-medium">
+						{moduleData.mother_name ?? "& Almh. Ibu Ida Risanti Wahyuni"}
+					</p>
 				</motion.div>
 				{/* <Button
 				variant="outline"

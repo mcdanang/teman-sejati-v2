@@ -1,62 +1,503 @@
+"use client";
 import Image from "next/image";
-import React from "react";
-import { Data } from "../module-forms/opening";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
+import React, { Suspense, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { InputJsonValue } from "@prisma/client/runtime/library";
+// import { useOverlayContext } from "../../../main-invitation";
 
-export const Opening = ({ data }: { data: InputJsonValue; invitationId?: string }) => {
-	const moduleData = data as Data;
+type OpeningModuleData = {
+	envelope_image?: string;
+};
+
+const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string }) => {
+	const moduleData = data as OpeningModuleData;
+	const searchParams = useSearchParams();
+	const to = searchParams.get("to");
+	const [isOverlayOpen, setIsOverlayOpen] = useState(true);
+
+	const handleEnvelopeClick = () => {
+		setIsOverlayOpen(false);
+	};
+
+	// Prevent scrolling when overlay is open
+	useEffect(() => {
+		if (isOverlayOpen) {
+			// Disable scrolling on body and main container
+			document.body.style.overflow = "hidden";
+			document.body.style.touchAction = "none";
+
+			// Find and disable scrolling on the main invitation container
+			const mainContainer = document.querySelector(".snap-y");
+			if (mainContainer) {
+				(mainContainer as HTMLElement).style.overflow = "hidden";
+				(mainContainer as HTMLElement).style.touchAction = "none";
+			}
+		} else {
+			// Re-enable scrolling
+			document.body.style.overflow = "";
+			document.body.style.touchAction = "";
+
+			// Re-enable scrolling on main container
+			const mainContainer = document.querySelector(".snap-y");
+			if (mainContainer) {
+				(mainContainer as HTMLElement).style.overflow = "auto";
+				(mainContainer as HTMLElement).style.touchAction = "auto";
+			}
+		}
+
+		// Cleanup on unmount
+		return () => {
+			document.body.style.overflow = "";
+			document.body.style.touchAction = "";
+			const mainContainer = document.querySelector(".snap-y");
+			if (mainContainer) {
+				(mainContainer as HTMLElement).style.overflow = "auto";
+				(mainContainer as HTMLElement).style.touchAction = "auto";
+			}
+		};
+	}, [isOverlayOpen]);
+
 	return (
 		<section
-			className="text-center bg-cover bg-center bg-no-repeat flex flex-col items-center py-12 h-dvh"
-			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
+			className={`text-center flex flex-col justify-evenly items-center min-h-svh relative ${isOverlayOpen ? "overflow-hidden" : ""}`}
+			style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
 		>
-			<div className="flex flex-col justify-evenly items-center h-lvh">
-				<motion.div
-					whileInView={{
-						scale: 1.05,
-						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
-					}}
-					className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-3 translate-y-12"
-				>
-					<h1>{moduleData?.groom_short_name ?? "John"}</h1>
-					<div className="flex">
-						<h1 className="text-4xl font-alex-brush font-light translate-x-2 -translate-y-2">&</h1>
-						<h1>{moduleData?.bride_short_name ?? "Jane"}</h1>
-					</div>
-				</motion.div>
-
-				<div className="flex w-fit justify-center bg-black/80 p-3">
-					<Image
-						src={moduleData?.image ?? "/designs/classic/prewedding-dancing.gif"}
-						alt="Couple"
-						className="object-cover"
-						width={300}
-						height={300}
-					/>
-				</div>
-
-				<motion.div
-					whileInView={{
-						scale: 1.05,
-						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
-					}}
-					className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-1 -translate-y-12"
-				>
-					<h1>are getting</h1>
-					<h1>married</h1>
-				</motion.div>
-
-				{/* <motion.div
+			<motion.div
 				whileInView={{
 					scale: 1.05,
 					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
 				}}
-				className="text-6xl mx-auto font-pinyon text-[#d6c6b3] space-y-1 mt-10"
+				className="text-4xl mx-auto font-pinyon text-black space-y-1 z-10 translate-y-4"
 			>
-				<h1>and...</h1>
-			</motion.div> */}
-			</div>
+				<h1>We are pleased</h1>
+			</motion.div>
+
+			{/* Envelope Animation */}
+			<motion.div
+				className="relative w-[calc(400px*6/10)] h-[calc(550px*6/10)] -translate-y-10"
+				initial={{ opacity: 0, scale: 0.8 }}
+				animate={{
+					opacity: isOverlayOpen ? 0 : 1,
+					scale: isOverlayOpen ? 0.8 : 1,
+				}}
+				transition={{
+					delay: isOverlayOpen ? 0 : 0.3,
+					duration: 0.8,
+					ease: "easeOut",
+					type: "spring",
+					bounce: 0.4,
+				}}
+			>
+				<Image
+					src={moduleData?.envelope_image ?? "/designs/classic/envelope-open-back.png"}
+					alt="Invitation"
+					className="object-cover absolute top-58 left-0 shadow-lg shadow-[#660033]"
+					width={(400 * 6) / 10}
+					height={(400 * 6) / 10}
+				/>
+				<motion.div
+					whileInView={{ translateY: -75, translateX: -15 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/hard-cover-burgundy-back.png"}
+						alt="Invitation"
+						className="object-cover absolute top-30 -rotate-[12deg] shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
+						width={(250 * 6) / 10}
+						height={(250 * 6) / 10}
+					/>
+				</motion.div>
+				<motion.div
+					whileInView={{ translateY: -100, translateX: -7.5 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/photobox-2.jpeg"}
+						alt="Invitation"
+						className="object-cover absolute top-38 right-10 -rotate-6 grayscale shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
+						width={(80 * 6) / 10}
+						height={(80 * 6) / 10}
+					/>
+				</motion.div>
+				<motion.div
+					whileInView={{ translateY: -50 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/round_back.png"}
+						alt="Invitation"
+						className="object-cover absolute top-45 left-25"
+						width={(180 * 6) / 10}
+						height={(180 * 6) / 10}
+					/>
+				</motion.div>
+				<motion.div
+					whileInView={{ translateY: -100, translateX: 7.5 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/photobox-1.png"}
+						alt="Invitation"
+						className="object-cover absolute top-58 -right-3 rotate-12 grayscale shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
+						width={(80 * 6) / 10}
+						height={(80 * 6) / 10}
+					/>
+				</motion.div>
+
+				<motion.div
+					whileInView={{ translateY: -75, translateX: -15 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/hard-cover-burgundy-front.png"}
+						alt="Invitation"
+						className="object-cover absolute top-67 left-2 -rotate-12 shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
+						width={(200 * 6) / 10}
+						height={(200 * 6) / 10}
+					/>
+				</motion.div>
+
+				<motion.div
+					whileInView={{ translateY: -50, translateX: 15 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/round_front.png"}
+						alt="Invitation"
+						className="object-cover absolute top-65 right-4 rotate-[15deg]"
+						width={(260 * 6) / 10}
+						height={(260 * 6) / 10}
+					/>
+				</motion.div>
+
+				<motion.div
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer absolute top-58 left-0"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/envelope-open-front.png"}
+						alt="Invitation"
+						className="object-cover"
+						width={(400 * 6) / 10}
+						height={(400 * 6) / 10}
+					/>
+				</motion.div>
+
+				<motion.div
+					whileInView={{ translateY: -100, translateX: -7.5 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/flower-burgundy-1.png"}
+						alt="Invitation"
+						className="object-cover absolute top-50 right-18"
+						width={(80 * 6) / 10}
+						height={(80 * 6) / 10}
+					/>
+				</motion.div>
+
+				<motion.div
+					whileInView={{ translateY: -40, translateX: -7.5 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/flower-burgundy-2.png"}
+						alt="Invitation"
+						className="object-cover absolute top-88 -right-9 rotate-150"
+						width={(80 * 6) / 10}
+						height={(80 * 6) / 10}
+					/>
+				</motion.div>
+
+				<motion.div
+					whileInView={{ translateY: -40, translateX: -7.5 }}
+					transition={{ duration: 1, ease: "easeInOut" }}
+					whileHover={{ scale: 1.05, transition: { duration: 0.1 } }}
+					whileTap={{
+						scale: 1.1,
+						transition: { duration: 3, type: "spring", bounce: 0.8 },
+					}}
+					className="cursor-pointer"
+				>
+					<Image
+						src={moduleData?.envelope_image ?? "/designs/classic/flower-burgundy-2.png"}
+						alt="Invitation"
+						className="object-cover absolute top-85 -left-10 -rotate-60"
+						width={(120 * 6) / 10}
+						height={(120 * 6) / 10}
+					/>
+				</motion.div>
+				{/* <div className="absolute -bottom-14 left-5 text-[#d6c6b3] border border-[#d6c6b3] px-3 py-1 rounded-lg w-38 h-18 text-left flex flex-col justify-between font-edensor font-bold">
+					<p className="text-xs">dear,</p>
+					<p className="text-sm">{to || "Muhamad Danang Priambodo"}</p>
+				</div> */}
+			</motion.div>
+
+			<motion.div
+				whileInView={{
+					scale: 1.05,
+					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+				}}
+				className="text-4xl mx-auto font-pinyon text-black space-y-1 z-10 mt-20"
+			>
+				<h1>to invite you to</h1>
+			</motion.div>
+			{/* Overlay Layer */}
+			<AnimatePresence>
+				{isOverlayOpen && (
+					<motion.div
+						initial={{ opacity: 1, scale: 1 }}
+						exit={{ opacity: 0, scale: 0.8 }}
+						transition={{ duration: 0.6, ease: "easeInOut" }}
+						onClick={handleEnvelopeClick}
+						style={{ backgroundImage: "url('/designs/classic/bg-cream.png')" }}
+						className="absolute inset-0 bg-gradient-to-b from-[#660033] to-[#4a0025] flex flex-col items-center justify-center z-40 cursor-pointer px-4"
+					>
+						{/* Arabic Bismillah */}
+						<motion.div
+							initial={{ opacity: 0, y: -30, scale: 0.8 }}
+							animate={{ opacity: 1, y: 0, scale: 1 }}
+							transition={{
+								delay: 0.3,
+								duration: 1.2,
+								type: "spring",
+								bounce: 0.4,
+							}}
+							whileHover={{ scale: 1.05 }}
+							className="text-center mb-8"
+						>
+							<motion.h1
+								className="text-2xl font-arabic text-[#660033] mb-4"
+								transition={{
+									duration: 2,
+									repeat: Infinity,
+									repeatType: "reverse",
+								}}
+							>
+								بسم الله الرحمن الرحيم
+							</motion.h1>
+						</motion.div>
+
+						{/* Dear Guest */}
+						<motion.div
+							initial={{ opacity: 0, x: -50, rotateY: -90 }}
+							animate={{ opacity: 1, x: 0, rotateY: 0 }}
+							transition={{
+								delay: 0.5,
+								duration: 1,
+								type: "spring",
+								bounce: 0.5,
+							}}
+							whileHover={{
+								scale: 1.1,
+								rotateZ: [0, -2, 2, 0],
+								transition: { duration: 0.3 },
+							}}
+							className="text-center mb-8"
+						>
+							<motion.div className="text-[#660033] px-4 py-2 text-center font-edensor">
+								<motion.p
+									className="text-xs opacity-70 font-semibold"
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 0.7 }}
+									transition={{ delay: 0.8, duration: 0.5 }}
+								>
+									dear,
+								</motion.p>
+								<motion.p
+									className="text-lg font-semibold"
+									initial={{ opacity: 0, scale: 0.5 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{
+										delay: 1,
+										duration: 0.6,
+										type: "spring",
+										bounce: 0.6,
+									}}
+								>
+									{to ? to : "Guest"}
+								</motion.p>
+							</motion.div>
+						</motion.div>
+
+						{/* Envelope Display */}
+						<motion.div
+							initial={{ opacity: 0, scale: 0.3, rotateY: 180 }}
+							animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+							transition={{
+								delay: 0.7,
+								duration: 1.2,
+								type: "spring",
+								bounce: 0.6,
+							}}
+							whileHover={{
+								scale: 1.1,
+								rotateZ: [0, -5, 5, 0],
+								y: -10,
+								transition: { duration: 0.4 },
+							}}
+							whileTap={{ scale: 0.95 }}
+							className="relative mb-8"
+						>
+							<motion.div
+								transition={{
+									duration: 4,
+									repeat: Infinity,
+									repeatType: "reverse",
+									ease: "easeInOut",
+								}}
+							>
+								<Image
+									src={moduleData?.envelope_image ?? "/designs/classic/envelope-closed.png"}
+									alt="Click to open invitation"
+									width={250}
+									height={250}
+									className="object-cover shadow-2xl shadow-black/50"
+								/>
+							</motion.div>
+
+							{/* Glowing effect around envelope */}
+							<motion.div
+								className="absolute inset-0"
+								animate={{
+									boxShadow: [
+										"0 0 0px rgba(214, 198, 179, 0)",
+										"0 0 20px rgba(214, 198, 179, 0.3)",
+										"0 0 40px rgba(214, 198, 179, 0.1)",
+										"0 0 0px rgba(214, 198, 179, 0)",
+									],
+								}}
+								transition={{
+									duration: 3,
+									repeat: Infinity,
+									repeatType: "reverse",
+								}}
+							/>
+						</motion.div>
+
+						{/* Tap to Open */}
+						<motion.div
+							initial={{ opacity: 0, y: 30 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{
+								delay: 0.9,
+								duration: 0.8,
+								type: "spring",
+								bounce: 0.3,
+							}}
+							className="text-center"
+						>
+							<motion.p
+								className="text-sm font-edensor text-[#660033]/60 text-center font-semibold"
+								animate={{
+									opacity: [0.6, 1, 0.6],
+									scale: [1, 1.05, 1],
+									y: [0, -2, 0],
+								}}
+								transition={{
+									duration: 2,
+									repeat: Infinity,
+									repeatType: "reverse",
+									ease: "easeInOut",
+								}}
+							>
+								Tap to open
+							</motion.p>
+
+							{/* Animated arrow or pointer */}
+							<motion.div
+								className="flex justify-center mt-2"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ delay: 1.5, duration: 0.5 }}
+							>
+								<motion.div
+									className="w-0 h-0 border-l-[6px] border-r-[6px] border-b-[8px] border-l-transparent border-r-transparent border-b-[#660033]/40"
+									animate={{
+										y: [0, 5, 0],
+										opacity: [0.4, 0.8, 0.4],
+									}}
+									transition={{
+										duration: 1.5,
+										repeat: Infinity,
+										repeatType: "reverse",
+										ease: "easeInOut",
+									}}
+									style={{ transform: "rotate(180deg)" }}
+								/>
+							</motion.div>
+						</motion.div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</section>
+	);
+};
+
+export const Opening = ({
+	data,
+	invitationId,
+}: {
+	data: InputJsonValue;
+	invitationId?: string;
+}) => {
+	return (
+		<Suspense
+			fallback={<div className="min-h-svh flex items-center justify-center">Loading...</div>}
+		>
+			<OpeningContent data={data} invitationId={invitationId} />
+		</Suspense>
 	);
 };

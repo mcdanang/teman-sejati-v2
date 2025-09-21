@@ -72,8 +72,6 @@ export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationW
 			// Show loading toast
 			const loadingToast = toast.loading("Menyimpan perubahan...");
 
-			console.log("activeInvitation", activeInvitation);
-
 			await updateModule(activeInvitation.id, updatedModule);
 
 			// Dismiss loading toast and show success

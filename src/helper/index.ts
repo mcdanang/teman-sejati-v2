@@ -38,6 +38,8 @@ export function getModuleIcon(
 			return ListCheck;
 		case "Gallery":
 			return Images;
+		case "Gallery Slideshow":
+			return Images;
 		case "Wedding Gift":
 			return Gift;
 		case "Wedding Wishes":

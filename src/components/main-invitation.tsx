@@ -11,6 +11,8 @@ export function MainInvitation({
 	editMode?: boolean;
 }) {
 	const [isPlaying, setIsPlaying] = useState(false);
+	const [hasClicked, setHasClicked] = useState(false);
+
 	// const [showPlayPrompt, setShowPlayPrompt] = useState(false); // Commented out since prompt is disabled
 	const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -26,63 +28,45 @@ export function MainInvitation({
 		audioRef.current = audio;
 
 		// Set up audio event listeners
-		audio.addEventListener("canplaythrough", () => {
-			console.log("Audio can play through");
-		});
+		audio.addEventListener("canplaythrough", () => {});
 
 		audio.addEventListener("playing", () => {
 			setIsPlaying(true);
 			// setShowPlayPrompt(false); // Commented out since prompt is disabled
-			console.log("Audio is playing");
 		});
 
 		audio.addEventListener("pause", () => {
 			setIsPlaying(false);
-			console.log("Audio paused");
 		});
 
 		audio.addEventListener("error", e => {
 			console.error("Audio error:", e);
 		});
 
-		// Auto-play when component mounts (if not in edit mode)
-		if (!editMode) {
-			// Try to play immediately
-			const playPromise = audio.play();
-			if (playPromise !== undefined) {
-				playPromise
-					.then(() => {
-						setIsPlaying(true);
-						console.log("Audio auto-played successfully");
-					})
-					.catch(error => {
-						console.log("Auto-play prevented:", error);
-						// setShowPlayPrompt(true); // Commented out since prompt is disabled
+		// Auto-play on first click (if not in edit mode)
+		if (!editMode && !hasClicked) {
+			const handleFirstClick = () => {
+				if (!hasClicked) {
+					setHasClicked(true);
 
-						// Auto-play was prevented, try again on user interaction
-						const handleUserInteraction = () => {
-							audio
-								.play()
-								.then(() => {
-									setIsPlaying(true);
-									// setShowPlayPrompt(false); // Commented out since prompt is disabled
-									console.log("Audio played after user interaction");
-								})
-								.catch(err => {
-									console.log("Still cannot play:", err);
-								});
-							// Remove listeners after first interaction
-							document.removeEventListener("click", handleUserInteraction);
-							document.removeEventListener("touchstart", handleUserInteraction);
-							document.removeEventListener("keydown", handleUserInteraction);
-						};
+					const playPromise = audio.play();
+					if (playPromise !== undefined) {
+						playPromise
+							.then(() => {
+								setIsPlaying(true);
+							})
+							.catch(error => {
+								console.error("Auto-play still prevented:", error);
+								// User can still use the play button
+							});
+					}
+				}
+			};
 
-						// Listen for user interaction to start audio
-						document.addEventListener("click", handleUserInteraction, { once: true });
-						document.addEventListener("touchstart", handleUserInteraction, { once: true });
-						document.addEventListener("keydown", handleUserInteraction, { once: true });
-					});
-			}
+			// Add click listener to the document
+			setTimeout(() => {
+				document.addEventListener("click", handleFirstClick, { once: true });
+			}, 100); // Small delay to ensure DOM is ready
 		}
 
 		return () => {
@@ -91,7 +75,7 @@ export function MainInvitation({
 				audio.src = "";
 			}
 		};
-	}, [activeInvitation?.background_music, editMode]);
+	}, [activeInvitation?.background_music, editMode, hasClicked]);
 
 	if (!activeInvitation) {
 		return (
@@ -105,6 +89,10 @@ export function MainInvitation({
 
 	const modules = activeInvitation.Modules;
 	const design = designs[activeInvitation.design];
+
+	console.log("design", design);
+
+	console.log("modules", modules);
 
 	// Validate the background image URL
 	const isValidImageUrl = (url: string) => {
@@ -141,12 +129,6 @@ export function MainInvitation({
 				backgroundRepeat: "no-repeat",
 				backgroundAttachment: "fixed",
 			}}
-			onClick={() => {
-				// If audio exists and is not playing, try to play it
-				if (audioRef.current && !isPlaying && activeInvitation?.background_music) {
-					audioRef.current.play().catch(err => console.log("Click to play failed:", err));
-				}
-			}}
 		>
 			{/* Background Music Controls */}
 			{activeInvitation.background_music && (
@@ -176,9 +158,15 @@ export function MainInvitation({
 				</div>
 			)}
 
-			<div className="relative max-w-md mx-auto min-h-screen bg-white/95 shadow-lg backdrop-blur-sm">
+			<div
+				className="relative max-w-md mx-auto min-h-screen bg-white/95 shadow-lg backdrop-blur-sm snap-y snap-mandatory h-screen overflow-y-auto pb-20"
+				style={{
+					paddingBottom: "max(5rem, env(safe-area-inset-bottom))",
+				}}
+			>
 				{modules.map(mod => {
 					const id = mod.name.replace(/\s+/g, "");
+					console.log("mod.name", mod.name);
 					const moduleData = design.modules[mod.name as keyof typeof design.modules];
 					if (!moduleData) return null;
 					const Component = moduleData;
@@ -191,7 +179,11 @@ export function MainInvitation({
 						: null;
 
 					return (
-						<div key={mod.name} id={id as string} className="relative group overflow-hidden">
+						<div
+							key={mod.name}
+							id={id as string}
+							className="relative group overflow-hidden snap-start snap-always"
+						>
 							{editMode && ModuleForm && <ModuleForm activeInvitation={activeInvitation} />}
 							<Component data={mod.content as ModuleData} invitationId={activeInvitation.id} />
 						</div>
