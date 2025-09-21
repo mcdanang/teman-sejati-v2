@@ -30,10 +30,10 @@ export default function Page() {
 
 	if (isLoading)
 		return (
-			<div className="flex flex-col items-center justify-center h-screen">
+			<div className="flex flex-col items-center justify-center h-screen gap-4 animate-pulse">
 				<Image src="/images/logo3.svg" alt="Logo Teman Sejati" width={200} height={200} />
-				<Loader2 className="animate-spin h-8 w-8 mx-auto text-primary" />
-				<p className="text-sm text-muted-foreground">Memuat undangan...</p>
+				<Loader2 className="animate-spin h-8 w-8 mx-auto text-primary/50" />
+				<p className="text-sm text-muted-foreground/50">Memuat undangan...</p>
 			</div>
 		);
 
