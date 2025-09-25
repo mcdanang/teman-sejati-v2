@@ -7,7 +7,7 @@ export default function TermsPrivacyPage({ title, content }: { title: string; co
 		<section>
 			<Navbar />
 			<main className="min-h-svh">
-				<div className="container py-20 max-w-5xl mx-auto">
+				<div className="container py-20 max-w-5xl mx-auto px-4">
 					<h2 className="mb-10 text-center font-bold text-4xl text-blue-dianne-500 dark:text-blue-dianne-300">
 						{title}
 					</h2>
