@@ -3,7 +3,7 @@
 import React from "react";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
 	return (
@@ -26,10 +26,10 @@ export default function HeroSection() {
 						Buat undangan pernikahan yang indah, personal, dan mudah dibagikan. Ceritakan kisah
 						cinta Anda dengan desain yang tak terlupakan.
 					</p>
-					<div className="flex flex-wrap gap-4">
+					{/* <div className="flex flex-wrap gap-4">
 						<Button>Buat Undangan Sekarang</Button>
 						<Button variant="outline">Lihat Contoh</Button>
-					</div>
+					</div> */}
 				</div>
 				<HeroCard />
 			</div>

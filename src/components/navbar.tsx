@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -29,7 +29,7 @@ export default function Navbar() {
 						<Image src={"/images/logo1.svg"} alt="logo" width={120} height={120} />
 					</Link>
 				</div>
-				<nav className="hidden md:flex space-x-16 text-slate-500 font-medium">
+				{/* <nav className="hidden md:flex space-x-16 text-slate-500 font-medium">
 					<a href="#" className="group hover:text-primary duration-200 transition">
 						Fitur
 						<span className="block max-w-0 group-hover:max-w-full duration-200 transition-all h-0.5 bg-primary"></span>
@@ -50,12 +50,12 @@ export default function Navbar() {
 						FAQ
 						<span className="block max-w-0 group-hover:max-w-full duration-200 transition-all h-0.5 bg-primary"></span>
 					</a>
-				</nav>
-				<div className="flex items-center space-x-4">
+				</nav> */}
+				{/* <div className="flex items-center space-x-4">
 					<Link href="/editor">
 						<Button className="">Buat Undangan</Button>
 					</Link>
-				</div>
+				</div> */}
 			</div>
 		</header>
 	);

@@ -27,9 +27,10 @@ export default function Footer() {
 				<div className="flex flex-col mt-8 lg:mt-0 gap-2">
 					<div className="text-lg font-semibold text-primary font-serif">Perusahaan</div>
 					<div className="">PT MCIDEAS WORK DIGITAL</div>
-					<div className="max-w-xs">
+					{/* <div className="max-w-xs">
 						Jl. Cemara Raya No. 8, Baktijaya, Sukmajaya, Kota Depok 16418, Jawa Barat
-					</div>
+					</div> */}
+					<div className="max-w-xs">Kota Depok, Jawa Barat</div>
 					<Link
 						className="transition hover:text-primary hover:translate-x-1 duration-300 flex items-center gap-2 cursor-pointer"
 						href="mailto:mcideaswork@gmail.com"
@@ -47,7 +48,7 @@ export default function Footer() {
 					</div>
 				</div>
 				<div className="grid grid-cols-1 mt-8 lg:grid-cols-2 lg:mt-0 gap-2">
-					<div className="flex flex-col gap-2">
+					{/* <div className="flex flex-col gap-2">
 						<div className="text-lg font-semibold text-primary font-serif">Navigasi</div>
 						<CustomLink
 							className="transition hover:text-primary hover:translate-x-1 duration-300"
@@ -79,7 +80,7 @@ export default function Footer() {
 						>
 							FAQ
 						</CustomLink>
-					</div>
+					</div> */}
 					<div className="flex flex-col gap-2">
 						<div className="text-lg font-semibold text-primary font-serif">Legal</div>
 						<CustomLink
