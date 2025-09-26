@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.teman-sejati-v2.backupdb</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>~/teman-sejati-v2-backup/codes/teman-sejati-v2_backup_db.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/> <!-- Run immediately upon system startup -->
+    <key>StartCalendarInterval</key>
+    <dict>
+      <key>Hour</key>
+      <integer>15</integer> <!-- 3:00 PM -->
+      <key>Minute</key>
+      <integer>0</integer>  <!-- Run at 00 minutes past the hour -->
+    </dict>
+    <key>StandardErrorPath</key>
+    <string>~/teman-sejati-v2-backup/logs/backupdb.log</string>
+    <key>StandardOutPath</key>
+    <string>~/teman-sejati-v2-backup/logs/backupdb.log</string>
+  </dict>
+</plist>
