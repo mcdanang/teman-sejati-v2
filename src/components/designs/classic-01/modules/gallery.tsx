@@ -15,32 +15,44 @@ export const Gallery = ({ data }: { data: InputJsonValue }) => {
 
 	const items = [
 		{
-			image: "/designs/classic/photo1.jpg",
+			image: "/designs/classic/gallery/photo1.jpg",
 			className: "absolute top-30 left-[20%] rotate-[-5deg]",
 		},
 		{
-			image: "/designs/classic/photo2.jpg",
+			image: "/designs/classic/gallery/photo2.jpg",
 			className: "absolute top-60 left-[5%] rotate-[-7deg]",
 		},
 		{
-			image: "/designs/classic/photo3.jpg",
-			className: "absolute top-5 left-[40%] rotate-[8deg]",
+			image: "/designs/classic/gallery/photo3.jpg",
+			className: "absolute top-80 left-[40%] rotate-[8deg]",
 		},
 		{
-			image: "/designs/classic/photo4.jpg",
+			image: "/designs/classic/gallery/photo4.jpg",
 			className: "absolute top-52 left-[55%] rotate-[10deg]",
 		},
 		{
-			image: "/designs/classic/photo5.jpg",
+			image: "/designs/classic/gallery/photo5.jpg",
 			className: "absolute top-40 right-[35%] rotate-[2deg]",
 		},
 		{
-			image: "/designs/classic/photo6.jpg",
-			className: "absolute top-90 left-[45%] rotate-[-7deg]",
+			image: "/designs/classic/gallery/photo6.jpg",
+			className: "absolute top-80 left-[45%] rotate-[-7deg]",
 		},
 		{
-			image: "/designs/classic/photo7.jpg",
+			image: "/designs/classic/gallery/photo7.jpg",
 			className: "absolute top-28 left-[30%] rotate-[4deg]",
+		},
+		{
+			image: "/designs/classic/gallery/photo8.jpg",
+			className: "absolute top-28 left-[30%] rotate-[4deg]",
+		},
+		{
+			image: "/designs/classic/gallery/photo9.jpg",
+			className: "absolute top-28 left-[15%] rotate-[2deg]",
+		},
+		{
+			image: "/designs/classic/gallery/photo10.jpg",
+			className: "absolute top-20 left-[34%] rotate-[8deg]",
 		},
 	];
 
