@@ -125,7 +125,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					className="cursor-pointer"
 				>
 					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/photobox-2.jpeg"}
+						src={moduleData?.envelope_image ?? "/designs/classic/gallery/photostrip1.png"}
 						alt="Invitation"
 						className="object-cover absolute top-38 right-10 -rotate-6 grayscale shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
 						width={(80 * 6) / 10}
@@ -161,9 +161,9 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 					className="cursor-pointer"
 				>
 					<Image
-						src={moduleData?.envelope_image ?? "/designs/classic/photobox-1.png"}
+						src={moduleData?.envelope_image ?? "/designs/classic/gallery/photostrip2.png"}
 						alt="Invitation"
-						className="object-cover absolute top-58 -right-3 rotate-12 grayscale shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
+						className="object-cover absolute top-64 -right-1 rotate-12 grayscale shadow-[0_0_2px_0_rgba(0,0,0,0.5)]"
 						width={(80 * 6) / 10}
 						height={(80 * 6) / 10}
 					/>
