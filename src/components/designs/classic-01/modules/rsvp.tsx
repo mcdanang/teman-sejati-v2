@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { InputJsonValue } from "@prisma/client/runtime/library";
+import { useSearchParams } from "next/navigation";
 
 interface RSVPData {
 	guest_name: string;
@@ -21,8 +22,10 @@ interface RSVPModuleData {
 }
 
 export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationId?: string }) => {
+	const searchParams = useSearchParams();
+	const maxPeopleCountFromParams = searchParams.get("c");
 	const moduleData = data as unknown as RSVPModuleData;
-	const maxPeopleCount = moduleData?.max_people_count || 2;
+	const maxPeopleCount = maxPeopleCountFromParams || moduleData?.max_people_count || 2;
 	const [rsvpData, setRsvpData] = useState<RSVPData>({
 		guest_name: "",
 		will_attend: true,
