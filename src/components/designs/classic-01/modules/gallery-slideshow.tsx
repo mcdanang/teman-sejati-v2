@@ -56,7 +56,7 @@ export const GallerySlideshow = ({ data }: { data: InputJsonValue }) => {
 			{/* Title */}
 			<div className="mb-16">
 				<h2 className="text-4xl font-edensor text-[#660033] mb-2 font-bold">
-					{moduleData?.title || "Photo Gallery"}
+					{moduleData?.title || "gallery of us"}
 				</h2>
 				{moduleData?.subtitle && (
 					<p className="text-lg text-[#8B4513] font-light">{moduleData.subtitle}</p>
@@ -67,7 +67,7 @@ export const GallerySlideshow = ({ data }: { data: InputJsonValue }) => {
 			<div className="w-full">
 				<InfiniteCarousel
 					items={carouselItems}
-					speed={50}
+					speed={40}
 					direction="right"
 					pauseOnHover={true}
 					className="w-full"

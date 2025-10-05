@@ -3,6 +3,7 @@ import { InputJsonValue } from "@prisma/client/runtime/library";
 import { MapPinned } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import { motion } from "motion/react";
 
 type ModuleData = {
 	location_name?: string;
@@ -28,7 +29,13 @@ export const Lokasi = ({ data }: { data: InputJsonValue }) => {
 					{moduleData.location_address ?? "Lokasi Subtitle"}
 				</p>
 			</div>
-			<div className="flex justify-center">
+			<motion.div
+				className="flex justify-center"
+				whileInView={{
+					scale: 1.05,
+					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+				}}
+			>
 				<Image
 					src={moduleData.image ?? "/designs/classic/couple.svg"}
 					alt="Couple"
@@ -36,7 +43,7 @@ export const Lokasi = ({ data }: { data: InputJsonValue }) => {
 					width={400}
 					height={300}
 				/>
-			</div>
+			</motion.div>
 			<Button
 				variant="outline"
 				className="flex justify-center w-fit items-center border-[#660033] gap-2 hover:bg-gray-100/10"
