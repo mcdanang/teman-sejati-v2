@@ -23,7 +23,7 @@ interface RSVPModuleData {
 
 export const RSVP = ({ data, invitationId }: { data: InputJsonValue; invitationId?: string }) => {
 	const searchParams = useSearchParams();
-	const maxPeopleCountFromParams = searchParams.get("c");
+	const maxPeopleCountFromParams = Number(searchParams.get("c")) || 2;
 	const moduleData = data as unknown as RSVPModuleData;
 	const maxPeopleCount = maxPeopleCountFromParams || moduleData?.max_people_count || 2;
 	const [rsvpData, setRsvpData] = useState<RSVPData>({
