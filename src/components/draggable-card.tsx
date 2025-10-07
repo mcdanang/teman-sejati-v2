@@ -14,7 +14,7 @@ export function DraggableCard({
 					Our Story
 				</p>
 
-				<p className=" text-[#660033] italic text-justify font-edensor font-medium">
+				<p className=" text-[#660033] italic text-center font-edensor font-medium">
 					{
 						"Three years ago, destiny quietly brought us together through a simple introduction that turned into a beautiful journey. What began with small conversations grew into deep understanding, laughter, and love. Though we are different in many ways — Khalisa, full of passion and plans; Danang, calm and spontaneous — those differences became our harmony. Today, with hearts full of gratitude, we choose to continue this story as one, hand in hand toward a lifetime together."
 					}
