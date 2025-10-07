@@ -10,25 +10,15 @@ export function DraggableCard({
 	return (
 		<DraggableCardContainer className="relative flex h-[800px] w-full items-center justify-center overflow-clip">
 			<div className="text-center max-w-xs flex flex-col gap-6">
-				{/* Arabic Text */}
-
-				<p className="text-lg leading-relaxed text-[#660033] font-arabic mt-4">
-					{
-						"وَمِنْ ءَايَـٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةًۭ وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍۢ يَتَفَكَّرُونَ"
-					}
+				<p className="text-xl font-semibold leading-relaxed text-[#660033] font-edensor mt-4">
+					Our Story
 				</p>
-
-				{/* Translation */}
 
 				<p className=" text-[#660033] italic text-justify font-edensor font-medium">
 					{
-						"And one of His signs is that He created for you spouses from among yourselves so that you may find comfort in them. And He has placed between you compassion and mercy. Surely in this are signs for people who reflect."
+						"Three years ago, destiny quietly brought us together through a simple introduction that turned into a beautiful journey. What began with small conversations grew into deep understanding, laughter, and love. Though we are different in many ways — Khalisa, full of passion and plans; Danang, calm and spontaneous — those differences became our harmony. Today, with hearts full of gratitude, we choose to continue this story as one, hand in hand toward a lifetime together."
 					}
 				</p>
-
-				{/* Surah Reference */}
-
-				<p className="text-[#660033] font-medium mt-4 font-pinyon">{"Ar-Rum, 30:21"}</p>
 			</div>
 			{items.map((item, index) => (
 				<DraggableCardBody className={item.className} key={index}>

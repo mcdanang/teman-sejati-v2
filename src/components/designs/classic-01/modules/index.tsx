@@ -10,6 +10,7 @@ import { RSVP } from "./rsvp";
 import { Waktu } from "./time";
 import { WeddingGift } from "./wedding-gift";
 import { WeddingWishes } from "./wedding-wishes";
+import { Quotes } from "./quotes";
 
 const modulesClassic01 = {
 	Cover: Cover,
@@ -24,6 +25,7 @@ const modulesClassic01 = {
 	RSVP: RSVP,
 	WeddingGift: WeddingGift,
 	WeddingWishes: WeddingWishes,
+	Quotes: Quotes,
 };
 
 export default modulesClassic01;

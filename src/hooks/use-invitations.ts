@@ -139,6 +139,82 @@ export function useInvitations() {
 		}
 	};
 
+	const createNewInvitation = async () => {
+		try {
+			if (status === "unauthenticated") {
+				// For guest users, create a new invitation in localStorage
+				const newInvitation: InvitationWithModules = {
+					id: `guest-invitation-${Date.now()}`,
+					user_id: "guest-user",
+					slug: `undangan-${Date.now()}`,
+					design: "classic-01",
+					desktop_bg: "/designs/classic/bg.webp",
+					background_music: null,
+					index: invitations.length + 1,
+					is_paid: false,
+					is_published: false,
+					created_at: new Date(),
+					Modules: [
+						{ order: 1, name: "Cover", url: "#", content: {} },
+						{ order: 2, name: "Opening", url: "#", content: {} },
+						{ order: 3, name: "Quotes", url: "#", content: {} },
+						{ order: 4, name: "Mempelai Pria", url: "#", content: {} },
+						{ order: 5, name: "Mempelai Wanita", url: "#", content: {} },
+						{ order: 6, name: "Waktu", url: "#", content: {} },
+						{ order: 7, name: "Lokasi", url: "#", content: {} },
+						{ order: 8, name: "RSVP", url: "#", content: {} },
+						{ order: 9, name: "Gallery", url: "#", content: {} },
+						{ order: 10, name: "Wedding Gift", url: "#", content: {} },
+						{ order: 11, name: "Wedding Wishes", url: "#", content: {} },
+						{ order: 12, name: "Closing", url: "#", content: {} },
+					],
+				};
+
+				const updatedInvitations = [...invitations, newInvitation];
+				await saveGuestInvitations(updatedInvitations);
+				setActiveInvitation(newInvitation);
+			} else {
+				// For authenticated users, create invitation via API
+				const createRes = await fetch("/api/invitations", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						is_paid: false,
+						is_published: false,
+						design: "classic-01",
+						desktop_bg: "/designs/classic/bg.webp",
+						Modules: [
+							{ order: 1, name: "Cover", url: "#", content: {} },
+							{ order: 2, name: "Opening", url: "#", content: {} },
+							{ order: 3, name: "Quotes", url: "#", content: {} },
+							{ order: 4, name: "Mempelai Pria", url: "#", content: {} },
+							{ order: 5, name: "Mempelai Wanita", url: "#", content: {} },
+							{ order: 6, name: "Waktu", url: "#", content: {} },
+							{ order: 7, name: "Lokasi", url: "#", content: {} },
+							{ order: 8, name: "RSVP", url: "#", content: {} },
+							{ order: 9, name: "Gallery", url: "#", content: {} },
+							{ order: 10, name: "Wedding Gift", url: "#", content: {} },
+							{ order: 11, name: "Wedding Wishes", url: "#", content: {} },
+							{ order: 12, name: "Closing", url: "#", content: {} },
+						],
+					}),
+				});
+
+				if (!createRes.ok) throw new Error("Gagal membuat undangan baru.");
+
+				const newInvitation = await createRes.json();
+				const updatedInvitations = [...invitations, newInvitation];
+				setInvitations(updatedInvitations);
+				setActiveInvitation(newInvitation);
+			}
+		} catch (error) {
+			console.error("Error creating new invitation:", error);
+			setError(
+				error instanceof Error ? error.message : "Terjadi kesalahan saat membuat undangan baru"
+			);
+		}
+	};
+
 	React.useEffect(() => {
 		if (status === "loading") return;
 
@@ -167,6 +243,7 @@ export function useInvitations() {
 		isLoading,
 		error,
 		updateModule,
+		createNewInvitation,
 		// updateInvitation,
 		// saveGuestInvitations,
 	};

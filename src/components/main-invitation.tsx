@@ -85,9 +85,8 @@ export function MainInvitation({
 		);
 	}
 
-	activeInvitation.Modules.sort((a, b) => a.order - b.order);
-
-	const modules = activeInvitation.Modules;
+	// Create a new sorted array instead of mutating the original
+	const modules = [...activeInvitation.Modules].sort((a, b) => a.order - b.order);
 	const design = designs[activeInvitation.design];
 
 	console.log("design", design);
@@ -167,10 +166,13 @@ export function MainInvitation({
 				{modules.map(mod => {
 					const id = mod.name.replace(/\s+/g, "");
 					console.log("mod.name", mod.name);
+					console.log("design.modules", design.modules);
 					const moduleData = design.modules[mod.name as keyof typeof design.modules];
+					console.log("moduleData", moduleData);
 					if (!moduleData) return null;
 					const Component = moduleData;
 					if (!Component) return null;
+					console.log("Component", Component);
 					if (mod.content === null) return null;
 
 					// Get the design-specific ModuleForm component from the design definition

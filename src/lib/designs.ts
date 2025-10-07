@@ -5,6 +5,7 @@ import moduleFormsClassic01 from "@/components/designs/classic-01/module-forms";
 const {
 	Cover,
 	Opening,
+	Quotes,
 	Groom,
 	Bride,
 	Waktu,
@@ -20,6 +21,7 @@ const {
 const {
 	Cover: CoverModuleForm,
 	Opening: OpeningModuleForm,
+	Quotes: QuotesModuleForm,
 	Groom: GroomModuleForm,
 	Bride: BrideModuleForm,
 	Waktu: WaktuModuleForm,
@@ -39,6 +41,7 @@ export const designs: Record<string, DesignDefinition> = {
 		modules: {
 			Cover: Cover,
 			Opening: Opening,
+			Quotes: Quotes,
 			"Gallery Slideshow": GallerySlideshow,
 			"Mempelai Pria": Groom,
 			"Mempelai Wanita": Bride,
@@ -53,6 +56,7 @@ export const designs: Record<string, DesignDefinition> = {
 		forms: {
 			Cover: CoverModuleForm,
 			Opening: OpeningModuleForm,
+			Quotes: QuotesModuleForm,
 			"Gallery Slideshow": GallerySlideshowModuleForm,
 			"Mempelai Pria": GroomModuleForm,
 			"Mempelai Wanita": BrideModuleForm,

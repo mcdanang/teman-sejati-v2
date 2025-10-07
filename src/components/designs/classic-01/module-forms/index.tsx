@@ -10,6 +10,7 @@ import { ModuleForm as RSVPModuleForm } from "./rsvp";
 import { ModuleForm as WaktuModuleForm } from "./time";
 import { ModuleForm as WeddingGiftModuleForm } from "./wedding-gift";
 import { ModuleForm as WeddingWishesModuleForm } from "./wedding-wishes";
+import { ModuleForm as QuotesModuleForm } from "./quotes";
 
 const moduleFormsClassic01 = {
 	Cover: CoverModuleForm,
@@ -24,6 +25,7 @@ const moduleFormsClassic01 = {
 	RSVP: RSVPModuleForm,
 	WeddingGift: WeddingGiftModuleForm,
 	WeddingWishes: WeddingWishesModuleForm,
+	Quotes: QuotesModuleForm,
 };
 
 export default moduleFormsClassic01;
