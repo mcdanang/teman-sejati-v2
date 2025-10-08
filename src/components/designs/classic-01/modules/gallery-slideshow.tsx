@@ -67,8 +67,7 @@ export const GallerySlideshow = ({ data }: { data: InputJsonValue }) => {
 			<div className="w-full">
 				<InfiniteCarousel
 					items={carouselItems}
-					speed={40}
-					direction="right"
+					speed={1.5}
 					pauseOnHover={true}
 					className="w-full"
 					itemHeight={280}

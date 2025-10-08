@@ -3,19 +3,25 @@
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import AutoScroll from "embla-carousel-auto-scroll";
+import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	type CarouselApi,
+} from "@/components/ui/carousel";
 
-interface CarouselItem {
+interface CarouselImageItem {
 	image: string;
 	alt?: string;
 	aspectRatio?: number; // width/height ratio (optional)
 }
 
 interface InfiniteCarouselProps {
-	items: CarouselItem[];
-	speed?: number; // Duration for one complete cycle in seconds
-	direction?: "left" | "right";
+	items: CarouselImageItem[];
+	speed?: number; // Speed in pixels per frame (default 1 = slow, higher = faster)
 	pauseOnHover?: boolean;
 	className?: string;
 	itemWidth?: number; // Optional custom item width
@@ -24,58 +30,55 @@ interface InfiniteCarouselProps {
 
 export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 	items,
-	speed = 20,
-	direction = "left",
+	speed = 1,
 	pauseOnHover = true,
 	className = "",
 	itemWidth: customItemWidth,
 	itemHeight: customItemHeight,
 }) => {
-	const [isPaused, setIsPaused] = useState(false);
-	const [selectedImage, setSelectedImage] = useState<CarouselItem | null>(null);
+	const [selectedImage, setSelectedImage] = useState<CarouselImageItem | null>(null);
 	const [imageLoadStates, setImageLoadStates] = useState<{
 		[key: string]: { width: number; height: number; loaded: boolean };
 	}>({});
-
-	console.log("selectedImage state:", selectedImage);
-
-	// Create duplicated items for seamless infinite scroll
-	const duplicatedItems = [...items, ...items];
+	const [api, setApi] = useState<CarouselApi>();
 
 	// Base dimensions
 	const baseItemHeight = customItemHeight || 280; // Fixed height
 	const defaultItemWidth = customItemWidth || 320; // Fallback width
-	const gap = 16; // Gap between items (reduced)
 
-	// Calculate total animation distance based on actual item widths
-	const totalWidth = duplicatedItems.reduce((acc, item, index) => {
-		const originalIndex = index % items.length;
-		const imageKey = `${item.image}-${originalIndex}`;
-		const imageState = imageLoadStates[imageKey];
+	// Initialize AutoScroll plugin
+	const autoScrollPlugin = useRef(
+		AutoScroll({
+			speed: speed,
+			direction: "backward", // backward = right to left scrolling
+			startDelay: 0,
+			stopOnInteraction: false,
+			stopOnMouseEnter: pauseOnHover,
+			playOnInit: true,
+		})
+	);
 
-		let itemWidth = defaultItemWidth;
-		if (imageState?.loaded && imageState.width && imageState.height) {
-			// Calculate width based on aspect ratio and fixed height
-			const aspectRatio = imageState.width / imageState.height;
-			itemWidth = baseItemHeight * aspectRatio;
-		} else if (item.aspectRatio) {
-			// Use provided aspect ratio
-			itemWidth = baseItemHeight * item.aspectRatio;
+	// Handle auto-scroll pause when modal is open or on hover
+	useEffect(() => {
+		if (!api) return;
+
+		const autoScroll = api?.plugins()?.autoScroll;
+		if (!autoScroll) return;
+
+		if (selectedImage) {
+			autoScroll.stop();
+		} else {
+			autoScroll.play();
 		}
-
-		return acc + itemWidth + gap;
-	}, 0);
-
-	const animationDistance = totalWidth / 2; // Divide by 2 since we duplicated items
+	}, [selectedImage, api]);
 
 	const handleImageLoad = (
-		item: CarouselItem,
+		item: CarouselImageItem,
 		index: number,
 		event: React.SyntheticEvent<HTMLImageElement>
 	) => {
 		const img = event.target as HTMLImageElement;
-		const originalIndex = index % items.length;
-		const imageKey = `${item.image}-${originalIndex}`;
+		const imageKey = `${item.image}-${index}`;
 
 		setImageLoadStates(prev => ({
 			...prev,
@@ -87,128 +90,106 @@ export const InfiniteCarousel: React.FC<InfiniteCarouselProps> = ({
 		}));
 	};
 
-	const handleImageClick = (item: CarouselItem, e: React.MouseEvent) => {
+	const handleImageClick = (item: CarouselImageItem, e: React.MouseEvent) => {
 		e.stopPropagation();
-		console.log("Image clicked:", item);
 		setSelectedImage(item);
-		setIsPaused(true);
 	};
 
 	const closePopup = () => {
 		setSelectedImage(null);
-		setIsPaused(false);
-	};
-
-	const handleMouseEnter = () => {
-		if (pauseOnHover) {
-			setIsPaused(true);
-		}
-	};
-
-	const handleMouseLeave = () => {
-		if (pauseOnHover && !selectedImage) {
-			setIsPaused(false);
-		}
 	};
 
 	return (
-		<div
-			className={`relative overflow-hidden w-full bg-white ${className}`}
-			onMouseEnter={handleMouseEnter}
-			onMouseLeave={handleMouseLeave}
-		>
-			<motion.div
-				className="flex"
-				animate={
-					isPaused
-						? {}
-						: {
-								x: direction === "left" ? [-animationDistance, 0] : [0, -animationDistance],
-							}
-				}
-				transition={{
-					duration: speed,
-					ease: "linear",
-					repeat: Infinity,
-					repeatType: "loop",
+		<div className={`relative w-full bg-white ${className}`}>
+			<Carousel
+				opts={{
+					align: "start",
+					loop: true,
+					dragFree: true,
+					containScroll: "trimSnaps",
 				}}
+				plugins={[autoScrollPlugin.current]}
+				setApi={setApi}
+				className="w-full"
 			>
-				{duplicatedItems.map((item, index) => {
-					const originalIndex = index % items.length;
-					const imageKey = `${item.image}-${originalIndex}`;
-					const imageState = imageLoadStates[imageKey];
+				<CarouselContent className="">
+					{items.map((item, index) => {
+						const imageKey = `${item.image}-${index}`;
+						const imageState = imageLoadStates[imageKey];
 
-					// Calculate item width based on aspect ratio
-					let calculatedWidth = defaultItemWidth;
-					if (imageState?.loaded && imageState.width && imageState.height) {
-						const aspectRatio = imageState.width / imageState.height;
-						calculatedWidth = baseItemHeight * aspectRatio;
-					} else if (item.aspectRatio) {
-						calculatedWidth = baseItemHeight * item.aspectRatio;
-					}
+						// Calculate item width based on aspect ratio
+						let calculatedWidth = defaultItemWidth;
+						if (imageState?.loaded && imageState.width && imageState.height) {
+							const aspectRatio = imageState.width / imageState.height;
+							calculatedWidth = baseItemHeight * aspectRatio;
+						} else if (item.aspectRatio) {
+							calculatedWidth = baseItemHeight * item.aspectRatio;
+						}
 
-					return (
-						<motion.div
-							key={`${item.image}-${index}`}
-							className="flex-shrink-0 relative mx-1 py-2 bg-white cursor-pointer"
-							style={{ width: calculatedWidth }}
-							whileHover={{
-								scale: 1.05,
-								zIndex: 10,
-								transition: { duration: 0.3 },
-							}}
-							onClick={e => handleImageClick(item, e)}
-						>
-							<div
-								className="relative w-full overflow-hidden shadow-xl bg-white"
-								style={{ height: baseItemHeight }}
+						return (
+							<CarouselItem
+								key={`${item.image}-${index}`}
+								className="pl-2 basis-auto"
+								style={{ width: calculatedWidth }}
 							>
-								<Image
-									src={item.image}
-									alt={item.alt || `Gallery image ${(index % items.length) + 1}`}
-									fill
-									className="object-contain transition-transform duration-500 hover:scale-105"
-									sizes={`${calculatedWidth}px`}
-									priority={index < 4} // Prioritize first few images
-									onLoad={e => handleImageLoad(item, index, e)}
-								/>
-
-								{/* Gradient overlay for better text visibility */}
-								<div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-
-								{/* View indicator on hover */}
 								<motion.div
-									initial={{ opacity: 0 }}
-									whileHover={{ opacity: 1 }}
-									className="absolute inset-0 bg-black/40 flex items-center justify-center"
+									className="relative py-1 bg-white cursor-pointer"
+									whileHover={{
+										scale: 1.05,
+										zIndex: 10,
+										transition: { duration: 0.3 },
+									}}
+									onClick={e => handleImageClick(item, e)}
 								>
-									<div className="bg-white/90 rounded-full p-3 shadow-lg">
-										<svg
-											className="w-6 h-6 text-[#660033]"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
+									<div
+										className="relative w-full overflow-hidden bg-white"
+										style={{ height: baseItemHeight }}
+									>
+										<Image
+											src={item.image}
+											alt={item.alt || `Gallery image ${index + 1}`}
+											fill
+											className="object-contain transition-transform duration-500 hover:scale-105"
+											sizes={`${calculatedWidth}px`}
+											priority={index < 4} // Prioritize first few images
+											onLoad={e => handleImageLoad(item, index, e)}
+										/>
+
+										{/* View indicator on hover */}
+										<motion.div
+											initial={{ opacity: 0 }}
+											whileHover={{ opacity: 1 }}
+											className="absolute inset-0 bg-black/40 flex items-center justify-center"
 										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-											/>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-											/>
-										</svg>
+											<div className="bg-white/30 rounded-full p-3">
+												<svg
+													className="w-6 h-6 text-[#660033]"
+													fill="none"
+													stroke="currentColor"
+													viewBox="0 0 24 24"
+												>
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														strokeWidth={2}
+														d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+													/>
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														strokeWidth={2}
+														d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+													/>
+												</svg>
+											</div>
+										</motion.div>
 									</div>
 								</motion.div>
-							</div>
-						</motion.div>
-					);
-				})}
-			</motion.div>
+							</CarouselItem>
+						);
+					})}
+				</CarouselContent>
+			</Carousel>
 
 			{/* Full Image Popup - Render in portal to avoid overflow issues */}
 			{selectedImage &&

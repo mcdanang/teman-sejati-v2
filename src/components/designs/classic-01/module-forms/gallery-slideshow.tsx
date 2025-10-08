@@ -43,7 +43,6 @@ export type Data = z.infer<typeof Schema>;
 
 export function ModuleForm({ activeInvitation }: { activeInvitation: InvitationWithModules }) {
 	const { updateModule } = useInvitations();
-	console.log("activeInvitation", activeInvitation);
 	const editedModule = activeInvitation?.Modules.find(mod => mod.name === "Gallery Slideshow");
 	const moduleData = editedModule?.content as Data;
 	const sheetCloseRef = useRef<HTMLButtonElement>(null);
