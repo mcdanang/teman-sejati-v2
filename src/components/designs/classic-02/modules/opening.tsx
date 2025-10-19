@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import React, { Suspense, useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { InputJsonValue } from "@prisma/client/runtime/library";
 // import { useOverlayContext } from "../../../main-invitation";
 
@@ -12,8 +12,8 @@ type OpeningModuleData = {
 
 const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string }) => {
 	const moduleData = data as OpeningModuleData;
-	const searchParams = useSearchParams();
-	const to = searchParams.get("to");
+	// const searchParams = useSearchParams();
+	// const to = searchParams.get("to");
 	const [isOverlayOpen, setIsOverlayOpen] = useState(true);
 
 	const handleEnvelopeClick = () => {
