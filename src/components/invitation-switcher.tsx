@@ -19,17 +19,11 @@ import {
 	useSidebar,
 } from "@/components/ui/sidebar";
 import { InvitationWithModules } from "@/types";
+import { useInvitationStore } from "@/stores/invitation-store";
 
-export function InvitationSwitcher({
-	invitations,
-	activeInvitation,
-	setActiveInvitation,
-}: {
-	invitations: InvitationWithModules[];
-	activeInvitation: InvitationWithModules;
-	setActiveInvitation: React.Dispatch<React.SetStateAction<InvitationWithModules | null>>;
-}) {
+export function InvitationSwitcher({ invitations }: { invitations: InvitationWithModules[] }) {
 	const { isMobile } = useSidebar();
+	const { activeInvitation, setActiveInvitation } = useInvitationStore();
 
 	if (!activeInvitation) {
 		return null;

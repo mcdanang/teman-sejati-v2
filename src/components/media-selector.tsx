@@ -85,13 +85,6 @@ export function MediaSelector({
 			.finally(() => setLoading(false));
 	}, [session?.user?.id]);
 
-	// Reset active tab when allowed types change
-	useEffect(() => {
-		if (allowedTypes.includes("image")) setActiveTab("images");
-		else if (allowedTypes.includes("video")) setActiveTab("videos");
-		else if (allowedTypes.includes("audio")) setActiveTab("audios");
-	}, [allowedTypes]);
-
 	// Upload handler
 	const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (!e.target.files?.length) return;

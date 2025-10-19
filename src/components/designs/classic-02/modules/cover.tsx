@@ -1,0 +1,61 @@
+import Image from "next/image";
+import React from "react";
+import { Data } from "../module-forms/cover";
+import { motion } from "motion/react";
+import { InputJsonValue } from "@prisma/client/runtime/library";
+
+export const Cover = ({ data }: { data: InputJsonValue; invitationId?: string }) => {
+	const moduleData = data as Data;
+	return (
+		<section
+			className="text-center bg-cover bg-center bg-no-repeat flex flex-col items-center min-h-svh"
+			style={{ backgroundImage: "url('/designs/classic/bg-red.png')" }}
+		>
+			<div className="flex flex-col justify-evenly items-center h-svh">
+				<motion.div
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+					}}
+					className="text-5xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-3 translate-y-12"
+				>
+					<h1>the wedding of</h1>
+				</motion.div>
+
+				<div className="flex w-fit justify-center bg-black/80 p-3">
+					<Image
+						src={moduleData?.image ?? "/designs/classic/prewedding-dancing.gif"}
+						alt="Couple"
+						className="object-cover"
+						width={280}
+						height={280}
+					/>
+				</div>
+
+				<motion.div
+					whileInView={{
+						scale: 1.05,
+						transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+					}}
+					className="text-6xl mx-auto font-pinyon text-[#d6c6b3] -rotate-12 space-y-1 -translate-y-12"
+				>
+					<h1>{moduleData?.groom_short_name ?? "John"}</h1>
+					<div className="flex">
+						<h1 className="text-4xl font-alex-brush font-light translate-x-2 -translate-y-2">&</h1>
+						<h1>{moduleData?.bride_short_name ?? "Jane"}</h1>
+					</div>
+				</motion.div>
+
+				{/* <motion.div
+				whileInView={{
+					scale: 1.05,
+					transition: { delay: 0.3, duration: 2, bounce: 0.7, type: "spring" },
+				}}
+				className="text-6xl mx-auto font-pinyon text-[#d6c6b3] space-y-1 mt-10"
+			>
+				<h1>and...</h1>
+			</motion.div> */}
+			</div>
+		</section>
+	);
+};

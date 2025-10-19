@@ -30,6 +30,8 @@ export default function Page() {
 	const [updating, setUpdating] = useState(false);
 	const [musicUpdating, setMusicUpdating] = useState(false);
 
+	console.log("activeInvitation", activeInvitation);
+
 	// Fetch user's invitations
 	useEffect(() => {
 		if (!session?.user?.id) return;
@@ -287,8 +289,13 @@ const BackgroundMusicCard = ({
 
 	// Initialize audio when background_music changes
 	useEffect(() => {
+		// Stop and cleanup previous audio
+		setIsPlaying(false);
+
+		let newAudio: HTMLAudioElement | null = null;
+
 		if (invitation.background_music) {
-			const newAudio = new Audio(invitation.background_music);
+			newAudio = new Audio(invitation.background_music);
 			newAudio.loop = true;
 			setAudio(newAudio);
 		} else {
@@ -296,12 +303,13 @@ const BackgroundMusicCard = ({
 		}
 
 		return () => {
-			if (audio) {
-				audio.pause();
-				audio.src = "";
+			// Cleanup when component unmounts or music changes
+			if (newAudio) {
+				newAudio.pause();
+				newAudio.src = "";
 			}
 		};
-	}, [invitation.background_music, audio]);
+	}, [invitation.background_music]);
 
 	const togglePlay = () => {
 		if (!audio) return;

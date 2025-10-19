@@ -1,6 +1,8 @@
 import { DesignDefinition } from "@/types";
 import modulesClassic01 from "@/components/designs/classic-01/modules";
 import moduleFormsClassic01 from "@/components/designs/classic-01/module-forms";
+import modulesClassic02 from "@/components/designs/classic-02/modules";
+import moduleFormsClassic02 from "@/components/designs/classic-02/module-forms";
 
 const {
 	Cover,
@@ -33,6 +35,26 @@ const {
 	WeddingWishes: WeddingWishesModuleForm,
 	Closing: ClosingModuleForm,
 } = moduleFormsClassic01;
+
+const {
+	Opening: Opening2,
+	Quotes: Quotes2,
+	Groom: Groom2,
+	Bride: Bride2,
+	Waktu: Waktu2,
+	Lokasi: Lokasi2,
+	Closing: Closing2,
+} = modulesClassic02;
+
+const {
+	Opening: OpeningModuleForm2,
+	Quotes: QuotesModuleForm2,
+	Groom: GroomModuleForm2,
+	Bride: BrideModuleForm2,
+	Waktu: WaktuModuleForm2,
+	Lokasi: LokasiModuleForm2,
+	Closing: ClosingModuleForm2,
+} = moduleFormsClassic02;
 
 export const designs: Record<string, DesignDefinition> = {
 	"classic-01": {
@@ -67,6 +89,28 @@ export const designs: Record<string, DesignDefinition> = {
 			"Wedding Gift": WeddingGiftModuleForm,
 			"Wedding Wishes": WeddingWishesModuleForm,
 			Closing: ClosingModuleForm,
+		},
+	},
+	"classic-02": {
+		id: "classic-02",
+		name: "Classic 2",
+		modules: {
+			Opening: Opening2,
+			Quotes: Quotes2,
+			"Mempelai Pria": Groom2,
+			"Mempelai Wanita": Bride2,
+			Waktu: Waktu2,
+			Lokasi: Lokasi2,
+			Closing: Closing2,
+		},
+		forms: {
+			Opening: OpeningModuleForm2,
+			Quotes: QuotesModuleForm2,
+			"Mempelai Pria": GroomModuleForm2,
+			"Mempelai Wanita": BrideModuleForm2,
+			Waktu: WaktuModuleForm2,
+			Lokasi: LokasiModuleForm2,
+			Closing: ClosingModuleForm2,
 		},
 	},
 };
