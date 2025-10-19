@@ -266,9 +266,9 @@ export const WeddingWishes = ({
 											<h3 className="font-semibold text-[#660033] font-edensor">
 												{wish.guest_name}
 											</h3>
-											<span className="text-sm text-[#660033]/70 font-edensor">
+											{/* <span className="text-sm text-[#660033]/70 font-edensor">
 												{new Date(wish.created_at).toLocaleDateString()}
-											</span>
+											</span> */}
 										</div>
 										<p className="text-[#660033] leading-relaxed font-edensor">
 											{wish.wish_message}
