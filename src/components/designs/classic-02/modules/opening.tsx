@@ -147,13 +147,13 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 							whileHover={{ scale: 1.05 }}
 							className="text-center mb-8"
 						>
-							<p className="leading-relaxed text-[#660033] font-arabic mt-4 text-xl">
+							<p className="leading-relaxed text-[#660033] font-arabic mt-4 mb-6 text-xl">
 								{"اَلسَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ"}
 							</p>
 						</motion.div>
 
 						{/* Dear Guest */}
-						<motion.div
+						{/* <motion.div
 							initial={{ opacity: 0, x: -50, rotateY: -90 }}
 							animate={{ opacity: 1, x: 0, rotateY: 0 }}
 							transition={{
@@ -192,7 +192,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 									{to ? to : "Guest"}
 								</motion.p>
 							</motion.div>
-						</motion.div>
+						</motion.div> */}
 
 						{/* Envelope Display */}
 						<motion.div
