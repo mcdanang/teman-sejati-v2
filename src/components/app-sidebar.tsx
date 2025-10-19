@@ -31,7 +31,7 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 
 export function AppSidebar({ session, status, ...props }: AppSidebarProps) {
 	const { open } = useSidebar();
-	const { invitations, activeInvitation, setActiveInvitation } = useInvitations();
+	const { invitations, activeInvitation } = useInvitations();
 
 	return (
 		<Sidebar collapsible="icon" {...props}>
@@ -46,11 +46,7 @@ export function AppSidebar({ session, status, ...props }: AppSidebarProps) {
 				</Link>
 				{status === "loading" ? null : status === "authenticated" ? (
 					activeInvitation ? (
-						<InvitationSwitcher
-							invitations={invitations}
-							activeInvitation={activeInvitation}
-							setActiveInvitation={setActiveInvitation}
-						/>
+						<InvitationSwitcher invitations={invitations} />
 					) : null
 				) : (
 					<SidebarMenu>

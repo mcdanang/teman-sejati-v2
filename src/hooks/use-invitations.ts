@@ -6,16 +6,15 @@ import { useSession } from "next-auth/react";
 import { DEFAULT_INVITATIONS } from "@/constants";
 import { InvitationWithModules } from "@/types";
 import { Module } from "@prisma/client";
+import { useInvitationStore } from "@/stores/invitation-store";
 
 const LOCAL_STORAGE_KEY = "teman-sejati:invitations";
 
 export function useInvitations() {
 	const { status } = useSession();
+	const { activeInvitation, setActiveInvitation } = useInvitationStore();
 
 	const [invitations, setInvitations] = React.useState<InvitationWithModules[]>([]);
-	const [activeInvitation, setActiveInvitation] = React.useState<InvitationWithModules | null>(
-		null
-	);
 	const [isLoading, setIsLoading] = React.useState(true);
 	const [error, setError] = React.useState<string | null>(null);
 
@@ -24,10 +23,19 @@ export function useInvitations() {
 		if (stored) {
 			const parsed: InvitationWithModules[] = JSON.parse(stored);
 			setInvitations(parsed);
-			setActiveInvitation(parsed[0]);
+			// Only set active invitation if not already set or if current one is not in the list
+			if (
+				!activeInvitation ||
+				!parsed.find((inv: InvitationWithModules) => inv.id === activeInvitation.id)
+			) {
+				setActiveInvitation(parsed[0]);
+			}
 		} else {
 			setInvitations(DEFAULT_INVITATIONS);
-			setActiveInvitation(DEFAULT_INVITATIONS[0]);
+			// Only set active invitation if not already set
+			if (!activeInvitation) {
+				setActiveInvitation(DEFAULT_INVITATIONS[0]);
+			}
 			localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(DEFAULT_INVITATIONS));
 		}
 		setIsLoading(false);
@@ -69,10 +77,19 @@ export function useInvitations() {
 				localStorage.removeItem(LOCAL_STORAGE_KEY);
 
 				setInvitations([newInvitation]);
-				setActiveInvitation(newInvitation);
+				// Only set if no active invitation exists
+				if (!activeInvitation) {
+					setActiveInvitation(newInvitation);
+				}
 			} else {
 				setInvitations(data.invitations);
-				setActiveInvitation(data.invitations[0]);
+				// Only set active invitation if not already set or if current one is not in the list
+				if (
+					!activeInvitation ||
+					!data.invitations.find((inv: InvitationWithModules) => inv.id === activeInvitation.id)
+				) {
+					setActiveInvitation(data.invitations[0]);
+				}
 			}
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "Terjadi kesalahan");
@@ -108,12 +125,9 @@ export function useInvitations() {
 			}
 
 			// Force a re-render by updating the active invitation again
-			setActiveInvitation(prev => {
-				if (prev?.id === invitationId) {
-					return newActiveInvitation;
-				}
-				return prev;
-			});
+			if (activeInvitation?.id === invitationId) {
+				setActiveInvitation(newActiveInvitation);
+			}
 		} catch (error) {
 			console.error("Error updating module:", error);
 			// Revert state on error
@@ -225,6 +239,7 @@ export function useInvitations() {
 		} else {
 			loadGuestInvitations();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [status]);
 
 	// const updateInvitation = (id: string, update: Partial<Invitation>) => {
