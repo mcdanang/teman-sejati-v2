@@ -105,10 +105,10 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 							bounce: 0.4,
 						}}
 					>
-						<div className="text-center max-w-xs flex flex-col gap-6">
+						<div className="text-center max-w-xs flex flex-col gap-2">
 							{/* Arabic Text */}
 
-							<p className="text-lg leading-relaxed text-[#660033] font-arabic mt-4">
+							<p className="leading-relaxed text-[#660033] font-arabic mt-4">
 								{
 									"وَمِنْ ءَايَـٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًۭا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةًۭ وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَـَٔايَـٰتٍۢ لِّقَوْمٍۢ يَتَفَكَّرُونَ"
 								}
@@ -124,7 +124,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 
 							{/* Surah Reference */}
 
-							<p className="text-[#660033] font-medium mt-4 font-pinyon">{"Ar-Rum, 30:21"}</p>
+							<p className="text-[#660033] font-medium font-pinyon">{"Ar-Rum, 30:21"}</p>
 						</div>
 					</motion.div>
 				</div>
