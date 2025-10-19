@@ -81,13 +81,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 			>
 				{/* Burgundy Frame */}
 				<div className="relative">
-					<Image
-						src="/designs/classic/frame-burgundy.png"
-						alt="Burgundy frame"
-						width={500}
-						height={500}
-						className="object-contain"
-					/>
+					<div className="w-[500px] h-full bg-transparent"></div>
 
 					{/* Quotes Content Overlay */}
 					<motion.div
@@ -105,7 +99,7 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 							bounce: 0.4,
 						}}
 					>
-						<div className="text-center max-w-xs flex flex-col gap-2">
+						<div className="text-center max-w-xs flex flex-col gap-8">
 							{/* Arabic Text */}
 
 							<p className="leading-relaxed text-[#660033] font-arabic mt-4">
@@ -153,13 +147,9 @@ const OpeningContent = ({ data }: { data: InputJsonValue; invitationId?: string 
 							whileHover={{ scale: 1.05 }}
 							className="text-center mb-8"
 						>
-							<Image
-								src="/designs/classic/bismillah.png"
-								alt="Bismillah"
-								width={250}
-								height={50}
-								className="object-contain px-4"
-							/>
+							<p className="leading-relaxed text-[#660033] font-arabic mt-4 text-xl">
+								{"اَلسَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ"}
+							</p>
 						</motion.div>
 
 						{/* Dear Guest */}

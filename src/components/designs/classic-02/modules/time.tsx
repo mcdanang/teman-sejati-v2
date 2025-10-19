@@ -41,7 +41,7 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 					{/* Title */}
 					<div>
 						<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
-							{moduleData.akadDay ?? "Sabtu,"}
+							{moduleData.akadDay ?? "Kamis,"}
 						</h1>
 						<h1 className="text-4xl font-semibold text-[#660033] font-edensor">
 							{moduleData.akadDate ?? "13 November 2025"}
@@ -49,6 +49,9 @@ export const Waktu = ({ data }: { data: InputJsonValue }) => {
 					</div>
 					<p className="text-lg text-[#660033] font-edensor font-semibold">
 						{moduleData.akadTime ?? "11.00 - 15.00 WIB"}
+					</p>
+					<p className="text-lg text-[#660033] font-edensor italic font-medium">
+						{"( Pengajian: 9.30 - 11.00 WIB )"}
 					</p>
 					<Button
 						variant="outline"
